@@ -1,0 +1,29 @@
+{
+  "name": "tldr.js",
+  "version": "1.0.0",
+  "description": "tldr for the browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"none\" && exit;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:leostera/tldr.js"
+  },
+  "keywords": [
+    "tldr",
+    "js",
+    "browser",
+    "duo"
+  ],
+  "author": "Leandro Ostera <me@leostera.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leostera/tldr.js/issues"
+  },
+  "homepage": "https://github.com/leostera/tldr.js",
+  "dependencies": {
+    "duo-babel": "^4.0.0",
+    "duo-sass": "^2.0.0"
+  }
+}

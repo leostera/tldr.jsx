@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>tldr.js | check your tldr's online</title>
+        <link href="./build/app/tldr.css">
+        <style> [v-cloak] { display: none } </style>
+    </head>
+    <body>
+        <section id="tldr">
+            <header>
+                <h1>tldr.js</h1>
+                <input type="text"
+                       autofocus
+                       autocomplete="off"
+                       placeholder="What ye lookin' fer, laddy?"
+                       v-model="query"
+                       v-on="keyup:lookUp | key enter">
+                <span v-show="loading">Loading!</span>
+                <span v-show="notFound">Command not found!</span>
+            </header>
+
+            <section id="result" v-repeat="pages">
+                <article v-html="page | marked"></article>
+            </section>
+        </section>
+        <script src="./build/app/tldr.js"></script>
+    </body>
+</html>
