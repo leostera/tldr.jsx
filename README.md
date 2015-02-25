@@ -2,7 +2,7 @@
 > a webclient for tldr
 
 1. Remember to setup with `npm i`
-2. Build with `make`
+2. Build with `duo --use duo-babel app`
 3. Serve with whatever you please (I like `python -m SimpleHTTPServer`)
 4. ?
 5. Profit
