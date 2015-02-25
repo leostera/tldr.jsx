@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/leostera/tldr.js",
   "dependencies": {
-    "duo-babel": "^4.0.0",
-    "duo-sass": "^2.0.0"
+    "duo-babel": "^4.0.0"
   }
 }
