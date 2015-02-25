@@ -19,8 +19,9 @@
                 <span v-show="loading">Loading!</span>
                 <span v-show="notFound">Command not found!</span>
             </header>
-
-            <section id="result" v-repeat="pages">
+            
+            <section v-repeat="pages">
+                <h3>Results for {{os}}</h3>
                 <article v-html="page | marked"></article>
             </section>
         </section>

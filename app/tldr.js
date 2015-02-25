@@ -10,14 +10,14 @@ var tldr = new Vue({
 
     data: {
         query: '',
-        pages: [], 
+        pages: null, 
         loading: false,
         notFound: false
     },
 
     filters: {
         marked: function (page) {
-            return marked(page);
+            return page && marked(page);
         }
     },
 
@@ -46,7 +46,7 @@ var tldr = new Vue({
 
             this.getRawPage(this.query).end(function (pages) {
                 if(!pages) this.notFound = true;
-                else this.pages = pages;
+                if(pages) this.pages = [pages];
                 this.loading = false;
             }.bind(this));
         }
