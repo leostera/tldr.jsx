@@ -2,6 +2,7 @@ var Vue = require("yyx990803/vue");
 var request = require("visionmedia/superagent");
 var marked = require("chjj/marked");
 var Batch = require("visionmedia/batch");
+var base64 = require("mathiasbynens/base64");
 
 var base_url = "https://api.github.com/repos/tldr-pages/tldr/contents/pages";
 
@@ -29,7 +30,7 @@ var tldr = new Vue({
                 batch.push(function (done) {
                     request.get(url).end(function (res) {
                         if(res.status == 200) { 
-                            done({os: os, page: atob(res.body.content)});
+                            done({os: os, page: base64.decode(res.body.content)});
                         } else {
                             done(null);
                         }
