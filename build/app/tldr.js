@@ -89,6 +89,7 @@ var Vue = require("yyx990803/vue");
 var request = require("visionmedia/superagent");
 var marked = require("chjj/marked");
 var Batch = require("visionmedia/batch");
+var base64 = require("mathiasbynens/base64");
 
 var base_url = "https://api.github.com/repos/tldr-pages/tldr/contents/pages";
 
@@ -104,7 +105,7 @@ var tldr = new Vue({
 
     filters: {
         marked: (function (_marked) {
-            var _markedWrapper = function marked() {
+            var _markedWrapper = function marked(_x) {
                 return _marked.apply(this, arguments);
             };
 
@@ -126,7 +127,7 @@ var tldr = new Vue({
                 batch.push(function (done) {
                     request.get(url).end(function (res) {
                         if (res.status == 200) {
-                            done({ os: os, page: atob(res.body.content) });
+                            done({ os: os, page: base64.decode(res.body.content) });
                         } else {
                             done(null);
                         }
@@ -150,7 +151,7 @@ var tldr = new Vue({
         }
     }
 });
-}, {"yyx990803/vue":2,"visionmedia/superagent":3,"chjj/marked":4,"visionmedia/batch":5}],
+}, {"yyx990803/vue":2,"visionmedia/superagent":3,"chjj/marked":4,"visionmedia/batch":5,"mathiasbynens/base64":6}],
 2: [function(require, module, exports) {
 "use strict";
 
@@ -238,8 +239,8 @@ extend(p, require("./api/child"));
 extend(p, require("./api/lifecycle"));
 
 module.exports = _.Vue = Vue;
-}, {"./util":6,"./api/global":7,"./directives":8,"./filters":9,"./instance/init":10,"./instance/events":11,"./instance/scope":12,"./instance/compile":13,"./api/data":14,"./api/dom":15,"./api/events":16,"./api/child":17,"./api/lifecycle":18}],
-6: [function(require, module, exports) {
+}, {"./util":7,"./api/global":8,"./directives":9,"./filters":10,"./instance/init":11,"./instance/events":12,"./instance/scope":13,"./instance/compile":14,"./api/data":15,"./api/dom":16,"./api/events":17,"./api/child":18,"./api/lifecycle":19}],
+7: [function(require, module, exports) {
 "use strict";
 
 var lang = require("./lang");
@@ -250,8 +251,8 @@ extend(exports, require("./env"));
 extend(exports, require("./dom"));
 extend(exports, require("./filter"));
 extend(exports, require("./debug"));
-}, {"./lang":19,"./env":20,"./dom":21,"./filter":22,"./debug":23}],
-19: [function(require, module, exports) {
+}, {"./lang":20,"./env":21,"./dom":22,"./filter":23,"./debug":24}],
+20: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -421,7 +422,7 @@ exports.define = function (obj, key, val, enumerable) {
   });
 };
 }, {}],
-20: [function(require, module, exports) {
+21: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -517,7 +518,7 @@ if (inBrowser && !exports.isIE9) {
   exports.animationEndEvent = isWebkitAnim ? "webkitAnimationEnd" : "animationend";
 }
 }, {}],
-21: [function(require, module, exports) {
+22: [function(require, module, exports) {
 "use strict";
 
 var config = require("../config");
@@ -715,8 +716,8 @@ exports.extractContent = function (el) {
   }
   return rawContent;
 };
-}, {"../config":24}],
-24: [function(require, module, exports) {
+}, {"../config":25}],
+25: [function(require, module, exports) {
 "use strict";
 
 module.exports = {
@@ -806,7 +807,7 @@ Object.defineProperty(module.exports, "delimiters", {
   }
 });
 }, {}],
-22: [function(require, module, exports) {
+23: [function(require, module, exports) {
 "use strict";
 
 var _ = require("./debug");
@@ -877,8 +878,8 @@ exports.applyFilters = function (value, filters, vm, oldVal) {
   }
   return value;
 };
-}, {"./debug":23}],
-23: [function(require, module, exports) {
+}, {"./debug":24}],
+24: [function(require, module, exports) {
 "use strict";
 
 var config = require("../config");
@@ -939,8 +940,8 @@ function enableDebug() {
     }
   };
 }
-}, {"../config":24}],
-7: [function(require, module, exports) {
+}, {"../config":25}],
+8: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -1078,8 +1079,8 @@ function createAssetRegisters(Constructor) {
 }
 
 createAssetRegisters(exports);
-}, {"../util":6,"../util/merge-option":25,"../config":24,"../compiler/compile":26,"../compiler/transclude":27,"../parsers/path":28,"../parsers/text":29,"../parsers/template":30,"../parsers/directive":31,"../parsers/expression":32}],
-25: [function(require, module, exports) {
+}, {"../util":7,"../util/merge-option":26,"../config":25,"../compiler/compile":27,"../compiler/transclude":28,"../parsers/path":29,"../parsers/text":30,"../parsers/template":31,"../parsers/directive":32,"../parsers/expression":33}],
+26: [function(require, module, exports) {
 "use strict";
 
 var _ = require("./index");
@@ -1295,8 +1296,8 @@ module.exports = function mergeOptions(parent, child, vm) {
   }
   return options;
 };
-}, {"./index":6}],
-26: [function(require, module, exports) {
+}, {"./index":7}],
+27: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -1818,8 +1819,8 @@ function directiveComparator(a, b) {
   b = b.def.priority || 0;
   return a > b ? 1 : -1;
 }
-}, {"../util":6,"../config":24,"../parsers/text":29,"../parsers/directive":31,"../parsers/template":30}],
-29: [function(require, module, exports) {
+}, {"../util":7,"../config":25,"../parsers/text":30,"../parsers/directive":32,"../parsers/template":31}],
+30: [function(require, module, exports) {
 "use strict";
 
 var Cache = require("../cache");
@@ -1978,8 +1979,8 @@ function inlineFilters(exp) {
     }
   }
 }
-}, {"../cache":33,"../config":24,"./directive":31}],
-33: [function(require, module, exports) {
+}, {"../cache":34,"../config":25,"./directive":32}],
+34: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -2094,7 +2095,7 @@ p.get = function (key, returnEntry) {
 
 module.exports = Cache;
 }, {}],
-31: [function(require, module, exports) {
+32: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -2256,8 +2257,8 @@ exports.parse = function (s) {
   cache.put(s, dirs);
   return dirs;
 };
-}, {"../util":6,"../cache":33}],
-30: [function(require, module, exports) {
+}, {"../util":7,"../cache":34}],
+31: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -2454,8 +2455,8 @@ exports.parse = function (template, clone, noSelector) {
 
   return frag && clone ? exports.clone(frag) : frag;
 };
-}, {"../util":6,"../cache":33}],
-27: [function(require, module, exports) {
+}, {"../util":7,"../cache":34}],
+28: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -2603,8 +2604,8 @@ function insertContentAt(outlet, contents) {
   }
   parent.removeChild(outlet);
 }
-}, {"../util":6,"../parsers/template":30}],
-28: [function(require, module, exports) {
+}, {"../util":7,"../parsers/template":31}],
+29: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -2906,8 +2907,8 @@ exports.set = function (obj, path, val) {
   }
   return true;
 };
-}, {"../util":6,"../cache":33}],
-32: [function(require, module, exports) {
+}, {"../util":7,"../cache":34}],
+33: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3115,8 +3116,8 @@ exports.parse = function (exp, needSet) {
 
 // Export the pathRegex for external use
 exports.pathTestRE = pathTestRE;
-}, {"../util":6,"./path":28,"../cache":33}],
-8: [function(require, module, exports) {
+}, {"../util":7,"./path":29,"../cache":34}],
+9: [function(require, module, exports) {
 "use strict";
 
 // manipulation directives
@@ -3144,8 +3145,8 @@ exports["if"] = require("./if");
 // child vm communication directives
 exports["with"] = require("./with");
 exports.events = require("./events");
-}, {"./text":34,"./html":35,"./attr":36,"./show":37,"./class":38,"./el":39,"./ref":40,"./cloak":41,"./style":42,"./partial":43,"./transition":44,"./on":45,"./model":46,"./component":47,"./repeat":48,"./if":49,"./with":50,"./events":51}],
-34: [function(require, module, exports) {
+}, {"./text":35,"./html":36,"./attr":37,"./show":38,"./class":39,"./el":40,"./ref":41,"./cloak":42,"./style":43,"./partial":44,"./transition":45,"./on":46,"./model":47,"./component":48,"./repeat":49,"./if":50,"./with":51,"./events":52}],
+35: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3161,8 +3162,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6}],
-35: [function(require, module, exports) {
+}, {"../util":7}],
+36: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3203,8 +3204,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6,"../parsers/template":30}],
-36: [function(require, module, exports) {
+}, {"../util":7,"../parsers/template":31}],
+37: [function(require, module, exports) {
 "use strict";
 
 // xlink
@@ -3238,7 +3239,7 @@ function xlinkHandler(value) {
   }
 }
 }, {}],
-37: [function(require, module, exports) {
+38: [function(require, module, exports) {
 "use strict";
 
 var transition = require("../transition");
@@ -3249,8 +3250,8 @@ module.exports = function (value) {
     el.style.display = value ? "" : "none";
   }, this.vm);
 };
-}, {"../transition":52}],
-52: [function(require, module, exports) {
+}, {"../transition":53}],
+53: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3387,8 +3388,8 @@ var apply = exports.apply = function (el, direction, op, vm, cb) {
 // if the vm is being manipulated by a parent directive
 // during the parent's compilation phase, skip the
 // animation.
-}, {"../util":6,"./css":53,"./js":54}],
-53: [function(require, module, exports) {
+}, {"../util":7,"./css":54,"./js":55}],
+54: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3579,8 +3580,8 @@ module.exports = function (el, direction, op, data, cb) {
     push(el, direction, op, leaveClass, cb);
   }
 };
-}, {"../util":6}],
-54: [function(require, module, exports) {
+}, {"../util":7}],
+55: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -3629,7 +3630,7 @@ module.exports = function (el, direction, op, data, def, vm, cb) {
   }
 };
 }, {}],
-38: [function(require, module, exports) {
+39: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3650,8 +3651,8 @@ module.exports = function (value) {
     }
   }
 };
-}, {"../util":6}],
-39: [function(require, module, exports) {
+}, {"../util":7}],
+40: [function(require, module, exports) {
 "use strict";
 
 module.exports = {
@@ -3668,7 +3669,7 @@ module.exports = {
 
 };
 }, {}],
-40: [function(require, module, exports) {
+41: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3692,8 +3693,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6}],
-41: [function(require, module, exports) {
+}, {"../util":7}],
+42: [function(require, module, exports) {
 "use strict";
 
 var config = require("../config");
@@ -3708,8 +3709,8 @@ module.exports = {
   }
 
 };
-}, {"../config":24}],
-42: [function(require, module, exports) {
+}, {"../config":25}],
+43: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3812,8 +3813,8 @@ function prefix(prop) {
     }
   }
 }
-}, {"../util":6}],
-43: [function(require, module, exports) {
+}, {"../util":7}],
+44: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3860,8 +3861,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6,"../parsers/template":30,"./if":49}],
-49: [function(require, module, exports) {
+}, {"../util":7,"../parsers/template":31,"./if":50}],
+50: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -3940,8 +3941,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6,"../compiler/compile":26,"../parsers/template":30,"../transition":52}],
-44: [function(require, module, exports) {
+}, {"../util":7,"../compiler/compile":27,"../parsers/template":31,"../transition":53}],
+45: [function(require, module, exports) {
 "use strict";
 
 module.exports = {
@@ -3959,7 +3960,7 @@ module.exports = {
 
 };
 }, {}],
-45: [function(require, module, exports) {
+46: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -4013,8 +4014,8 @@ module.exports = {
     _.off(this.el, "load", this.iframeBind);
   }
 };
-}, {"../util":6}],
-46: [function(require, module, exports) {
+}, {"../util":7}],
+47: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../../util");
@@ -4069,8 +4070,8 @@ module.exports = {
   }
 
 };
-}, {"../../util":6,"./default":55,"./radio":56,"./select":57,"./checkbox":58}],
-55: [function(require, module, exports) {
+}, {"../../util":7,"./default":56,"./radio":57,"./select":58,"./checkbox":59}],
+56: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../../util");
@@ -4187,8 +4188,8 @@ module.exports = {
   }
 
 };
-}, {"../../util":6}],
-56: [function(require, module, exports) {
+}, {"../../util":7}],
+57: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../../util");
@@ -4217,8 +4218,8 @@ module.exports = {
   }
 
 };
-}, {"../../util":6}],
-57: [function(require, module, exports) {
+}, {"../../util":7}],
+58: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../../util");
@@ -4380,8 +4381,8 @@ function indexOf(arr, val) {
   }
   return -1;
 }
-}, {"../../util":6,"../../watcher":59}],
-59: [function(require, module, exports) {
+}, {"../../util":7,"../../watcher":60}],
+60: [function(require, module, exports) {
 "use strict";
 
 var _ = require("./util");
@@ -4628,8 +4629,8 @@ function traverse(obj) {
 }
 
 module.exports = Watcher;
-}, {"./util":6,"./config":24,"./observer":60,"./parsers/expression":32,"./batcher":61}],
-60: [function(require, module, exports) {
+}, {"./util":7,"./config":25,"./observer":61,"./parsers/expression":33,"./batcher":62}],
+61: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -4861,8 +4862,8 @@ p.removeVm = function (vm) {
 };
 
 module.exports = Observer;
-}, {"../util":6,"../config":24,"./dep":62,"./array":63,"./object":64}],
-62: [function(require, module, exports) {
+}, {"../util":7,"../config":25,"./dep":63,"./array":64,"./object":65}],
+63: [function(require, module, exports) {
 "use strict";
 
 var uid = 0;
@@ -4916,7 +4917,7 @@ p.notify = function () {
 
 module.exports = Dep;
 }, {}],
-63: [function(require, module, exports) {
+64: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -4992,8 +4993,8 @@ _.define(arrayProto, "$remove", function $remove(index) {
 });
 
 module.exports = arrayMethods;
-}, {"../util":6}],
-64: [function(require, module, exports) {
+}, {"../util":7}],
+65: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -5056,8 +5057,8 @@ _.define(objProto, "$delete", function $delete(key) {
     ob.notify();
   }
 });
-}, {"../util":6}],
-61: [function(require, module, exports) {
+}, {"../util":7}],
+62: [function(require, module, exports) {
 "use strict";
 
 var _ = require("./util");
@@ -5151,8 +5152,8 @@ exports.push = function (job) {
     }
   }
 };
-}, {"./util":6}],
-58: [function(require, module, exports) {
+}, {"./util":7}],
+59: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../../util");
@@ -5180,8 +5181,8 @@ module.exports = {
   }
 
 };
-}, {"../../util":6}],
-47: [function(require, module, exports) {
+}, {"../../util":7}],
+48: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -5404,8 +5405,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6,"../parsers/template":30}],
-48: [function(require, module, exports) {
+}, {"../util":7,"../parsers/template":31}],
+49: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -5903,8 +5904,8 @@ function range(n) {
   }
   return ret;
 }
-}, {"../util":6,"../parsers/text":29,"../parsers/expression":32,"../parsers/template":30,"../compiler/compile":26,"../compiler/transclude":27,"../util/merge-option":25}],
-50: [function(require, module, exports) {
+}, {"../util":7,"../parsers/text":30,"../parsers/expression":33,"../parsers/template":31,"../compiler/compile":27,"../compiler/transclude":28,"../util/merge-option":26}],
+51: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -5968,8 +5969,8 @@ module.exports = {
   }
 
 };
-}, {"../util":6,"../watcher":59}],
-51: [function(require, module, exports) {
+}, {"../util":7,"../watcher":60}],
+52: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -5993,8 +5994,8 @@ module.exports = {
   // so no need for unbind here.
 
 };
-}, {"../util":6}],
-9: [function(require, module, exports) {
+}, {"../util":7}],
+10: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -6121,8 +6122,8 @@ exports.key.keyCodes = keyCodes;
  */
 
 _.extend(exports, require("./array-filters"));
-}, {"../util":6,"./array-filters":65}],
-65: [function(require, module, exports) {
+}, {"../util":7,"./array-filters":66}],
+66: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -6205,8 +6206,8 @@ function contains(val, search) {
     return val.toString().toLowerCase().indexOf(search) > -1;
   }
 }
-}, {"../util":6,"../parsers/path":28}],
-10: [function(require, module, exports) {
+}, {"../util":7,"../parsers/path":29}],
+11: [function(require, module, exports) {
 "use strict";
 
 var mergeOptions = require("../util/merge-option");
@@ -6278,8 +6279,8 @@ exports._init = function (options) {
     this.$mount(options.el);
   }
 };
-}, {"../util/merge-option":25}],
-11: [function(require, module, exports) {
+}, {"../util/merge-option":26}],
+12: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -6417,8 +6418,8 @@ exports._callHook = function (hook) {
   }
   this.$emit("hook:" + hook);
 };
-}, {"../util":6}],
-12: [function(require, module, exports) {
+}, {"../util":7}],
+13: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -6631,8 +6632,8 @@ exports._defineMeta = function (key, value) {
     }
   });
 };
-}, {"../util":6,"../observer":60,"../observer/dep":62}],
-13: [function(require, module, exports) {
+}, {"../util":7,"../observer":61,"../observer/dep":63}],
+14: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -6810,8 +6811,8 @@ exports._cleanup = function () {
   // turn off all instance listeners.
   this.$off();
 };
-}, {"../util":6,"../directive":66,"../compiler/compile":26,"../compiler/transclude":27}],
-66: [function(require, module, exports) {
+}, {"../util":7,"../directive":67,"../compiler/compile":27,"../compiler/transclude":28}],
+67: [function(require, module, exports) {
 "use strict";
 
 var _ = require("./util");
@@ -7020,8 +7021,8 @@ p.set = function (value, lock) {
 };
 
 module.exports = Directive;
-}, {"./util":6,"./config":24,"./watcher":59,"./parsers/text":29,"./parsers/expression":32}],
-14: [function(require, module, exports) {
+}, {"./util":7,"./config":25,"./watcher":60,"./parsers/text":30,"./parsers/expression":33}],
+15: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -7175,8 +7176,8 @@ exports.$log = function (path) {
   }
   console.log(data);
 };
-}, {"../util":6,"../watcher":59,"../parsers/path":28,"../parsers/text":29,"../parsers/directive":31,"../parsers/expression":32}],
-15: [function(require, module, exports) {
+}, {"../util":7,"../watcher":60,"../parsers/path":29,"../parsers/text":30,"../parsers/directive":32,"../parsers/expression":33}],
+16: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -7370,8 +7371,8 @@ function remove(el, vm, cb) {
   _.remove(el);
   if (cb) cb();
 }
-}, {"../util":6,"../transition":52}],
-16: [function(require, module, exports) {
+}, {"../util":7,"../transition":53}],
+17: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -7543,8 +7544,8 @@ function modifyListenerCount(vm, event, count) {
     parent = parent.$parent;
   }
 }
-}, {"../util":6}],
-17: [function(require, module, exports) {
+}, {"../util":7}],
+18: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -7586,8 +7587,8 @@ exports.$addChild = function (opts, BaseCtor) {
   this._children.push(child);
   return child;
 };
-}, {"../util":6}],
-18: [function(require, module, exports) {
+}, {"../util":7}],
+19: [function(require, module, exports) {
 "use strict";
 
 var _ = require("../util");
@@ -7662,7 +7663,7 @@ exports.$destroy = function (remove, deferCleanup) {
 exports.$compile = function (el) {
   return compile(el, this.$options, true)(this, el);
 };
-}, {"../util":6,"../compiler/compile":26}],
+}, {"../util":7,"../compiler/compile":27}],
 3: [function(require, module, exports) {
 "use strict";
 
@@ -8742,8 +8743,8 @@ request.put = function (url, data, fn) {
  */
 
 module.exports = request;
-}, {"emitter":67,"reduce":68}],
-67: [function(require, module, exports) {
+}, {"emitter":68,"reduce":69}],
+68: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -8904,7 +8905,7 @@ Emitter.prototype.hasListeners = function (event) {
   return !!this.listeners(event).length;
 };
 }, {}],
-68: [function(require, module, exports) {
+69: [function(require, module, exports) {
 "use strict";
 
 /**
@@ -10266,4 +10267,146 @@ Batch.prototype.end = function (cb) {
 
   return this;
 };
-}, {"emitter":67}]}, {}, {"1":""})
+}, {"emitter":68}],
+6: [function(require, module, exports) {
+"use strict";
+
+/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+;(function (root) {
+
+	// Detect free variables `exports`.
+	var freeExports = typeof exports == "object" && exports;
+
+	// Detect free variable `module`.
+	var freeModule = typeof module == "object" && module && module.exports == freeExports && module;
+
+	// Detect free variable `global`, from Node.js or Browserified code, and use
+	// it as `root`.
+	var freeGlobal = typeof global == "object" && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	var InvalidCharacterError = function InvalidCharacterError(message) {
+		this.message = message;
+	};
+	InvalidCharacterError.prototype = new Error();
+	InvalidCharacterError.prototype.name = "InvalidCharacterError";
+
+	var error = function error(message) {
+		// Note: the error messages used throughout this file match those used by
+		// the native `atob`/`btoa` implementation in Chromium.
+		throw new InvalidCharacterError(message);
+	};
+
+	var TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	// http://whatwg.org/html/common-microsyntaxes.html#space-character
+	var REGEX_SPACE_CHARACTERS = /[\t\n\f\r ]/g;
+
+	// `decode` is designed to be fully compatible with `atob` as described in the
+	// HTML Standard. http://whatwg.org/html/webappapis.html#dom-windowbase64-atob
+	// The optimized base64-decoding algorithm used is based on @atk’s excellent
+	// implementation. https://gist.github.com/atk/1020396
+	var decode = function decode(input) {
+		input = String(input).replace(REGEX_SPACE_CHARACTERS, "");
+		var length = input.length;
+		if (length % 4 == 0) {
+			input = input.replace(/==?$/, "");
+			length = input.length;
+		}
+		if (length % 4 == 1 ||
+		// http://whatwg.org/C#alphanumeric-ascii-characters
+		/[^+a-zA-Z0-9/]/.test(input)) {
+			error("Invalid character: the string to be decoded is not correctly encoded.");
+		}
+		var bitCounter = 0;
+		var bitStorage;
+		var buffer;
+		var output = "";
+		var position = -1;
+		while (++position < length) {
+			buffer = TABLE.indexOf(input.charAt(position));
+			bitStorage = bitCounter % 4 ? bitStorage * 64 + buffer : buffer;
+			// Unless this is the first of a group of 4 characters…
+			if (bitCounter++ % 4) {
+				// …convert the first 8 bits to a single ASCII character.
+				output += String.fromCharCode(255 & bitStorage >> (-2 * bitCounter & 6));
+			}
+		}
+		return output;
+	};
+
+	// `encode` is designed to be fully compatible with `btoa` as described in the
+	// HTML Standard: http://whatwg.org/html/webappapis.html#dom-windowbase64-btoa
+	var encode = function encode(input) {
+		input = String(input);
+		if (/[^\0-\xFF]/.test(input)) {
+			// Note: no need to special-case astral symbols here, as surrogates are
+			// matched, and the input is supposed to only contain ASCII anyway.
+			error("The string to be encoded contains characters outside of the " + "Latin1 range.");
+		}
+		var padding = input.length % 3;
+		var output = "";
+		var position = -1;
+		var a;
+		var b;
+		var c;
+		var d;
+		var buffer;
+		// Make sure any padding is handled outside of the loop.
+		var length = input.length - padding;
+
+		while (++position < length) {
+			// Read three bytes, i.e. 24 bits.
+			a = input.charCodeAt(position) << 16;
+			b = input.charCodeAt(++position) << 8;
+			c = input.charCodeAt(++position);
+			buffer = a + b + c;
+			// Turn the 24 bits into four chunks of 6 bits each, and append the
+			// matching character for each of them to the output.
+			output += TABLE.charAt(buffer >> 18 & 63) + TABLE.charAt(buffer >> 12 & 63) + TABLE.charAt(buffer >> 6 & 63) + TABLE.charAt(buffer & 63);
+		}
+
+		if (padding == 2) {
+			a = input.charCodeAt(position) << 8;
+			b = input.charCodeAt(++position);
+			buffer = a + b;
+			output += TABLE.charAt(buffer >> 10) + TABLE.charAt(buffer >> 4 & 63) + TABLE.charAt(buffer << 2 & 63) + "=";
+		} else if (padding == 1) {
+			buffer = input.charCodeAt(position);
+			output += TABLE.charAt(buffer >> 2) + TABLE.charAt(buffer << 4 & 63) + "==";
+		}
+
+		return output;
+	};
+
+	var base64 = {
+		encode: encode,
+		decode: decode,
+		version: "0.1.0"
+	};
+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (typeof define == "function" && typeof define.amd == "object" && define.amd) {
+		define(function () {
+			return base64;
+		});
+	} else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) {
+			// in Node.js or RingoJS v0.8.0+
+			freeModule.exports = base64;
+		} else {
+			// in Narwhal or RingoJS v0.7.0-
+			for (var key in base64) {
+				base64.hasOwnProperty(key) && (freeExports[key] = base64[key]);
+			}
+		}
+	} else {
+		// in Rhino or a web browser
+		root.base64 = base64;
+	}
+})(undefined);
+}, {}]}, {}, {"1":""})
