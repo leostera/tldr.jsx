@@ -5,24 +5,24 @@
         <title>tldr.js | check your tldr's online</title>
         <link href="./build/app/tldr.css" rel="stylesheet" type="text/css">
         <style> [v-cloak] { display: none } </style>
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
     </head>
     <body>
+        <a href="https://github.com/leostera/tldr.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
         <section id="tldr">
             <header>
-                <h1>tldr.js</h1>
+                <span>> tldr </span>
                 <input type="text"
                        autofocus
                        autocomplete="off"
-                       placeholder="What ye lookin' fer, laddy?"
                        v-model="query"
                        v-on="keyup:lookUp | key enter">
+                <br>
                 <span v-show="loading">Loading!</span>
                 <span v-show="notFound">Command not found!</span>
             </header>
             
             <section v-repeat="pages">
-                <h3>Results for {{os}}</h3>
                 <article v-html="page | marked"></article>
             </section>
         </section>
