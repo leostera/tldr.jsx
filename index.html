@@ -25,7 +25,10 @@
                        v-on="keyup:lookUp | key enter">
                 <br>
                 <span v-show="loading">Loading…</span>
-                <span v-show="notFound">Command not found!</span>
+                <span v-show="notFound">
+                    Command not found! Why not
+                    <a href="https://github.com/tldr-pages/tldr/blob/master/CONTRIBUTING.md">add it yourself</a>?
+                </span>
             </header>
             
             <section v-repeat="pages">
