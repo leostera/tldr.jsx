@@ -9,6 +9,3 @@
 3. Serve with whatever you please (I like `python -m SimpleHTTPServer`)
 4. ?
 5. Profit
-
-## Credits
-Made with <3 by @leostera
