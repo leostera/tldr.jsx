@@ -1,11 +1,10 @@
 # tldr.js
 > a webclient for tldr. try it [here](https://leostera.github.io/tldr.js)
 
-![tldr.js](https://s3.amazonaws.com/leostera.2015/tldr.js.png)
+![tldr.js](https://s3.amazonaws.com/leostera.2015/tldr.js.new.png)
 
-## Build it locally!
-1. Remember to setup with `npm i`
-2. Build with `duo --use duo-babel app`
-3. Serve with whatever you please (I like `python -m SimpleHTTPServer`)
-4. ?
-5. Profit
+## Local Setup 
+1. Node dependencies: `npm i`
+2. Build with duo: `duo --use duo-babel app`
+3. Serve locally: `python -m SimpleHTTPServer`
+4. Profit
