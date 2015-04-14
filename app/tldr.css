@@ -26,6 +26,7 @@ blockquote {
 code {
     margin-left: 2em;
     background-color: aquamarine;
+    display: inline-block;
 }
 
 ul {
