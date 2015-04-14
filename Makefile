@@ -1,5 +1,5 @@
 all:
-	watch -n 1 duo --use duo-babel app
+	duo --use duo-babel app
 
 clean:
 	rm -rf ./build/*
