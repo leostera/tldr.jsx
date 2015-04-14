@@ -1,5 +1,5 @@
 # tldr.js
-> A web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](https://leostera.github.io/tldr.js).
+> A web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](http://ostera.io/tldr.js).
 
 ![tldr.js](https://s3.amazonaws.com/leostera.2015/tldr.js.new.png)
 
