@@ -1,8 +1,8 @@
 import EventEmitter from 'events';
 
-import co from 'co';
 import assign from 'object-assign';
 import request from 'request-promise';
+import { decode } from 'base-64';
 
 import Dispatcher from '../dispatchers/Main';
 import { ActionTypes } from '../actions/Command';
@@ -42,8 +42,16 @@ CommandStore.dispatchToken = Dispatcher.register(function (action) {
 
     case ActionTypes.CMD_LOAD_INDEX:
       async function getIndex() {
-        let rawIndex = await request.get(INDEX_URL);
-        return JSON.parse(rawIndex);
+        let requestOptions = {
+          method: 'GET',
+          url: INDEX_URL,
+          withCredentials: false
+        };
+        let rawIndex = await request(requestOptions);
+        let parsedIndex = JSON.parse(rawIndex);
+        let body = decode(parsedIndex['content']);
+        let parsedBody = JSON.parse(body);
+        return parsedBody;
       }
       _commands = getIndex();
     break;
