@@ -1,5 +1,5 @@
 import React from 'react';
 
-import GitHubExplorerApp from './components/GitHubExplorerApp';
+import TldrApp from './components/TldrApp';
 
-React.render( <GitHubExplorerApp />, document.getElementById('gh-explorer'));
+React.render( <TldrApp />, document.getElementById('tldr'));
