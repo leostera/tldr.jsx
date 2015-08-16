@@ -17,13 +17,13 @@ export default React.createClass({
 
   render: function () {
     return (
-        <div>
-          <input placeholder='command name'
-            onChange={this._handleChange}
-            onKeyDown={this._handleEnter}
-          />
-        </div>
-      );
+      <div>
+        <input placeholder='command name'
+          onChange={this._handleChange}
+          onKeyDown={this._handleEnter}
+        />
+      </div>
+    );
   },
 
   _handleChange: function (event) {
