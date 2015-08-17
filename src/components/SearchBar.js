@@ -19,7 +19,9 @@ export default React.createClass({
     return (
       <div>
         <span>&gt; tldr </span>
-        <input placeholder='command name'
+        <input placeholder='command'
+          autofocus
+          autocomplete="off"
           onChange={this._handleChange}
           onKeyDown={this._handleEnter}
         />

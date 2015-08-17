@@ -27,7 +27,7 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
-    "start": "watchify -o build/bundle.js -v -d src/app.js",
+    "start": "watchify -o build/bundle.js -v -d src/app.js & sass -w ./styles:./build",
     "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.min.js",
     "test": "jest"
   },
@@ -37,7 +37,6 @@
         "babelify",
         {
           "optional": [
-            "es7.asyncFunctions",
             "runtime"
           ]
         }

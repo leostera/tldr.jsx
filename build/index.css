@@ -1,0 +1,33 @@
+* {
+  font-family: "Source Code Pro", courier;
+  font-size: 18px; }
+
+input {
+  width: 500px; }
+
+input, input:focus {
+  border: none;
+  outline: none; }
+
+footer {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+blockquote {
+  margin: 0;
+  font-style: italic; }
+
+code {
+  margin-left: 2em;
+  background-color: aquamarine;
+  display: inline-block; }
+
+ul {
+  list-style: none;
+  padding: 0 !important; }
+  ul li:before {
+    content: "*";
+    padding: 0 12px; }
+
+/*# sourceMappingURL=index.css.map */
