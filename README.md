@@ -3,8 +3,8 @@
 
 ![tldr.js](https://s3.amazonaws.com/leostera.2015/tldr.js.new.png)
 
-## Local Setup 
-1. Node dependencies: `npm i`
-2. Build with duo: `duo --use duo-babel app`
-3. Serve locally: `python -m SimpleHTTPServer`
-4. Profit
+## Collaboration Setup 
+Since it's a browserify based project, a simple `npm start` will get you a build that you can serve
+with whatever you please. In my case, I just run `python -m SimpleHTTPServer`, but anything will do.
+
+Ah, right, don't forget to `npm install`! :D
