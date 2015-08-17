@@ -1,18 +1,40 @@
-/*
- * Copyright (c) 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * base.css overrides
- */
+* {
+    font-family: 'Source Code Pro', courier;
+    font-size: 18px;
+}
 
-/**
- * We are not changing from display:none, but rather re-rendering instead.
- * Therefore this needs to be displayed normally by default.
- */
-#todo-list li .edit {
-  display: inline;
+input {
+    width: 500px;
+}
+
+input, input:focus {
+    border: none;
+    outline: none;
+}
+
+footer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+blockquote {
+    margin: 0;
+    font-style: italic;
+}
+
+code {
+    margin-left: 2em;
+    background-color: aquamarine;
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+    padding: 0 !important;
+}
+
+ul li:before {
+    content: "*"; 
+    padding: 0 12px;
 }
