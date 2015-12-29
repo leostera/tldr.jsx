@@ -1,10 +1,22 @@
-# tldr.js
-> A web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](http://ostera.io/tldr.js).
+# tldr.jsx
+> A React-based web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](http://www.ostera.io/tldr.jsx).
 
-![tldr.js](https://s3.amazonaws.com/leostera.2015/tldr.js.new.png)
+![tldr.js](https://s3.amazonaws.com/ostera.io/tldr.jsx.jpg)
 
-## Collaboration Setup 
-Since it's a browserify based project, a simple `npm start` will get you a build that you can serve
-with whatever you please. In my case, I just run `python -m SimpleHTTPServer`, but anything will do.
+### Collaboration Setup
 
-Ah, right, don't forget to `npm install`! :D
+It requires a working `node` environment with `npm`.
+
+You can run any of these to get a build:
+
+* `npm run-script build` for a release build, 
+* `npm start`, for watching and rebuilding as you go
+
+Serve locally as you wish, I preffer `python -m SimpleHTTPServer`.
+
+It's clearly a work in progress, so there's many flaws, but PR's are more than welcomed! 
+
+### Roadmap
+
+[ ] IndexedDB cache
+[ ] Autocomplete
