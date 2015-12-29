@@ -18,5 +18,8 @@ It's clearly a work in progress, so there's many flaws, but PR's are more than w
 
 ### Roadmap
 
-[ ] IndexedDB cache
-[ ] Autocomplete
+As [tldr-pages](https://github.com/tldr-pages/tldr) advances, new features can be planned. Some are:
+
+* `IndexedDB cache`, allowing immediate access to a number of commands
+* `Autocomplete/Suggest`, freeing you from remembering all those command names
+* `Search`, letting you search through all the pages and commands to find what you want
