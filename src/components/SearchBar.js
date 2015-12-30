@@ -18,7 +18,7 @@ export default React.createClass({
       let query = newState.params.splat;
       this.setQuery(query);
       this.focusSearch();
-      setTimeout( () => { Command.search(query); }, 0);
+      setTimeout( () => { Command.search(query); }, 100);
     }.bind(this) );
   },
 
