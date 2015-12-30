@@ -17,7 +17,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div>
+      <form action=".">
         <span>&gt; tldr </span>
         <input placeholder='command'
           autofocus
@@ -25,7 +25,7 @@ export default React.createClass({
           onChange={this._handleChange}
           onKeyDown={this._handleEnter}
         />
-      </div>
+      </form>
     );
   },
 
