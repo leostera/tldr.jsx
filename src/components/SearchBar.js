@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'react-router';
 
 import { Command } from '../actions/Command';
 import CommandStore from '../stores/Command';
@@ -6,13 +7,23 @@ import CommandStore from '../stores/Command';
 const ENTER_KEY_CODE = 13;
 
 export default React.createClass({
+  mixins: [History],
 
   componentWillMount: function () {
     Command.loadIndex();
   },
 
+  componentDidMount: function () {
+    this.history.listen( (oldState, newState) => {
+      let query = this.cleanHash(newState.location.hash);
+      this.setQuery(query);
+      this.focusSearch();
+      setTimeout( () => { Command.search(query); }, 0);
+    }.bind(this) );
+  },
+
   getInitialState: function () {
-    return {query: ''};
+    return { query: '' };
   },
 
   render: function () {
@@ -20,8 +31,11 @@ export default React.createClass({
       <form action=".">
         <span>&gt; tldr </span>
         <input placeholder='command'
-          autofocus
+          id="search"
+          autofocus="true"
+          ref="searchInput"
           autocomplete="off"
+          value={this.state.query}
           onChange={this._handleChange}
           onKeyDown={this._handleEnter}
         />
@@ -30,16 +44,36 @@ export default React.createClass({
   },
 
   _handleChange: function (event) {
-    this.setState({query: event.target.value});
+    this.setQuery(event.target.value);
   },
 
   _handleEnter: function (event) {
-    const query = this.state.query.trim();
+    const query = this.cleanQuery(this.state.query);
     if (event.keyCode === ENTER_KEY_CODE && query) {
       event.preventDefault();
-      Command.search(query.toLowerCase());
-      this.setState({query: ''});
+      this.history.push({ pathname: '/#!/'+query });
     }
+  },
+
+  cleanQuery: function (query) {
+    return query.trim().toLowerCase();
+  },
+
+  setQuery: function (query) {
+    this.setState({
+      query: this.cleanQuery(query)
+    });
+  },
+
+  focusSearch: function () {
+    let length = this.state.query.length;
+    let field = React.findDOMNode(this.refs.searchInput)
+    field.focus();
+    field.setSelectionRange(length, length);
+  },
+
+  cleanHash: function (hash) {
+    return hash.split("#!").pop().replace("/","");
   }
 
 });
