@@ -1,18 +1,52 @@
 #page
-  blockquote 
+  font-size: 1em
+
+  p
     margin: 0
+
+  h1
+    margin: 1em 0.5em
+
+  blockquote 
     font-style: italic
 
   code 
-    margin-left: 2em
     background-color: aquamarine
-    display: inline-block
+    display: block
+    padding: 1.5em 1em
 
   ul 
     list-style: none
     padding: 0 !important
+    margin-top: 2em
 
     li
-      &:before 
-        content: "*" 
-        padding: 0 12px
+      padding: 1em
+
+  // Landscape stlyes
+  @media only screen and (orientation: landscape)
+    ul
+      li
+        padding: 0 1em
+
+  // Desktop Styles!
+  @media only screen and (min-device-width: 1024px)
+    h1
+      margin: 1em 0
+    
+    blockquote
+      margin: 0
+
+    code 
+      margin-left: 2em
+      display: inline-block
+      padding: 0
+
+    ul 
+      margin-top: 1em
+
+      li
+        padding: 0
+        &:before 
+          content: "*" 
+          padding: 0 12px

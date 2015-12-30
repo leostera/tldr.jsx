@@ -30,14 +30,17 @@ export default React.createClass({
     return (
       <form action="." id="search-bar">
         <span>&gt; tldr </span>
-        <input placeholder='command'
-          id="search"
-          autofocus="true"
-          ref="searchInput"
+        <input
           autocomplete="off"
-          value={this.state.query}
+          autofocus="true"
+          id="search"
           onChange={this._handleChange}
           onKeyDown={this._handleEnter}
+          placeholder='command'
+          ref="searchInput"
+          size="15"
+          type="search"
+          value={this.state.query}
         />
       </form>
     );
