@@ -8,7 +8,7 @@ import Dispatcher from '../dispatchers/Main';
 import { ActionTypes } from '../actions/Command';
 
 // Internal data structure for commands
-const INDEX_URL = "https://api.github.com/repos/tldr-pages/tldr/contents/pages/index.json";
+const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 let _commands = [];
 let _currentCommand = {};
 
@@ -49,10 +49,8 @@ CommandStore.dispatchToken = Dispatcher.register(function (payload) {
           url: INDEX_URL,
           withCredentials: false
         };
-        let rawIndex = yield request(requestOptions);
-        let body = decode(rawIndex.data.content);
-        let parsedBody = JSON.parse(body);
-        return parsedBody.commands;
+        let index = yield request(requestOptions);
+        return index.data.commands;
       }).then( index => { _commands = index; } );
     break;
 
