@@ -37,7 +37,7 @@ export default React.createClass({
     const query = this.state.query.trim();
     if (event.keyCode === ENTER_KEY_CODE && query) {
       event.preventDefault();
-      Command.search(query);
+      Command.search(query.toLowerCase());
       this.setState({query: ''});
     }
   }
