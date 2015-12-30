@@ -28,7 +28,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <form action=".">
+      <form action="." id="search-bar">
         <span>&gt; tldr </span>
         <input placeholder='command'
           id="search"
