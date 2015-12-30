@@ -15,7 +15,7 @@ export default React.createClass({
 
   componentDidMount: function () {
     this.history.listen( (oldState, newState) => {
-      let query = this.cleanHash(newState.location.hash);
+      let query = newState.params.splat;
       this.setQuery(query);
       this.focusSearch();
       setTimeout( () => { Command.search(query); }, 0);
@@ -51,7 +51,7 @@ export default React.createClass({
     const query = this.cleanQuery(this.state.query);
     if (event.keyCode === ENTER_KEY_CODE && query) {
       event.preventDefault();
-      this.history.push({ pathname: '/#!/'+query });
+      this.history.push({ pathname: query });
     }
   },
 
@@ -70,10 +70,6 @@ export default React.createClass({
     let field = React.findDOMNode(this.refs.searchInput)
     field.focus();
     field.setSelectionRange(length, length);
-  },
-
-  cleanHash: function (hash) {
-    return hash.split("#!").pop().replace("/","");
   }
 
 });
