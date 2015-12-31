@@ -4,7 +4,13 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import Results from './Results';
 
+import { Command } from '../actions/Command';
+
 class TldrApp extends React.Component {
+
+  componentWillMount () {
+    Command.loadIndex();
+  }
 
   render () {
     return (

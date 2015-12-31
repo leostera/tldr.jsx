@@ -9,10 +9,6 @@ const ENTER_KEY_CODE = 13;
 export default React.createClass({
   mixins: [History],
 
-  componentWillMount: function () {
-    Command.loadIndex();
-  },
-
   componentDidMount: function () {
     this.history.listen( (oldState, newState) => {
       let query = newState.params.splat;
