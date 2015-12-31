@@ -1,10 +1,12 @@
+@import "colors"
+
 #search-bar
   *
     font-family: 'Source Code Pro', courier new, courier
 
-  font-size: 4em
-  background-color: black
-  color: white
+  font-size: 1.5em
+  background-color: $search_background
+  color: $search_text
   padding: 0.5em
   position: fixed
   top: 0
@@ -14,8 +16,8 @@
   input, input:focus 
     border: none
     outline: none
-    background-color: black
-    color: white
+    background-color: $search_background
+    color: $search_text
 
   @media only screen and (orientation: landscape)
     font-size: 2em
