@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "watchify -t [envify --NODE_ENV local] -o build/bundle.js -v -d src/app.js & sass -w ./styles:./build",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.min.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.js",
     "test": "jest"
   },
   "browserify": {
