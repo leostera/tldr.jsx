@@ -24,7 +24,7 @@ export default React.createClass({
   render: function () {
     let markup = marked(this.state.body);
     return (
-      <div dangerouslySetInnerHTML={{__html: markup }} />
+      <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
     );
   },
 

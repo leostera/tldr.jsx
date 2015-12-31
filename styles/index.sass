@@ -1,34 +1,16 @@
+@import "colors"
+
+* 
+  font-family: Helvetica Neue, Helvetica 
+  font-size: 1em
+
+body
+  margin: 0
+  background: $body_background
+  color: $body_text
+
+@import "fork-me"
+
 #tldr 
-  * 
-    font-family: 'Source Code Pro', courier
-    font-size: 18px
-
-  input 
-    width: 500px
-
-  input, input:focus 
-    border: none
-    outline: none
-
-  footer 
-    position: absolute
-    top: 10px
-    right: 10px
-
-  blockquote 
-    margin: 0
-    font-style: italic
-
-  code 
-    margin-left: 2em
-    background-color: aquamarine
-    display: inline-block
-
-  ul 
-    list-style: none
-    padding: 0 !important
-
-    li
-      &:before 
-        content: "*" 
-        padding: 0 12px
+  @import "search-bar"
+  @import "page"
