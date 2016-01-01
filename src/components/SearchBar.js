@@ -36,7 +36,7 @@ export default React.createClass({
           onKeyDown={this._handleEnter}
           placeholder='command'
           ref="searchInput"
-          size="15"
+          size="10"
           type="search"
           value={this.state.query}
         />
