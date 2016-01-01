@@ -1,7 +1,7 @@
 # tldr.jsx
 A React-based web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](http://www.ostera.io/tldr.jsx).
 
-![tldr.js](https://s3.amazonaws.com/ostera.io/tldr.jsx.jpg)
+![tldr.jsx](https://s3.amazonaws.com/ostera.io/tldr.jsx.jpg)
 
 ## Roadmap
 
