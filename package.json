@@ -1,14 +1,14 @@
 {
-  "name": "tldr.js",
+  "name": "tldr.jsx",
   "description": "A tldr-pages client built with React",
   "author": "Leandro Ostera <leandro@ostera.io>",
-  "repository": "https://github.com/ostera/tldr.js",
+  "repository": "https://github.com/ostera/tldr.jsx",
   "bugs": {
-    "url": "https://github.com/ostera/tldr.js/issues"
+    "url": "https://github.com/ostera/tldr.jsx/issues"
   },
-  "homepage": "https://github.com/ostera/tldr.js",
+  "homepage": "https://github.com/ostera/tldr.jsx",
   "license": "MIT",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "src/app.js",
   "dependencies": {
     "axios": "^0.5.4",
@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "watchify -t [envify --NODE_ENV local] -o build/bundle.js -v -d src/app.js & sass -w ./styles:./build",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.js; sass -w ./styles:./build",
     "test": "jest"
   },
   "browserify": {
