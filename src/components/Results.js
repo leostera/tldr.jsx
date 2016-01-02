@@ -7,6 +7,8 @@ import { Page } from '../actions/Page';
 import CommandStore from '../stores/Command';
 import PageStore from '../stores/Page';
 
+import EmptyResults from './EmptyResults';
+
 export default React.createClass({
 
   componentDidMount: function () {
@@ -23,8 +25,11 @@ export default React.createClass({
 
   render: function () {
     let markup = marked(this.state.body);
+    let results = markup ? <span dangerouslySetInnerHTML={{__html: markup }} /> : <EmptyResults />
     return (
-      <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
+      <div id="page">
+        {results}
+      </div>
     );
   },
 
@@ -32,6 +37,8 @@ export default React.createClass({
     let cmd = CommandStore.getCurrentCommand().pop();
     PageStore.get(cmd).then( page => {
       this.setState({ body: page });
+    }).catch( err => {
+      this.setState({ body: '' });
     });
   }
 
