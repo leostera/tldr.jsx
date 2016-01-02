@@ -51,7 +51,7 @@ export default React.createClass({
 
   _handleEnter: function (event) {
     const query = this.cleanQuery(this.state.query);
-    if (event.keyCode === ENTER_KEY_CODE && query) {
+    if (event.keyCode === ENTER_KEY_CODE) {
       event.preventDefault();
       this.history.push({ pathname: query });
     }
