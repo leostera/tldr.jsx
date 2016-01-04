@@ -2,6 +2,10 @@ import React from 'react';
 
 import marked from 'marked';
 
+marked.setOptions({
+  gfm: true
+});
+
 import { Page } from '../actions/Page';
 
 import CommandStore from '../stores/Command';
