@@ -1,24 +1,24 @@
 import React from 'react';
+import Rx from 'rx';
 
+// External Dependencies
 import marked from 'marked';
 
 marked.setOptions({
   gfm: true
 });
 
+// Actions
 import { Page } from '../actions/Page';
-
-import CommandStore from '../stores/Command';
-import PageStore from '../stores/Page';
+import { Command } from '../actions/Command';
 
 export default React.createClass({
 
   componentDidMount: function () {
-    CommandStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount: function () {
-    CommandStore.removeChangeListener(this._onChange);
+    handlers.history = Rx.history
+      .pluck('path')
+      .distinctUntilChanged()
+      .flatMapLatest(this.fetch);
   },
 
   getInitialState: function () {
@@ -32,11 +32,23 @@ export default React.createClass({
     );
   },
 
-  _onChange: function () {
-    let cmd = CommandStore.getCurrentCommand().pop();
-    PageStore.get(cmd).then( page => {
-      this.setState({ body: page });
-    });
+  fetch: function (cmd) {
+    Command
+     .search(cmd)
+     .limit(1)
+     .flatMapLatest( this.display );
+  },
+
+  display: function (page) {
+    Page
+      .get(cmd)
+      .flatMapLatest( page => {
+        if (page) {
+          this.setState({ body: page });
+        } else {
+          console.log(page+" not found");
+        }
+      });
   }
 
 });

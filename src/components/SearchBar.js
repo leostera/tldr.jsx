@@ -1,23 +1,54 @@
 import React from 'react';
 import { History } from 'react-router';
+import Rx from 'rx';
 
+// Other Components
 import GithubOctocat from './GithubOctocat';
 
 import { Command } from '../actions/Command';
-import CommandStore from '../stores/Command';
+import { Page } from '../actions/Page';
 
 const ENTER_KEY_CODE = 13;
 
 export default React.createClass({
+  handlers: {},
+
+  // Really necessary? maybe an Rx.history is all you need
   mixins: [History],
 
+  node: function () {
+    // god please add this as a helper function
+    //
+    // All nodes with a ref value should be included
+    // in a this.nodes object, so in this case we 
+    // can call this.nodes.searchInput and it'll be the node
+    //
+    // this.nodes should be populated as soon as the component
+    // is mounted
+    return React.findDOMNode(this.refs.searchInput);
+  },
+
   componentDidMount: function () {
-    this.history.listen( (oldState, newState) => {
-      let query = newState.params.splat;
-      this.setQuery(query);
-      this.focusSearch();
-      setTimeout( () => { Command.search(query); }, 100);
-    }.bind(this) );
+    // Listen reactively to DOM key up events
+    handlers.dom = Rx.Observable.fromEvent(this.node, 'keyup')
+      .pluck('target', 'value')
+      .filter( text => text.length > 2 )
+      .filter( text => text.keyCode != ENTER_KEY_CODE )
+      .debounce(350)
+      .distinctUntilChanged()
+      .flatMapLatest(this.search);
+
+    // Listen reactively to history changes
+    handlers.history = Rx.History
+      .pluck('path')
+      .distinctUntilChanged()
+      .flatMapLatest(this.focus);
+  },
+
+  componentWillUnmount: function () {
+    // unsubscribe all handlers
+    // Abstract this pattern into a mixin
+    handlers.keys( key => key() ); 
   },
 
   getInitialState: function () {
@@ -32,8 +63,6 @@ export default React.createClass({
           autoComplete="off"
           autofocus="true"
           id="search"
-          onChange={this._handleChange}
-          onKeyDown={this._handleEnter}
           placeholder='command'
           ref="searchInput"
           size="10"
@@ -45,31 +74,15 @@ export default React.createClass({
     );
   },
 
-  _handleChange: function (event) {
-    this.setQuery(event.target.value);
+  search: function (query) {
+    this.setState({ query: query });
+    // navigate!
+    this.history.pushState({ path: query });
   },
 
-  _handleEnter: function (event) {
-    const query = this.cleanQuery(this.state.query);
-    if (event.keyCode === ENTER_KEY_CODE && query) {
-      event.preventDefault();
-      this.history.push({ pathname: query });
-    }
-  },
-
-  cleanQuery: function (query) {
-    return query.trim().toLowerCase();
-  },
-
-  setQuery: function (query) {
-    this.setState({
-      query: this.cleanQuery(query)
-    });
-  },
-
-  focusSearch: function () {
-    let length = this.state.query.length;
-    let field = React.findDOMNode(this.refs.searchInput)
+  focus: function (query) {
+    let length = query.length;
+    let field = this.node();
     field.focus();
     field.setSelectionRange(length, length);
   }

@@ -7,6 +7,7 @@ const ActionTypes = {
 
 let Command = {
 
+  // this should return an observable
   search: (cmd) => {
     Dispatcher.dispatch({
       type: ActionTypes.CMD_SEARCH,

@@ -17,6 +17,7 @@
     "co": "^4.6.0",
     "flux": "^2.0.3",
     "history": "^1.17.0",
+    "immutable": "^3.7.6",
     "marked": "^0.3.5",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
