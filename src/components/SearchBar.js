@@ -32,14 +32,13 @@ export default React.createClass({
   componentWillMount: function () {
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( path => path.slice(1) )
-      .filter( path => path.length > 0 )
+      .map( path => path[0] === "/" ? path.slice(1) : path )
       .forEach( this.fill );
   },
 
   componentDidMount: function () {
     // Listen reactively to DOM key up events
-    this.handlers.dom = Rx.Observable.fromEvent(this.node(), 'keyup')
+    this.handlers.key = Rx.Observable.fromEvent(this.node(), 'keyup')
       .filter( e => e.keyCode !== ENTER_KEY_CODE )
       .pluck("target", "value")
       .forEach( this.navigate );
@@ -62,16 +61,25 @@ export default React.createClass({
         <input
           autoComplete="off"
           autofocus="true"
-          id="search"
           placeholder='command'
           ref="searchInput"
           size="10"
-          type="search"
-          defaultValue={this.state.query}
+          id="search"
+          value={this.state.query}
+          onChange={this.onChange}
         />
+        <span className="icon-close" onClick={this.clear} />
         <GithubOctocat path="ostera/tldr.jsx"/>
       </div>
     );
+  },
+
+  onChange: function (e) {
+    this.fill(e.target.value);
+  },
+
+  clear: function () {
+    this.navigate("");
   },
 
   fill: function (query) {

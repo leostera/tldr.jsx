@@ -22,9 +22,10 @@ export default React.createClass({
     // Listen reactively to history changes
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( path => path.slice(1) )
+      .map( path => path[0] === "/" ? path.slice(1) : path )
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
+      .debounce(300)
       .forEach( this.fetch );
   },
 
@@ -41,8 +42,10 @@ export default React.createClass({
 
   fetch: function (cmd) {
     Command
-     .search(cmd)
-     .flatMapLatest(this.display);
+      .search(cmd)
+      .forEach( page => {
+        debugger;
+      });
   },
 
   display: function (page) {
