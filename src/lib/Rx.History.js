@@ -1,10 +1,6 @@
 import Rx from 'rx';
-import createHashHistory from 'history/lib/createHashHistory';
 
-let history = createHashHistory();
-
-export default function fromHistory () {
-
+export default function fromHistory (history) {
   let unlisten;
   let listen = handler =>
     unlisten = history.listen(handler);

@@ -30,22 +30,19 @@ export default React.createClass({
   },
 
   componentWillMount: function () {
-    // Listen reactively to history changes
-    this.handlers.history = Rx.Observable.fromHistory()
+    this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .forEach(this.debug)
+      .map( path => path.slice(1) )
+      .filter( path => path.length > 0 )
+      .forEach( this.fill );
   },
 
   componentDidMount: function () {
     // Listen reactively to DOM key up events
-    this.handlers.dom = Rx.Observable.fromEvent(this.node, 'keyup')
-      .pluck('target', 'value')
-      .filter( text => text.length > 2 )
-      .filter( text => text.keyCode != ENTER_KEY_CODE )
-      .debounce(350)
-      .distinctUntilChanged()
-      //.flatMapLatest(this.search);
-      .flatMapLatest(this.debug);
+    this.handlers.dom = Rx.Observable.fromEvent(this.node(), 'keyup')
+      .filter( e => e.keyCode !== ENTER_KEY_CODE )
+      .pluck("target", "value")
+      .forEach( this.navigate );
   },
 
   componentWillUnmount: function () {
@@ -60,7 +57,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <form action="." id="search-bar">
+      <div id="search-bar">
         <span>&gt; tldr </span>
         <input
           autoComplete="off"
@@ -70,28 +67,19 @@ export default React.createClass({
           ref="searchInput"
           size="10"
           type="search"
-          value={this.state.query}
+          defaultValue={this.state.query}
         />
         <GithubOctocat path="ostera/tldr.jsx"/>
-      </form>
+      </div>
     );
   },
 
-  search: function (query) {
-    this.setState({ query: query });
-    // navigate!
-    this.history.pushState({ path: query });
+  fill: function (query) {
+    this.setState( { query: query } );
   },
 
-  focus: function (query) {
-    let length = query.length;
-    let field = this.node();
-    field.focus();
-    field.setSelectionRange(length, length);
+  navigate: function (query) {
+    this.props.history.replace(query);
   },
-
-  debug: function () {
-    console.log("debug", arguments);
-  }
 
 });

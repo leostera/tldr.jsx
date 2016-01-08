@@ -1,5 +1,8 @@
 import React from 'react';
+
 import Rx from 'rx';
+import fromHistory from '../lib/Rx.History.js';
+Rx.Observable.fromHistory = fromHistory;
 
 // External Dependencies
 import marked from 'marked';
@@ -15,11 +18,14 @@ import { Command } from '../actions/Command';
 export default React.createClass({
   handlers: {},
 
-  __componentDidMount: function () {
-    this.handlers.history = Rx.history
-      .pluck('path')
+  componentWillMount: function () {
+    // Listen reactively to history changes
+    this.handlers.history = Rx.Observable.fromHistory(this.props.history)
+      .pluck("pathname")
+      .map( path => path.slice(1) )
+      .filter( path => path.length > 0 )
       .distinctUntilChanged()
-      .flatMapLatest(this.fetch);
+      .forEach( this.fetch );
   },
 
   getInitialState: function () {
@@ -36,8 +42,7 @@ export default React.createClass({
   fetch: function (cmd) {
     Command
      .search(cmd)
-     .limit(1)
-     .flatMapLatest( this.display );
+     .flatMapLatest(this.display);
   },
 
   display: function (page) {
