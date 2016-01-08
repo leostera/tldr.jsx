@@ -1,5 +1,4 @@
 import React from 'react';
-import { Router, Route } from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
 
 import TldrApp from './components/TldrApp';
@@ -9,8 +8,5 @@ let history = createHistory({
 });
 
 React.render( (
-  <Router history={history}>
-    <Route path="*" component={TldrApp}>
-    </Route>
-  </Router>
+  <TldrApp />
 ), document.getElementById('tldr'));

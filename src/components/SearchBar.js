@@ -1,6 +1,10 @@
 import React from 'react';
-import { History } from 'react-router';
+
 import Rx from 'rx';
+import fromHistory from '../lib/Rx.History.js';
+Rx.Observable.fromHistory = fromHistory;
+
+import assign from 'object-assign';
 
 // Other Components
 import GithubOctocat from './GithubOctocat';
@@ -13,14 +17,11 @@ const ENTER_KEY_CODE = 13;
 export default React.createClass({
   handlers: {},
 
-  // Really necessary? maybe an Rx.history is all you need
-  mixins: [History],
-
   node: function () {
     // god please add this as a helper function
     //
     // All nodes with a ref value should be included
-    // in a this.nodes object, so in this case we 
+    // in a this.nodes object, so in this case we
     // can call this.nodes.searchInput and it'll be the node
     //
     // this.nodes should be populated as soon as the component
@@ -28,27 +29,29 @@ export default React.createClass({
     return React.findDOMNode(this.refs.searchInput);
   },
 
+  componentWillMount: function () {
+    // Listen reactively to history changes
+    this.handlers.history = Rx.Observable.fromHistory()
+      .pluck("pathname")
+      .forEach(this.debug)
+  },
+
   componentDidMount: function () {
     // Listen reactively to DOM key up events
-    handlers.dom = Rx.Observable.fromEvent(this.node, 'keyup')
+    this.handlers.dom = Rx.Observable.fromEvent(this.node, 'keyup')
       .pluck('target', 'value')
       .filter( text => text.length > 2 )
       .filter( text => text.keyCode != ENTER_KEY_CODE )
       .debounce(350)
       .distinctUntilChanged()
-      .flatMapLatest(this.search);
-
-    // Listen reactively to history changes
-    handlers.history = Rx.History
-      .pluck('path')
-      .distinctUntilChanged()
-      .flatMapLatest(this.focus);
+      //.flatMapLatest(this.search);
+      .flatMapLatest(this.debug);
   },
 
   componentWillUnmount: function () {
     // unsubscribe all handlers
     // Abstract this pattern into a mixin
-    handlers.keys( key => key() ); 
+    this.handlers.keys( key => key() );
   },
 
   getInitialState: function () {
@@ -85,6 +88,10 @@ export default React.createClass({
     let field = this.node();
     field.focus();
     field.setSelectionRange(length, length);
+  },
+
+  debug: function () {
+    console.log("debug", arguments);
   }
 
 });

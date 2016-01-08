@@ -13,9 +13,10 @@ import { Page } from '../actions/Page';
 import { Command } from '../actions/Command';
 
 export default React.createClass({
+  handlers: {},
 
-  componentDidMount: function () {
-    handlers.history = Rx.history
+  __componentDidMount: function () {
+    this.handlers.history = Rx.history
       .pluck('path')
       .distinctUntilChanged()
       .flatMapLatest(this.fetch);
