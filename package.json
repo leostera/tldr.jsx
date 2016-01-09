@@ -11,16 +11,15 @@
   "version": "2.1.0",
   "main": "src/app.js",
   "dependencies": {
-    "axios": "^0.5.4",
+    "axios": "^0.8.1",
     "babel-runtime": "^5.8.20",
     "base-64": "^0.1.0",
-    "co": "^4.6.0",
-    "flux": "^2.0.3",
     "history": "^1.17.0",
+    "immutable": "^3.7.6",
     "marked": "^0.3.5",
+    "moment": "^2.11.0",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
-    "react-router": "^1.0.3",
     "rx": "^4.0.7"
   },
   "devDependencies": {

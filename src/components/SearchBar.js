@@ -1,23 +1,53 @@
 import React from 'react';
-import { History } from 'react-router';
 
+import Rx from 'rx';
+import fromHistory from '../lib/Rx.History.js';
+Rx.Observable.fromHistory = fromHistory;
+
+import assign from 'object-assign';
+
+// Other Components
 import GithubOctocat from './GithubOctocat';
 
 import { Command } from '../actions/Command';
-import CommandStore from '../stores/Command';
+import { Page } from '../actions/Page';
 
 const ENTER_KEY_CODE = 13;
 
 export default React.createClass({
-  mixins: [History],
+  handlers: {},
+
+  node: function () {
+    // god please add this as a helper function
+    //
+    // All nodes with a ref value should be included
+    // in a this.nodes object, so in this case we
+    // can call this.nodes.searchInput and it'll be the node
+    //
+    // this.nodes should be populated as soon as the component
+    // is mounted
+    return React.findDOMNode(this.refs.searchInput);
+  },
+
+  componentWillMount: function () {
+    this.handlers.history = Rx.Observable.fromHistory(this.props.history)
+      .pluck("pathname")
+      .map( path => path[0] === "/" ? path.slice(1) : path )
+      .subscribe( this.fill );
+  },
 
   componentDidMount: function () {
-    this.history.listen( (oldState, newState) => {
-      let query = newState.params.splat;
-      this.setQuery(query);
-      this.focusSearch();
-      setTimeout( () => { Command.search(query); }, 100);
-    }.bind(this) );
+    // Listen reactively to DOM key up events
+    this.handlers.key = Rx.Observable.fromEvent(this.node(), 'keyup')
+      .filter( e => e.keyCode !== ENTER_KEY_CODE )
+      .pluck("target", "value")
+      .subscribe( this.navigate );
+  },
+
+  componentWillUnmount: function () {
+    // unsubscribe all handlers
+    // Abstract this pattern into a mixin
+    this.handlers.keys( key => key() );
   },
 
   getInitialState: function () {
@@ -25,53 +55,41 @@ export default React.createClass({
   },
 
   render: function () {
+    let clear = this.state.query.length > 0 ?
+      <span className="icon-close" onClick={this.clear} /> : '';
     return (
-      <form action="." id="search-bar">
+      <div id="search-bar">
         <span>&gt; tldr </span>
         <input
           autoComplete="off"
           autofocus="true"
-          id="search"
-          onChange={this._handleChange}
-          onKeyDown={this._handleEnter}
           placeholder='command'
           ref="searchInput"
           size="10"
-          type="search"
+          id="search"
           value={this.state.query}
+          onChange={this.onChange}
         />
+        {clear}
         <GithubOctocat path="ostera/tldr.jsx"/>
-      </form>
+      </div>
     );
   },
 
-  _handleChange: function (event) {
-    this.setQuery(event.target.value);
+  onChange: function (e) {
+    this.fill(e.target.value);
   },
 
-  _handleEnter: function (event) {
-    const query = this.cleanQuery(this.state.query);
-    if (event.keyCode === ENTER_KEY_CODE && query) {
-      event.preventDefault();
-      this.history.push({ pathname: query });
-    }
+  clear: function () {
+    this.navigate("");
   },
 
-  cleanQuery: function (query) {
-    return query.trim().toLowerCase();
+  fill: function (query) {
+    this.setState( { query: query } );
   },
 
-  setQuery: function (query) {
-    this.setState({
-      query: this.cleanQuery(query)
-    });
+  navigate: function (query) {
+    this.props.history.replace(query);
   },
-
-  focusSearch: function () {
-    let length = this.state.query.length;
-    let field = React.findDOMNode(this.refs.searchInput)
-    field.focus();
-    field.setSelectionRange(length, length);
-  }
 
 });

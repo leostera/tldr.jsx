@@ -18,7 +18,7 @@ export default React.createClass({
           href={href}
           title={title}
           target="blank">
-          <svg class="github-corner"
+          <svg className="github-corner"
             width={width}
             height={height}
             viewBox={viewbox}>
