@@ -33,7 +33,7 @@ export default React.createClass({
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
       .map( path => path[0] === "/" ? path.slice(1) : path )
-      .forEach( this.fill );
+      .subscribe( this.fill );
   },
 
   componentDidMount: function () {
@@ -41,7 +41,7 @@ export default React.createClass({
     this.handlers.key = Rx.Observable.fromEvent(this.node(), 'keyup')
       .filter( e => e.keyCode !== ENTER_KEY_CODE )
       .pluck("target", "value")
-      .forEach( this.navigate );
+      .subscribe( this.navigate );
   },
 
   componentWillUnmount: function () {
