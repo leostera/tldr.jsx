@@ -19,26 +19,40 @@ export default React.createClass({
   handlers: {},
 
   componentWillMount: function () {
+    let cleanUpPath = path => {
+      if (path[0] === "/") {
+        path = path.slice(1)
+      }
+      return path.trim().replace(' ','-');
+    }
     // Listen reactively to history changes
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( path => path[0] === "/" ? path.slice(1) : path )
+      .map( cleanUpPath )
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
-      .debounce(200)
+      .debounce(250)
       .subscribe( this.search );
 
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( path => path[0] === "/" ? path.slice(1) : path )
+      .map( cleanUpPath )
       .filter( path => path.length === 0 )
       .distinctUntilChanged()
-      .debounce(200)
-      .subscribe( this.emptyPage );
+      .debounce(250)
+      .subscribe( this.welcomePage );
   },
 
   getInitialState: function () {
     return {body: ""};
+  },
+
+  componentWillUpdate: function () {
+    console.log("Oh no, I'm updating!...");
+  },
+
+  componentDidUpdate: function () {
+    console.log("I...I AM GOD, I mean UPDATED");
   },
 
   render: function () {
@@ -48,12 +62,12 @@ export default React.createClass({
     );
   },
 
-  emptyPage: function () {
+  welcomePage: function () {
     this.display( " # Welcome " );
   },
 
-  error: function (err) {
-    this.display( " # " + err);
+  error: function () {
+    this.display( " # Command Not Found " );
   },
 
   search: function (cmd) {

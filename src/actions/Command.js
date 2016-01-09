@@ -5,11 +5,11 @@ const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 
 let search = (name) => {
   return getIndex()
-    .timeout(1000, new Error('Timeout :( – Could not retrieve index') )
     .flatMap( list => list )
     .filter( cmd => {
       return cmd.name === name
-    });
+    })
+    .defaultIfEmpty( new Error('Command Not Found') );
 };
 
 let requestIndex = function *() {
