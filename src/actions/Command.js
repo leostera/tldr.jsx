@@ -3,13 +3,14 @@ import request from 'axios';
 
 const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 
+let _commands = [];
+
 let search = (name) => {
   return getIndex()
-    .flatMap( list => list )
     .filter( cmd => {
       return cmd.name === name
     })
-    .defaultIfEmpty( new Error('Command Not Found') );
+    .last( { platform: ["client"], name: "not-found" } );
 };
 
 let requestIndex = function *() {
@@ -23,7 +24,15 @@ let requestIndex = function *() {
   return commands;
 };
 
-let getIndex = () => Rx.Observable.spawn(requestIndex)
+let getIndex = () => {
+  if(_commands.length === 0) {
+    return Rx.Observable.spawn(requestIndex).tap( (commands) => {
+      _commands = commands;
+    }).flatMap( list => list )
+  } else {
+    return Rx.Observable.fromArray(_commands);
+  }
+}
 
 let Command = {
   search,
