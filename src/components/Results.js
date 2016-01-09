@@ -18,41 +18,35 @@ import { Command } from '../actions/Command';
 export default React.createClass({
   handlers: {},
 
-  componentWillMount: function () {
-    let cleanUpPath = path => {
-      if (path[0] === "/") {
-        path = path.slice(1)
-      }
-      return path.trim().replace(' ','-');
+  debounceTime: 250, //ms
+
+  cleanUpPath:  path => {
+    if (path[0] === "/") {
+      path = path.slice(1)
     }
+    return path.trim().replace(' ','-');
+  },
+
+  componentWillMount: function () {
     // Listen reactively to history changes
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( cleanUpPath )
+      .map( this.cleanUpPath )
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
-      .debounce(250)
+      .debounce( this.debounceTime )
       .subscribe( this.search );
 
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( cleanUpPath )
+      .map( this.cleanUpPath )
       .filter( path => path.length === 0 )
       .distinctUntilChanged()
-      .debounce(250)
       .subscribe( this.welcomePage );
   },
 
   getInitialState: function () {
     return {body: ""};
-  },
-
-  componentWillUpdate: function () {
-    console.log("Oh no, I'm updating!...");
-  },
-
-  componentDidUpdate: function () {
-    console.log("I...I AM GOD, I mean UPDATED");
   },
 
   render: function () {
@@ -66,7 +60,7 @@ export default React.createClass({
     this.display( " # Welcome " );
   },
 
-  error: function () {
+  error: function (err) {
     this.display( " # Command Not Found " );
   },
 
@@ -79,7 +73,7 @@ export default React.createClass({
   fetch: function (cmd) {
     Page
       .get(cmd)
-      .subscribe(this.display, this.error);
+      .subscribe(this.display, this.error)
   },
 
   display: function (page) {
