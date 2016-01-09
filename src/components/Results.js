@@ -25,8 +25,8 @@ export default React.createClass({
       .map( path => path[0] === "/" ? path.slice(1) : path )
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
-      .debounce(300)
-      .forEach( this.fetch );
+      .debounce(150)
+      .subscribe( this.search );
   },
 
   getInitialState: function () {
@@ -40,24 +40,24 @@ export default React.createClass({
     );
   },
 
-  fetch: function (cmd) {
+  error: function (err) {
+    this.display( " # " + err);
+  },
+
+  search: function (cmd) {
     Command
       .search(cmd)
-      .forEach( page => {
-        debugger;
-      });
+      .subscribe(this.fetch, this.error);
+  },
+
+  fetch: function (cmd) {
+    Page
+      .get(cmd)
+      .subscribe(this.display, this.error);
   },
 
   display: function (page) {
-    Page
-      .get(cmd)
-      .flatMapLatest( page => {
-        if (page) {
-          this.setState({ body: page });
-        } else {
-          console.log(page+" not found");
-        }
-      });
+    this.setState({ body: page });
   }
 
 });

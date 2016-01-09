@@ -1,26 +1,33 @@
-import Dispatcher from '../dispatchers/Main';
+import Rx from 'rx';
+import request from 'axios';
 
-const ActionTypes = {
-  CMD_SEARCH: Symbol("CMD_SEARCH"),
-  CMD_LOAD_INDEX: Symbol("CMD_LOAD_INDEX"),
+const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
+
+let search = (name) => {
+  return getIndex()
+    .timeout(1000, new Error('Timeout :( – Could not retrieve index') )
+    .flatMap( list => list )
+    .filter( cmd => {
+      return cmd.name === name
+    });
 };
+
+let requestIndex = function *() {
+  let requestOptions = {
+    method: 'GET',
+    url: INDEX_URL,
+    withCredentials: false
+  };
+  let index = yield request(requestOptions);
+  let commands = index.data.commands || [];
+  return commands;
+};
+
+let getIndex = () => Rx.Observable.spawn(requestIndex)
 
 let Command = {
-
-  // this should return an observable
-  search: (cmd) => {
-    Dispatcher.dispatch({
-      type: ActionTypes.CMD_SEARCH,
-      cmd: cmd
-    });
-  },
-
-  loadIndex: () => {
-    Dispatcher.dispatch({
-      type: ActionTypes.CMD_LOAD_INDEX
-    });
-  }
-
+  search,
+  getIndex
 };
 
-export { ActionTypes, Command };
+export { Command };
