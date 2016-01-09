@@ -18,20 +18,26 @@ let requestIndex = function *() {
     url: INDEX_URL,
     withCredentials: false
   };
-  let index = yield request(requestOptions);
-  let commands = index.data.commands || [];
-  return commands;
+
+  let modifiedSince = localStorage.getItem("tldr/index.cache");
+  // Yes, that's right, it's the string "undefined"...gee.
+  if(modifiedSince !== "undefined" && modifiedSince !== undefined) {
+    requestOptions.headers = {
+      'If-Modified-Since': modifiedSince
+    };
+  }
+
+  let response = yield request(requestOptions);
+  return response;
 };
 
 let getIndex = () => {
-  let _commands = JSON.parse(localStorage.getItem("tldr_index"));
-  if(_commands && _commands.length > 0) {
-    return Rx.Observable.fromArray(_commands);
-  } else {
-    return Rx.Observable.spawn(requestIndex).tap( (commands) => {
-      localStorage.setItem("tldr_index", JSON.stringify(commands));
-    }).flatMap( list => list )
-  }
+  return Rx.Observable.spawn(requestIndex).tap( (response) => {
+      let ifModifiedSince = response.headers["last-modified"];
+      localStorage.setItem("tldr/index.cache", ifModifiedSince);
+      let commands = response.data.commands;
+      localStorage.setItem("tldr/index", JSON.stringify(commands));
+  }).flatMap( res => res.data.commands )
 }
 
 let Command = {
@@ -40,3 +46,4 @@ let Command = {
 };
 
 export { Command };
+
