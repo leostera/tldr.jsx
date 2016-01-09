@@ -6,9 +6,15 @@ import createHistory from 'history/lib/createHashHistory';
 import SearchBar from './SearchBar';
 import Results   from './Results';
 
+import { Command } from '../actions/Command';
+
 let history = createHistory();
 
 class TldrApp extends React.Component {
+
+  componentWillMount () {
+    Command.getIndex().subscribe();
+  }
 
   render () {
     return (
