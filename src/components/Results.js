@@ -25,8 +25,16 @@ export default React.createClass({
       .map( path => path[0] === "/" ? path.slice(1) : path )
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
-      .debounce(150)
+      .debounce(200)
       .subscribe( this.search );
+
+    this.handlers.history = Rx.Observable.fromHistory(this.props.history)
+      .pluck("pathname")
+      .map( path => path[0] === "/" ? path.slice(1) : path )
+      .filter( path => path.length === 0 )
+      .distinctUntilChanged()
+      .debounce(200)
+      .subscribe( this.emptyPage );
   },
 
   getInitialState: function () {
@@ -38,6 +46,10 @@ export default React.createClass({
     return (
       <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
     );
+  },
+
+  emptyPage: function () {
+    this.display( " # Welcome " );
   },
 
   error: function (err) {
