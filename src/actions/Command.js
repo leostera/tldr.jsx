@@ -4,6 +4,8 @@ import moment from 'moment';
 
 const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 
+let _commands;
+
 let search = (name) => {
   return getIndex()
     .filter( cmd => {
@@ -56,9 +58,11 @@ let getIndex = () => {
 };
 
 let localIndex = (e) => {
-  let raw = localStorage.getItem('tldr/index') || "[]";
-  let commands = JSON.parse(raw) || [];
-  return Rx.Observable.fromArray(commands);
+  if( ! _commands ) {
+    let raw = localStorage.getItem('tldr/index');
+    _commands = JSON.parse(raw);
+  }
+  return Rx.Observable.fromArray(_commands);
 };
 
 let flatten = (res) => {

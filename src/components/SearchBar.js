@@ -55,6 +55,8 @@ export default React.createClass({
   },
 
   render: function () {
+    let clear = this.state.query.length > 0 ?
+      <span className="icon-close" onClick={this.clear} /> : '';
     return (
       <div id="search-bar">
         <span>&gt; tldr </span>
@@ -68,7 +70,7 @@ export default React.createClass({
           value={this.state.query}
           onChange={this.onChange}
         />
-        <span className="icon-close" onClick={this.clear} />
+        {clear}
         <GithubOctocat path="ostera/tldr.jsx"/>
       </div>
     );
