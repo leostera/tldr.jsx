@@ -1,5 +1,6 @@
 import Rx from 'rx';
 import request from 'axios';
+import moment from 'moment';
 
 const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 
