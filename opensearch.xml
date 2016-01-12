@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>tldr</ShortName>
+  <Description>Search for commands</Description>
+  <Tags>git add</Tags>
+  <Contact>leandro@ostera.io</Contact>
+  <Url type="application/rss+xml" 
+       template="http://ostera.io/tldr.jsx/#/{searchTerms}"/>
+</OpenSearchDescription>
