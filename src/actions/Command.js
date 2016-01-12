@@ -35,7 +35,7 @@ let requestOptions = () => {
     withCredentials: false
   };
 
-  let modifiedSince = hasModifiedSince();
+  let modifiedSince = false; // hasModifiedSince();
   if(modifiedSince) {
     opts.headers = {
       'If-Modified-Since': modifiedSince
