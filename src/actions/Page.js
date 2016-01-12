@@ -10,20 +10,24 @@ let get = (cmd) => {
     .timeout(1000, new Error('Timeout :( - Could not retrieve page') )
 }
 
+let requestPage = (cmd) => {
+  let url = buildUrl(cmd);
+  let opts = requestOptions({url});
+  return fetchPage(opts);
+}
 
 let buildUrl = (cmd) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
 
-let requestPage = (cmd) => {
-  return function *() {
-    let requestOptions = {
-      method: 'GET',
-      url: buildUrl(cmd),
-      withCredentials: false
-    };
-    let rawIndex = yield request(requestOptions);
-    let body = decode(rawIndex.data.content);
-    return body;
-  }
+let requestOptions = (opts) => {
+  return Object.assign({
+    method: 'GET',
+    withCredentials: false
+  }, opts);
+}
+
+let fetchPage = function *(opts) {
+  let {data: {content}} = yield request(opts);
+  return decode(content);
 }
 
 let Page = {
