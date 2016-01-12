@@ -4,13 +4,21 @@ import moment from 'moment';
 
 const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
 
+// in-memory storage
 let _commands;
 
 let search = (name) => {
   return getIndex()
-    .filter( cmd => cmd.name === name )
-    .last( { platform: ["client"], name: "not-found" } );
+    .filter( byName(name) )
+    .last( fallbackCommand()  );
 };
+
+let byName = (name) => {
+  return (cmd) => cmd.name === name
+}
+
+let fallbackCommand = () =>  ({ platform: ["client"],
+                                name: "not-found" })
 
 let requestIndex = function *() {
   let response = yield request(requestOptions());
@@ -51,7 +59,7 @@ let hasModifiedSince = () => {
 let getIndex = () => {
   return Rx.Observable.spawn(requestIndex)
     .tap(cache)
-    .flatMap(flatten)
+    .flatMap(toCommands)
     .catch(localIndex)
 };
 
@@ -63,7 +71,7 @@ let localIndex = (e) => {
   return Rx.Observable.fromArray(_commands);
 };
 
-let flatten = (res) => {
+let toCommands = (res) => {
   let hasData = typeof res.data === "object";
   if (hasData && res.data.commands) {
     return res.data.commands;
@@ -81,6 +89,7 @@ let cache = (response) => {
   }
 }
 
+// Public API
 let Command = {
   search,
   getIndex
