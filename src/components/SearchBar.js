@@ -29,17 +29,20 @@ export default React.createClass({
     return React.findDOMNode(this.refs.searchInput);
   },
 
+  cleanPath: (path) => (path[0] === "/" ? path.slice(1) : path),
+  notEnter: (e) => (e.keyCode !== ENTER_KEY_CODE),
+
   componentWillMount: function () {
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
-      .map( path => path[0] === "/" ? path.slice(1) : path )
+      .map( this.cleanPath )
       .subscribe( this.fill );
   },
 
   componentDidMount: function () {
     // Listen reactively to DOM key up events
     this.handlers.key = Rx.Observable.fromEvent(this.node(), 'keyup')
-      .filter( e => e.keyCode !== ENTER_KEY_CODE )
+      .filter( this.notEnter )
       .pluck("target", "value")
       .subscribe( this.navigate );
   },
@@ -54,9 +57,13 @@ export default React.createClass({
     return { query: '' };
   },
 
+  clearButton: function () {
+    if (this.state.query.length > 0) {
+      return <span className="icon-close" onClick={this.clear} />
+    }
+  },
+
   render: function () {
-    let clear = this.state.query.length > 0 ?
-      <span className="icon-close" onClick={this.clear} /> : '';
     return (
       <div id="search-bar">
         <span>&gt; tldr </span>
@@ -70,7 +77,7 @@ export default React.createClass({
           value={this.state.query}
           onChange={this.onChange}
         />
-        {clear}
+        {this.clearButton()}
         <GithubOctocat path="ostera/tldr.jsx"/>
       </div>
     );
