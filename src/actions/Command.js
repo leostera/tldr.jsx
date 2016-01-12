@@ -8,9 +8,7 @@ let _commands;
 
 let search = (name) => {
   return getIndex()
-    .filter( cmd => {
-      return cmd.name === name
-    })
+    .filter( cmd => cmd.name === name )
     .last( { platform: ["client"], name: "not-found" } );
 };
 
