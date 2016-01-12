@@ -2,7 +2,7 @@ import Rx from 'rx';
 import request from 'axios';
 import moment from 'moment';
 
-const INDEX_URL = "http://tldr-pages.github.io/assets/index.json";
+const INDEX_URL = "//tldr-pages.github.io/assets/index.json";
 
 // in-memory storage
 let _commands;
