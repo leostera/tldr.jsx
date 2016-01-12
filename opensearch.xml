@@ -4,6 +4,7 @@
   <Description>Search for commands</Description>
   <Tags>git add</Tags>
   <Contact>leandro@ostera.io</Contact>
-  <Url type="application/rss+xml" 
+  <Url type="text/html"
+       method="get"
        template="http://ostera.io/tldr.jsx/#/{searchTerms}"/>
 </OpenSearchDescription>
