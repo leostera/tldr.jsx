@@ -1,8 +1,9 @@
 import Rx from 'rx';
 import request from 'axios';
 import moment from 'moment';
+import { decode } from 'base-64';
 
-const INDEX_URL = "//tldr-pages.github.io/assets/index.json";
+const INDEX_URL = "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets/index.json";
 
 // in-memory storage
 let _commands;
@@ -21,10 +22,7 @@ let fallbackCommand = () =>  ({ platform: ["client"],
                                 name: "not-found" })
 
 let requestIndex = function *() {
-  let response = yield request(requestOptions());
-  if(response.status === 0) {
-    throw response;
-  }
+  let response =  yield request(requestOptions());
   return response;
 };
 
@@ -35,7 +33,7 @@ let requestOptions = () => {
     withCredentials: false
   };
 
-  let modifiedSince = false; // hasModifiedSince();
+  let modifiedSince = hasModifiedSince();
   if(modifiedSince) {
     opts.headers = {
       'If-Modified-Since': modifiedSince
@@ -72,19 +70,22 @@ let localIndex = (e) => {
 };
 
 let toCommands = (res) => {
-  let hasData = typeof res.data === "object";
-  if (hasData && res.data.commands) {
-    return res.data.commands;
+  let hasData = res.status === 200;
+  if (hasData) {
+    return parse(res.data.content).commands;
   } else {
-    return res;
+    throw new Error("Fallback to cache");
   }
 };
 
-let cache = (response) => {
-  if(response && response.headers && response.data ) {
-    let ifModifiedSince = response.headers["last-modified"];
+let parse = (raw) => JSON.parse(decode(raw));
+
+let cache = (res) => {
+  let shouldCache = res.status === 200;
+  if(shouldCache) {
+    let ifModifiedSince = res.headers["last-modified"];
     localStorage.setItem("tldr/index.expiry", ifModifiedSince);
-    let commands = JSON.stringify(response.data.commands);
+    let commands = JSON.stringify(parse(res.data.content).commands);
     localStorage.setItem("tldr/index", commands);
   }
 }
