@@ -3,14 +3,16 @@ A React-based web client for [tldr](https://github.com/tldr-pages/tldr). Try it 
 
 ![tldr.jsx](https://s3.amazonaws.com/ostera.io/tldr.jsx_screenshot.jpg)
 
+## Features
+
+* `Local cache`, allowing immediate access to a number of commands
+
 ## Roadmap
 
 As [tldr-pages](https://github.com/tldr-pages/tldr) advances, new features can be planned. Some are:
 
-* `Local cache`, allowing immediate access to a number of commands
 * `Autocompletion`, freeing you from remembering all those command names
-* `Search`, letting you search through all the pages and commands to find what you want
-* `Unique urls`, to easily share any `tldr-page`
+* `Search`, letting you search through all the pages and commands content to find what you want
 
 ## Collaboration Setup
 
