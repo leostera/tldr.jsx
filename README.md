@@ -3,9 +3,12 @@ A React-based web client for [tldr](https://github.com/tldr-pages/tldr). Try it 
 
 ![tldr.jsx](https://s3.amazonaws.com/ostera.io/tldr.jsx_screenshot.jpg)
 
-## Features
+## Featuring
 
-* `Local cache`, allowing immediate access to a number of commands
+* `Local cache`, allowing immediate access to a number of commands even when offline!
+* `Unique URIs`, to easily share any `tldr-page`!
+* `Mobile-first-ish`, to take with you anywhere!
+* `Fully Reactive`, embracing `ES6`, `RxJS`, and `React` for great win!
 
 ## Roadmap
 
