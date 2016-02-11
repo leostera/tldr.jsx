@@ -32,6 +32,7 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
+    "what": "echo",
     "start": "watchify -t [envify --NODE_ENV local] -o build/bundle.js -v -d src/app.js & sass -w ./styles:./build",
     "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.js; sass --update ./styles:./build",
     "test": "jest"

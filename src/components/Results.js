@@ -52,7 +52,10 @@ export default React.createClass({
   render: function () {
     let markup = marked(this.state.body);
     return (
-      <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
+      <section id="page-container">
+        <div id="suggestion"><a href=""> Edit this page on Github </a></div>
+        <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
+      </section>
     );
   },
 
