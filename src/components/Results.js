@@ -46,25 +46,32 @@ export default React.createClass({
   },
 
   getInitialState: function () {
-    return {body: ""};
+    return { body: "", path: "" };
   },
 
   render: function () {
     let markup = marked(this.state.body);
     return (
       <section id="page-container">
-        <div id="suggestion"><a href=""> Edit this page on Github </a></div>
         <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
+        <div id="suggestion">{this.edit()}</div>
       </section>
     );
   },
 
+  edit: function () {
+    let path = this.state.path.replace("blob", "edit");
+    if (path.length > 0) {
+      return (<a href={path}> Edit this page on Github </a>);
+    }
+  },
+
   welcomePage: function () {
-    this.display( " # Welcome " );
+    this.display({ body: " # Welcome " });
   },
 
   error: function (err) {
-    this.display( " # Command Not Found " );
+    this.display({ body: " # Command Not Found " });
   },
 
   search: function (cmd) {
@@ -79,8 +86,8 @@ export default React.createClass({
       .subscribe(this.display, this.error)
   },
 
-  display: function (page) {
-    this.setState({ body: page });
+  display: function (cmd) {
+    this.setState(cmd);
   }
 
 });

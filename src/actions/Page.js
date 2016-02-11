@@ -26,8 +26,11 @@ let requestOptions = (opts) => {
 }
 
 let fetchPage = function *(opts) {
-  let {data: {content}} = yield request(opts);
-  return decode(content);
+  let { data } = yield request(opts);
+  return {
+    path: data.html_url,
+    body: decode(data.content)
+  };
 }
 
 let Page = {
