@@ -67,11 +67,11 @@ export default React.createClass({
   },
 
   welcomePage: function () {
-    this.display({ body: " # Welcome " });
+    this.display({ body: " # Welcome ", path: "" });
   },
 
   error: function (err) {
-    this.display({ body: " # Command Not Found " });
+    this.display({ body: " # Command Not Found ", path: "" });
   },
 
   search: function (cmd) {
