@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import TldrApp from './components/TldrApp';
+import TldrApp from './components/TldrApp'
 
 React.render( (
   <TldrApp />
-), document.getElementById('tldr'));
+), document.getElementById('tldr'))

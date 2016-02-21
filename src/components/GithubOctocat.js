@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
 export default React.createClass({
 
   render: function () {
-    let id = this.props.id || "";
-    let href = "https://github.com/"+this.props.path;
-    let title = this.props.title || this.props.path+" on Github";
-    let width = this.props.width || "2em";
-    let height = this.props.height || "2em";
-    let viewbox = this.props.viewbox || "0 0 512 512";
-    let className = this.props.className || "github-corner";
+    let id = this.props.id || ""
+    let href = "https://github.com/"+this.props.path
+    let title = this.props.title || this.props.path+" on Github"
+    let width = this.props.width || "2em"
+    let height = this.props.height || "2em"
+    let viewbox = this.props.viewbox || "0 0 512 512"
+    let className = this.props.className || "github-corner"
     return (
       <div>
         <a
@@ -26,7 +26,7 @@ export default React.createClass({
           </svg>
         </a>
       </div>
-    );
+    )
   },
 
-});
+})

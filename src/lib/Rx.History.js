@@ -1,9 +1,9 @@
-import Rx from 'rx';
+import Rx from 'rx'
 
 export default function fromHistory (history) {
-  let unlisten;
+  let unlisten
   let listen = handler =>
-    unlisten = history.listen(handler);
+    unlisten = history.listen(handler)
 
-  return Rx.Observable.fromEventPattern(listen, unlisten);
-};
+  return Rx.Observable.fromEventPattern(listen, unlisten)
+}

@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
-import Rx from 'rx';
-import fromHistory from '../lib/Rx.History.js';
-Rx.Observable.fromHistory = fromHistory;
+import Rx from 'rx'
+import fromHistory from '../lib/Rx.History.js'
+Rx.Observable.fromHistory = fromHistory
 
 // External Dependencies
-import marked from 'marked';
+import marked from 'marked'
 
 marked.setOptions({
   gfm: true
-});
+})
 
 // Actions
-import { Page } from '../actions/Page';
-import { Command } from '../actions/Command';
+import { Page } from '../actions/Page'
+import { Command } from '../actions/Command'
 
 export default React.createClass({
   handlers: {},
@@ -24,7 +24,7 @@ export default React.createClass({
     if (path[0] === "/") {
       path = path.slice(1)
     }
-    return path.trim().replace(' ','-');
+    return path.trim().replace(' ','-')
   },
 
   componentWillMount: function () {
@@ -35,49 +35,49 @@ export default React.createClass({
       .filter( path => path.length > 0 )
       .distinctUntilChanged()
       .debounce( this.debounceTime )
-      .subscribe( this.search );
+      .subscribe( this.search )
 
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
       .map( this.cleanUpPath )
       .filter( path => path.length === 0 )
       .distinctUntilChanged()
-      .subscribe( this.welcomePage );
+      .subscribe( this.welcomePage )
   },
 
   getInitialState: function () {
-    return { body: "", path: "" };
+    return { body: "", path: "" }
   },
 
   render: function () {
-    let markup = marked(this.state.body);
+    let markup = marked(this.state.body)
     return (
       <section id="page-container">
         <div id="page" dangerouslySetInnerHTML={{__html: markup }} />
         <div id="suggestion">{this.edit()}</div>
       </section>
-    );
+    )
   },
 
   edit: function () {
-    let path = this.state.path.replace("blob", "edit");
+    let path = this.state.path.replace("blob", "edit")
     if (path.length > 0) {
-      return (<a href={path}> Edit this page on Github </a>);
+      return (<a href={path}> Edit this page on Github </a>)
     }
   },
 
   welcomePage: function () {
-    this.display({ body: " # Welcome ", path: "" });
+    this.display({ body: " # Welcome ", path: "" })
   },
 
   error: function (err) {
-    this.display({ body: " # Command Not Found ", path: "" });
+    this.display({ body: " # Command Not Found ", path: "" })
   },
 
   search: function (cmd) {
     Command
       .search(cmd)
-      .subscribe(this.fetch, this.error);
+      .subscribe(this.fetch, this.error)
   },
 
   fetch: function (cmd) {
@@ -87,7 +87,7 @@ export default React.createClass({
   },
 
   display: function (cmd) {
-    this.setState(cmd);
+    this.setState(cmd)
   }
 
-});
+})

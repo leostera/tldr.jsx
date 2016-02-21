@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
-import Rx from 'rx';
-import fromHistory from '../lib/Rx.History.js';
-Rx.Observable.fromHistory = fromHistory;
+import Rx from 'rx'
+import fromHistory from '../lib/Rx.History.js'
+Rx.Observable.fromHistory = fromHistory
 
-import assign from 'object-assign';
+import assign from 'object-assign'
 
 // Other Components
-import GithubOctocat from './GithubOctocat';
+import GithubOctocat from './GithubOctocat'
 
-import { Command } from '../actions/Command';
-import { Page } from '../actions/Page';
+import { Command } from '../actions/Command'
+import { Page } from '../actions/Page'
 
-const ENTER_KEY_CODE = 13;
+const ENTER_KEY_CODE = 13
 
 export default React.createClass({
   handlers: {},
@@ -26,7 +26,7 @@ export default React.createClass({
     //
     // this.nodes should be populated as soon as the component
     // is mounted
-    return React.findDOMNode(this.refs.searchInput);
+    return React.findDOMNode(this.refs.searchInput)
   },
 
   cleanPath: (path) => (path[0] === "/" ? path.slice(1) : path),
@@ -36,7 +36,7 @@ export default React.createClass({
     this.handlers.history = Rx.Observable.fromHistory(this.props.history)
       .pluck("pathname")
       .map( this.cleanPath )
-      .subscribe( this.fill );
+      .subscribe( this.fill )
   },
 
   componentDidMount: function () {
@@ -44,17 +44,17 @@ export default React.createClass({
     this.handlers.key = Rx.Observable.fromEvent(this.node(), 'keyup')
       .filter( this.notEnter )
       .pluck("target", "value")
-      .subscribe( this.navigate );
+      .subscribe( this.navigate )
   },
 
   componentWillUnmount: function () {
     // unsubscribe all handlers
     // Abstract this pattern into a mixin
-    this.handlers.keys( key => key() );
+    this.handlers.keys( key => key() )
   },
 
   getInitialState: function () {
-    return { query: '' };
+    return { query: '' }
   },
 
   clearButton: function () {
@@ -66,7 +66,7 @@ export default React.createClass({
   render: function () {
     return (
       <div id="search-bar">
-        <span>&gt; tldr </span>
+        <span>&gt tldr </span>
         <input
           autoComplete="off"
           autofocus="true"
@@ -80,23 +80,23 @@ export default React.createClass({
         {this.clearButton()}
         <GithubOctocat path="ostera/tldr.jsx"/>
       </div>
-    );
+    )
   },
 
   onChange: function (e) {
-    this.fill(e.target.value);
+    this.fill(e.target.value)
   },
 
   clear: function () {
-    this.navigate("");
+    this.navigate("")
   },
 
   fill: function (query) {
-    this.setState( { query: query } );
+    this.setState( { query: query } )
   },
 
   navigate: function (query) {
-    this.props.history.replace(query);
+    this.props.history.replace(query)
   },
 
-});
+})
