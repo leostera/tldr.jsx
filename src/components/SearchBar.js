@@ -96,7 +96,10 @@ export default React.createClass({
   },
 
   navigate: function (query) {
-    this.props.history.replace(query)
+    this.props.history.replace({
+      pathname: query,
+      search: location.search
+    })
   },
 
 })
