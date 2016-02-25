@@ -2,7 +2,13 @@ import Rx from 'rx'
 import request from 'axios'
 import { decode } from 'base-64'
 
-const BASE_URL = "https://api.github.com/repos/tldr-pages/tldr/contents/pages"
+import { parse } from 'query-string'
+
+let repo = "tldr-pages/tldr"
+let query = parse(location.search)
+if (query.repo)
+  repo = query.repo
+const BASE_URL = `https://api.github.com/repos/${repo}/contents/pages`
 
 let get = (cmd) => {
   return Rx.Observable
