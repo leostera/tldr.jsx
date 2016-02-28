@@ -5,10 +5,16 @@ import { decode } from 'base-64'
 import { parse } from 'query-string'
 
 let repo = "tldr-pages/tldr"
+let branch = "master"
 let query = parse(location.search)
+
 if (query.repo)
   repo = query.repo
 const BASE_URL = `https://api.github.com/repos/${repo}/contents/pages`
+
+if (query.branch)
+  branch = query.branch
+const BASE_BRANCH = `ref=${branch}`
 
 let get = (cmd) => {
   return Rx.Observable
@@ -22,7 +28,8 @@ let requestPage = (cmd) => {
   return fetchPage(opts)
 }
 
-let buildUrl = (cmd) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
+let buildUrl = (cmd) => [toPath(cmd), BASE_BRANCH].join('?')
+let toPath   = (cmd) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
 
 let requestOptions = (opts) => {
   return Object.assign({
