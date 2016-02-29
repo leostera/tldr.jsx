@@ -2,6 +2,7 @@ import Rx from 'rx'
 import request from 'axios'
 import moment from 'moment'
 import { decode } from 'base-64'
+import QS from 'query-string'
 
 const INDEX_URL = "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets/index.json"
 
@@ -9,17 +10,23 @@ const INDEX_URL = "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/
 let _commands
 
 let search = (name) => {
-  return getIndex()
-    .filter( byName(name) )
-    .last( fallbackCommand()  )
+  let { platform } = QS.parse(location.search)
+  if (platform)  {
+    let command = buildCommand(name, [platform])
+    return Rx.Observable.fromArray([command])
+  } else {
+    return getIndex()
+      .filter( byName(name) )
+      .last( fallbackCommand()  )
+  }
 }
 
 let byName = (name) => {
   return (cmd) => cmd.name === name
 }
 
-let fallbackCommand = () =>  ({ platform: ["client"],
-                                name: "not-found" })
+let buildCommand    = (name, platforms) =>  ({ platform: platforms, name })
+let fallbackCommand = () =>  buildCommand("not-found", ["client"])
 
 let requestIndex = function *() {
   let response =  yield request(requestOptions())
