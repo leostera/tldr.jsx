@@ -1,3 +1,5 @@
+//@flow
+
 import Rx from 'rx'
 import request from 'axios'
 import { decode } from 'base-64'

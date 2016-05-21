@@ -1,3 +1,5 @@
+//@flow
+
 import Rx from 'rx'
 
 export default function fromHistory (history) {

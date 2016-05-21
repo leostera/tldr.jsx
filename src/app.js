@@ -1,3 +1,5 @@
+//@flow
+
 import React from 'react'
 
 import TldrApp from './components/TldrApp'
