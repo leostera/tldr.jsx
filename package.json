@@ -12,32 +12,28 @@
   "main": "src/app.js",
   "dependencies": {
     "axios": "^0.8.1",
-    "babel-runtime": "^5.8.20",
+    "babel-runtime": "^6.9.0",
     "base-64": "^0.1.0",
     "history": "^1.17.0",
-    "immutable": "^3.7.6",
+    "immutable": "^3.8.1",
     "marked": "^0.3.5",
-    "moment": "^2.11.0",
+    "moment": "^2.13.0",
     "object-assign": "^3.0.0",
-    "query-string": "^3.0.0",
+    "query-string": "^3.0.3",
     "react": "^0.13.3",
-    "rx": "^4.0.7"
+    "rx": "^4.1.0"
   },
   "devDependencies": {
-    "babelify": "^6.1.3",
-    "browserify": "^6.2.0",
-    "envify": "^3.0.0",
-    "jest-cli": "^0.4.19",
-    "reactify": "^0.15.2",
-    "uglify-js": "~2.4.15",
-    "watchify": "^2.1.1"
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "envify": "^3.4.0",
+    "flow-bin": "^0.25.0",
+    "jest-cli": "^12.1.0",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.6.2"
   },
-  "scripts": {
-    "what": "echo",
-    "start": "watchify -t [envify --NODE_ENV local] -o build/bundle.js -v -d src/app.js & sass -w ./styles:./build",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > build/bundle.js; sass --update ./styles:./build",
-    "test": "jest"
-  },
+  "scripts": {},
   "browserify": {
     "transform": [
       [
