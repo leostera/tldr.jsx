@@ -1,18 +1,21 @@
 //@flow
 
-import { Observable } from 'rxjs/observable'
-import 'rxjs/add/observable/fromEventPattern'
+import type { Observable } from 'rxjs/observable'
+import { fromEventPattern } from 'rxjs/observable/fromEventPattern'
+import 'rxjs/add/operator/startWith'
 
-declare class History {
-  listen: Function
+declare type History = {
+  listen: Function;
+  getCurrentLocation: Function;
 }
 
-const history = (history: History): Observable => {
+export default (history: History): Observable => {
   let unlisten
   let listen = (handler: Function): any =>
     unlisten = history.listen(handler)
 
-  return Observable.fromEventPattern(listen, unlisten)
-}
+  let currentLocation = history.getCurrentLocation()
 
-Observable.history = history
+  return fromEventPattern(listen, unlisten)
+    .startWith(currentLocation)
+}

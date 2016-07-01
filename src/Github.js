@@ -1,80 +1,50 @@
 //@flow
 
+/*******************************************************************************
+ * Imports
+ *******************************************************************************/
+
 import { Observable } from 'rxjs/observable'
+import type { AjaxObservable } from 'rxjs/observable/dom/ajax'
 
-import request from 'axios'
-import { decode } from 'base-64'
+/*******************************************************************************
+ * Type Definitions
+ *******************************************************************************/
 
-type Repository = {
-  organization: string;
-  name: string;
-}
+type Repository = string
 
 type Branch = 'master' | string
 
-type Options = {
+export type Options = {
   repository: Repository;
-  branch:     Branch;
+  branch?: string;
 }
 
-type Github = {
-  get(): Function;
+export type Github = {
+  get(opts: Get): AjaxObservable
 }
 
-
-type Get = {
-  path: string,
-  branch: string
+export type Get = {
+  path: string;
+  branch?: string;
 }
 
-type Method = 'GET' | 'POST' | 'PUT' | 'UPDATE'
-type URL = string
-
-type RequestOptions = {
-  method?: RequestMethod,
-  withCredentials?: boolean,
-  url?: URL
-}
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
 
 export default (opts: Options): Github => {
-  let { repository, branch } = opts
+  let { repository } = opts
 
-  const buildUrl = ({path, branch}: Get): string => {
-    return `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`
-  }
+  const buildUrl = ({path, branch}: Get): string => (
+    `https://api.github.com/repos/${repository}/contents/${path}?ref=${branch}`
+  )
 
-  let get = ({path, branch}: Get): Response => {
+  let get = (opts: Get): AjaxObservable => {
     return Observable
-      .spawn(requestPage(path))
-      .timeout(1000, new Error('Timeout :( - Could not retrieve page') )
+      .ajax({ url: buildUrl(opts) })
+      .timeout(1000, new Error('Timeout :(') )
   }
 
-  let requestPage = (cmd: Command): Generator => {
-    let url = buildUrl(cmd)
-    let opts: RequestOptions = requestOptions({url})
-    return fetchPage(opts)
-  }
-
-  let buildUrl = (cmd: Command) => [toPath(cmd), BASE_BRANCH].join('?')
-  let toPath   = (cmd: Command) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
-
-  const requestDefaults = (): RequestOptions => ({
-    method: 'GET',
-    withCredentials: false
-  })
-
-  let requestOptions = (opts: RequestOptions): RequestOptions => {
-    return Object.assign(requestDefaults, opts)
-  }
-
-  let fetchPage = function *(opts): Generator {
-    let response = yield request(opts) || false
-    if(response) {
-      return {
-        path: response.data.html_url,
-        body: decode(response.data.content)
-      }
-    }
-  }
-
+  return { get: get }
 }
