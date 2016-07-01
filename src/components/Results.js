@@ -22,7 +22,7 @@ export default React.createClass({
 
   debounceTime: 250, //ms
 
-  cleanUpPath:  path => {
+  cleanUpPath: (path :string) => {
     if (path[0] === "/") {
       path = path.slice(1)
     }
@@ -76,7 +76,7 @@ export default React.createClass({
     this.display({ body: " # Command Not Found ", path: "" })
   },
 
-  search: function (cmd) {
+  search: function (cmd :string) {
     Command
       .search(cmd)
       .subscribe(this.fetch, this.error)

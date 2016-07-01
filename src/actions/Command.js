@@ -11,7 +11,7 @@ const INDEX_URL = "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/
 // in-memory storage
 let _commands
 
-let search = (name) => {
+let search = (name:string) => {
   let { platform } = QS.parse(location.search)
   if (platform)  {
     let command = buildCommand(name, [platform])
@@ -23,11 +23,11 @@ let search = (name) => {
   }
 }
 
-let byName = (name) => {
+let byName = (name:string) => {
   return (cmd) => cmd.name === name
 }
 
-let buildCommand    = (name, platforms) =>  ({ platform: platforms, name })
+let buildCommand    = (name:string, platforms:array) =>  ({ platform: platforms, name })
 let fallbackCommand = () =>  buildCommand("not-found", ["client"])
 
 let requestIndex = function *() {
@@ -87,7 +87,7 @@ let toCommands = (res) => {
   }
 }
 
-let parse = (raw) => JSON.parse(decode(raw))
+let parse = (raw:string) => JSON.parse(decode(raw))
 
 let cache = (res) => {
   let shouldCache = res.status === 200

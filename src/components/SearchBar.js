@@ -31,7 +31,7 @@ export default React.createClass({
     return React.findDOMNode(this.refs.searchInput)
   },
 
-  cleanPath: (path) => (path[0] === "/" ? path.slice(1) : path),
+  cleanPath: (path:string) => (path[0] === "/" ? path.slice(1) : path),
   notEnter: (e) => (e.keyCode !== ENTER_KEY_CODE),
 
   componentWillMount: function () {
@@ -93,11 +93,11 @@ export default React.createClass({
     this.navigate("")
   },
 
-  fill: function (query) {
+  fill: function (query: string) {
     this.setState( { query: query } )
   },
 
-  navigate: function (query) {
+  navigate: function (query: string) {
     this.props.history.replace({
       pathname: query,
       search: location.search

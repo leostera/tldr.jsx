@@ -49,7 +49,7 @@ let fetchPage = function *(opts) {
 }
 
 let Page = {
-  get
+  get: get
 }
 
 export { Page }
