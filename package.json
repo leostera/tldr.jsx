@@ -6,32 +6,39 @@
   "bugs": {
     "url": "https://github.com/ostera/tldr.jsx/issues"
   },
-  "homepage": "https://github.com/ostera/tldr.jsx",
+  "homepage": "http://ostera.io/tldr.jsx",
   "license": "MIT",
-  "version": "2.1.0",
+  "version": "2.0.0",
   "main": "src/app.js",
   "dependencies": {
-    "axios": "^0.8.1",
-    "babel-runtime": "^6.9.0",
+    "axios": "^0.12.0",
+    "babel-runtime": "^6.9.2",
     "base-64": "^0.1.0",
-    "history": "^1.17.0",
+    "history": "^3.0.0",
     "immutable": "^3.8.1",
     "marked": "^0.3.5",
     "moment": "^2.13.0",
-    "object-assign": "^3.0.0",
-    "query-string": "^3.0.3",
-    "react": "^0.13.3",
-    "rx": "^4.1.0"
+    "query-string": "^4.2.2",
+    "react": "^15.1.0",
+    "rxjs": "^5.0.0-beta.9"
   },
   "devDependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-function-bind": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babel-preset-stage-3": "^6.5.0",
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
-    "envify": "^3.4.0",
+    "envify": "^3.4.1",
     "flow-bin": "^0.25.0",
-    "jest-cli": "^12.1.0",
+    "jest-cli": "^13.0.0",
+    "react-dom": "^15.1.0",
     "reactify": "^1.1.1",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.4"
   },
   "scripts": {},
   "browserify": {
@@ -39,9 +46,7 @@
       [
         "babelify",
         {
-          "optional": [
-            "runtime"
-          ]
+          "sourceMap": true
         }
       ],
       "reactify",

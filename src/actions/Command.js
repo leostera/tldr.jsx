@@ -1,6 +1,7 @@
 //@flow
 
-import Rx from 'rx'
+import { Observable } from 'rxjs/observable'
+
 import request from 'axios'
 import moment from 'moment'
 import { decode } from 'base-64'
@@ -15,7 +16,7 @@ let search = (name:string) => {
   let { platform } = QS.parse(location.search)
   if (platform)  {
     let command = buildCommand(name, [platform])
-    return Rx.Observable.fromArray([command])
+    return Observable.fromArray([command])
   } else {
     return getIndex()
       .filter( byName(name) )
@@ -27,7 +28,7 @@ let byName = (name:string) => {
   return (cmd) => cmd.name === name
 }
 
-let buildCommand    = (name:string, platforms:array) =>  ({ platform: platforms, name })
+let buildCommand    = (name:string, platforms) =>  ({ platform: platforms, name })
 let fallbackCommand = () =>  buildCommand("not-found", ["client"])
 
 let requestIndex = function *() {
@@ -39,7 +40,8 @@ let requestOptions = () => {
   let opts = {
     method: 'GET',
     url: INDEX_URL,
-    withCredentials: false
+    withCredentials: false,
+    headers: {}
   }
 
   let modifiedSince = hasModifiedSince()
@@ -64,7 +66,7 @@ let hasModifiedSince = () => {
 }
 
 let getIndex = () => {
-  return Rx.Observable.spawn(requestIndex)
+  return Observable.spawn(requestIndex)
     .tap(cache)
     .flatMap(toCommands)
     .catch(localIndex)
@@ -73,9 +75,11 @@ let getIndex = () => {
 let localIndex = (e) => {
   if( ! _commands ) {
     let raw = localStorage.getItem('tldr/index')
-    _commands = JSON.parse(raw)
+    if (raw !== null && raw !== undefined) {
+      _commands = JSON.parse(raw)
+    }
   }
-  return Rx.Observable.fromArray(_commands)
+  return Observable.fromArray(_commands)
 }
 
 let toCommands = (res) => {

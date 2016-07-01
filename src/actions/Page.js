@@ -1,6 +1,10 @@
 //@flow
 
-import Rx from 'rx'
+
+import type { Page, Command } from '../app'
+
+import { Observable } from 'rxjs/observable'
+
 import request from 'axios'
 import { decode } from 'base-64'
 
@@ -18,38 +22,47 @@ if (query.branch)
   branch = query.branch
 const BASE_BRANCH = `ref=${branch}`
 
-let get = (cmd) => {
-  return Rx.Observable
+let fetch = (cmd: Command): Page => {
+  return Observable
     .spawn(requestPage(cmd))
     .timeout(1000, new Error('Timeout :( - Could not retrieve page') )
 }
 
-let requestPage = (cmd) => {
+let requestPage = (cmd: Command): Generator => {
   let url = buildUrl(cmd)
-  let opts = requestOptions({url})
+  let opts: RequestOptions = requestOptions({url})
   return fetchPage(opts)
 }
 
-let buildUrl = (cmd) => [toPath(cmd), BASE_BRANCH].join('?')
-let toPath   = (cmd) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
+let buildUrl = (cmd: Command) => [toPath(cmd), BASE_BRANCH].join('?')
+let toPath   = (cmd: Command) => [BASE_URL, cmd.platform[0], cmd.name+'.md'].join('/')
 
-let requestOptions = (opts) => {
-  return Object.assign({
-    method: 'GET',
-    withCredentials: false
-  }, opts)
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'UPDATE'
+type URL = string
+
+type RequestOptions = {
+  method?: RequestMethod,
+  withCredentials?: boolean,
+  url?: URL
 }
 
-let fetchPage = function *(opts) {
-  let { data } = yield request(opts)
-  return {
-    path: data.html_url,
-    body: decode(data.content)
+const requestDefaults = (): RequestOptions => ({
+  method: 'GET',
+  withCredentials: false
+})
+
+let requestOptions = (opts: RequestOptions): RequestOptions => {
+  return Object.assign(requestDefaults, opts)
+}
+
+let fetchPage = function *(opts): Generator {
+  let response = yield request(opts) || false
+  if(response) {
+    return {
+      path: response.data.html_url,
+      body: decode(response.data.content)
+    }
   }
 }
 
-let Page = {
-  get: get
-}
-
-export { Page }
+export default { fetch }

@@ -1,3 +1,5 @@
 {
-  "plugins": ["transform-flow-strip-types"]
+  "plugins": ["transform-flow-strip-types", "transform-function-bind"],
+  "presets": ["es2015", "react", "stage-0", "stage-1", "stage-2", "stage-3"],
+  "sourceMaps": "both"
 }
