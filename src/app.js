@@ -1,12 +1,5 @@
 //@flow
 
-/*
- * Things to strive for as a programmer:
- * 1. Unreadability -> Readability
- * 2. Statefulness -> Referential Transparecy
- * 3. Baroqueness -> Simplicity
- */
-
 /*******************************************************************************
  * Utils!
  *******************************************************************************/
@@ -59,7 +52,6 @@ import 'rxjs/add/observable/from'
 import 'rxjs/add/operator/debounce'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
-
 
 import { createHistory } from 'history'
 import './observable.history'
