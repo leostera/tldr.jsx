@@ -6,6 +6,9 @@
 
 import { Observable } from 'rxjs/observable'
 import type { AjaxObservable } from 'rxjs/observable/dom/ajax'
+import { ajax } from 'rxjs/observable/dom/ajax'
+Observable.ajax = ajax
+import 'rxjs/add/operator/timeout'
 
 /*******************************************************************************
  * Type Definitions

@@ -9,9 +9,9 @@ import { Observable } from 'rxjs/observable'
 import { decode } from 'base-64'
 
 import Github from './Github'
-import type  { Options } from './Github'
+import type { Options } from './Github'
 
-import type  { Command } from './Index'
+import type { Command } from './Command'
 
 /*******************************************************************************
  * Type Definitions
@@ -42,7 +42,7 @@ export default (opts: Options): PageModule => {
 
   let get = ({name, platform}: Command): Page => {
     return Repo.get({
-        path: `/${platform}/${name}.md`,
+        path: `pages/${platform}/${name}.md`,
         branch: branch
       })
       .filter(byStatus(200))
