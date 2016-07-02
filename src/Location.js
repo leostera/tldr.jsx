@@ -33,7 +33,8 @@ let toCommand = (location: Location): Command => {
 let toIndex = (location: Location): Options => {
   return Object.assign({
       branch: 'master',
-      repository: 'tldr-pages/tldr-pages.github.io'
+      repository: 'tldr-pages/tldr-pages.github.io',
+      timeout: 5000
     }, parse(location.search))
 }
 
