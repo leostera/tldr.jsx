@@ -27,10 +27,19 @@ const next  = console.log.bind(console,"NEXT")
 const error = console.log.bind(console,"ERROR")
 const done  = console.log.bind(console,"DONE")
 
+let ga = window.ga
+const track = (location) => {
+  if ( ga && typeof ga === 'function' ) {
+    ga('set', 'page', location.pathname);
+    ga('send', 'pageview');
+  }
+}
+
 let State = Observable
   .from(history)
   .debounceTime(300)
   .distinctUntilChanged()
+  .do(track)
   .map( (location) => ({
     history: __history,
     index: Location.toIndex(location),
