@@ -5,7 +5,7 @@
  *******************************************************************************/
 
 import { Observable } from 'rxjs/observable'
-import type { AjaxObservable } from 'rxjs/observable/dom/ajax'
+import type { AjaxObservable, AjaxRequest } from 'rxjs/observable/dom/ajax'
 import { ajax } from 'rxjs/observable/dom/ajax'
 Observable.ajax = ajax
 import 'rxjs/add/operator/timeout'
@@ -42,13 +42,20 @@ export type Get = {
 export default (opts: Options): Github => {
   let { repository, timeout } = opts
 
-  const buildUrl = ({path, branch}: Get): string => (
+  let buildUrl = ({path, branch}: Get): string => (
     `https://api.github.com/repos/${repository}/contents/${path}?ref=${branch}`
   )
 
+  const requestDefaults: AjaxRequest = {
+    method: 'GET',
+    withCredentials: false
+  }
+
+  let defaults = (overrides: AjaxRequest): AjaxRequest => Object.assign(requestDefaults, overrides)
+
   let get = (opts: Get): AjaxObservable => {
     return Observable
-      .ajax({ url: buildUrl(opts) })
+      .ajax(defaults({ url: buildUrl(opts) }))
       .timeout(timeout, new Error("Timeout :("))
   }
 

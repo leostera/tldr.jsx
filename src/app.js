@@ -22,17 +22,37 @@ const next = log.bind("NEXT")
 const error = log.bind("ERROR")
 const done = log.bind("DONE")
 
+import { decode } from 'base-64'
+import 'rxjs/add/observable/dom/ajax'
+
+//Observable
+//  .ajax({
+//    method: 'GET',
+//    withCredentials: false,
+//    url: `https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets/index.json?ref=master`
+//  })
+//  .timeout(5000, new Error("Timeout :("))
+//  .filter( res => res.status === 200 )
+//  .pluck('response')
+//  .pluck('content')
+//  .map(decode)
+//  .map(JSON.parse)
+//  .mergeMap( index => index.commands )
+//  .filter( cmd => cmd.name === "vim" )
+//  .defaultIfEmpty(false)
+//  .subscribe(next, error, done)
+
 let State = Observable
   .from(history)
   .distinctUntilChanged()
-  .map( (location) => Object.assign(
-    {},
-    {index: Location.toIndex(location)},
-    {command: Location.toCommand(location)}
-  ))
+  .map( (location) => ({
+    index: Location.toIndex(location),
+    command: Location.toCommand(location)
+  }))
   .mergeMap( state => Index(state.index).search(state.command.name)
           , (state, found) => ({state, found}))
 
+// Subscribe to commands found and fetch them
 Observable.from(State)
   .filter( ({state, found}) => found )
   .mergeMap( ({state, found}) =>
@@ -44,10 +64,7 @@ Observable.from(State)
  )
   .subscribe(next, error, done)
 
+// Subscribe to commands not being found
 Observable.from(State)
   .filter( ({state, found}) => !found )
   .subscribe(next, error, done)
-
-Observable.from(State)
-  .filter( ({state, found}) => !found )
-  .subscribe(log)
