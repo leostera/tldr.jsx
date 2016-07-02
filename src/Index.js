@@ -5,6 +5,7 @@
  *******************************************************************************/
 
 import { Observable } from 'rxjs/observable'
+import { from } from 'rxjs/observable/from'
 import 'rxjs/add/operator/defaultIfEmpty'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/pluck'
@@ -23,8 +24,14 @@ import type { Command } from './Command'
 export type Index = Array<Command>
 
 export type IndexModule = {
-  search(name: string): Observable | false;
+  search(cmd: Command): Observable | false;
 }
+
+/*******************************************************************************
+ * Private 
+ *******************************************************************************/
+
+let _cache: Index = []
 
 /*******************************************************************************
  * Public API
@@ -37,25 +44,35 @@ export default (opts: Options): IndexModule => {
     repository: repository
   })
 
-  let search = (name: string): Observable => {
+  let search = ({name, platform}: Command): Observable => {
     return getIndex()
       .filter( byName(name) )
+      .filter( byPlatform(platform) )
+      .do(console.log.bind(console, "Search"))
       .defaultIfEmpty(false)
   }
 
+  let saveCache = ({commands}) => _cache = commands
+
   let getIndex = () => {
-    return Repo.get({
-        path: "assets/index.json",
-        branch: branch
-      })
-      .filter(byStatus(200))
-      .pluck('response')
-      .pluck('content')
-      .map(decode)
-      .map(JSON.parse)
-      .mergeMap( index => index.commands )
+    if (_cache.length > 0) {
+      return from(_cache)
+    } else {
+      return Repo.get({
+          path: "assets/index.json",
+          branch: branch
+        })
+        .filter(byStatus(200))
+        .pluck('response')
+        .pluck('content')
+        .map(decode)
+        .map(JSON.parse)
+        .do(saveCache)
+        .mergeMap( index => index.commands )
+    }
   }
 
+  let byPlatform = (os: string): Function => cmd => cmd.platform.indexOf(os) !== -1
   let byName = (name: string): Function => cmd => cmd.name === name
   let byStatus = (status: number): Function => res => res.status === status
 

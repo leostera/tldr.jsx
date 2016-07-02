@@ -30,8 +30,9 @@ const NotFound = (props) => (
 const TldrApp = (props) => (
   <section>
     <Nav {...props.state} />
-    { props.found && <TldrPage {...props.page} /> }
     { !props.found && <NotFound {...props} /> }
+    { props.found && !props.page.error && <TldrPage {...props.page} /> }
+    { props.found && props.page.error && <NotFound {...props} /> }
     <Debug {...props} />
   </section>
 )

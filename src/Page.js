@@ -5,6 +5,8 @@
  *******************************************************************************/
 
 import { Observable } from 'rxjs/observable'
+import { from } from 'rxjs/observable/from'
+import { concat } from 'rxjs/operator/concat'
 
 import { decode } from 'base-64'
 
@@ -41,22 +43,38 @@ export default (opts: Options): PageModule => {
   })
 
   let get = ({name, platform}: Command): Page => {
-    return Repo.get({
+    let page =  Repo.get({
         path: `pages/${platform}/${name}.md`,
         branch: branch
       })
+
+    let found = from(page)
       .filter(byStatus(200))
       .pluck('response')
       .map(toPage)
+
+    let error = from(page)
+      .filter(not(byStatus(200)))
+      .map(toError)
+
+    return concat.apply(found, [error])
   }
 
-  let byStatus = (status: number): Function => res => res.status === status
+  let not = (f: Function): Function => res => ! f(res)
+  let byStatus = (...statuses): Function =>
+    res => statuses.indexOf(res.status) !== -1
 
-  let toPage = (data) => {
-    let path = data.html_url
-    let body = decode(data.content)
-    return { path, body }
-  }
+  let toError = (data) => ({
+    error: {
+      message: data.message,
+      status:  data.status
+    }
+  })
+
+  let toPage = (data) => ({
+    path: data.html_url,
+    body: decode(data.content)
+  })
 
   return { get: get }
 }

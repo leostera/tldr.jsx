@@ -4,11 +4,17 @@
  * Imports
  *******************************************************************************/
 
+import { encode } from 'base-64'
+
 import { Observable } from 'rxjs/observable'
+
 import type { AjaxObservable, AjaxRequest } from 'rxjs/observable/dom/ajax'
+
+import { of as staticOf } from 'rxjs/observable/of'
+Observable.of = staticOf
+
 import { ajax } from 'rxjs/observable/dom/ajax'
-Observable.ajax = ajax
-import 'rxjs/add/operator/timeout'
+import 'rxjs/add/operator/catch'
 
 /*******************************************************************************
  * Type Definitions
@@ -35,6 +41,9 @@ export type Get = {
   branch?: string;
 }
 
+
+let _lastModified = false
+
 /*******************************************************************************
  * Public API
  *******************************************************************************/
@@ -46,17 +55,23 @@ export default (opts: Options): Github => {
     `https://api.github.com/repos/${repository}/contents/${path}?ref=${branch}`
   )
 
-  const requestDefaults: AjaxRequest = {
+  let requestDefaults = (): AjaxRequest => ({
     method: 'GET',
-    withCredentials: false
-  }
+    withCredentials: false,
+    timeout: 10000,
+    headers: {
+    }
+  })
 
-  let defaults = (overrides: AjaxRequest): AjaxRequest => Object.assign(requestDefaults, overrides)
+  let defaults = (overrides: AjaxRequest): AjaxRequest => Object.assign(requestDefaults(), overrides)
+
+  let saveLastModified = res => _lastModified = res.xhr.getResponseHeader('last-modified')
 
   let get = (opts: Get): AjaxObservable => {
-    return Observable
-      .ajax(defaults({ url: buildUrl(opts) }))
-      .timeout(timeout, new Error("Timeout :("))
+
+    return ajax(defaults({ url: buildUrl(opts) }))
+        .do(saveLastModified)
+        .catch( (exception) => Observable.of(exception) )
   }
 
   return { get: get }
