@@ -22,21 +22,23 @@ nav
   border-bottom: 1px solid $outline
 
   a.brand
-    margin-left: 60px
     margin-top: 16px
+    +adaptive("margin-left", 10px, 60px, 60px)
 
   input
     display: inline-block
     position: absolute
     margin-top: 12px
-    margin-left: 30px
+    +adaptive("margin-left", 5px, 30px, 30px)
 
     height: 38px
+    +adaptive("width", 165px, 220px, 220px)
+    +adaptive("max-width", 165px, 60%, 60%)
 
     border: 1px solid $outline
 
     font-size: 16pt
-    padding: 0px 12px
+    +adaptive("padding", 0px 6px, 0px 12px, 0px 12px)
 
     &:focus
       outline-color: $outline

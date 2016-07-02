@@ -4,3 +4,12 @@
 
 =monospaced()
   font-family: Source Code Pro, Courier New, Courier, monospace
+
+=adaptive($selector, $small, $landscape, $big)
+  #{$selector}: $small
+
+  @media only screen and (orientation: landscape)
+    #{$selector}: $landscape
+
+  @media only screen and (min-device-width: 1024px) and (min-device-height: 728px)
+    #{$selector}: $big
