@@ -1,5 +1,4 @@
-export default (a: Array) => {
-  return a.filter((b) => {
-    return !(b === null || b === undefined || (b.length !== undefined && b.length === 0))
-  })
-}
+export default (a: Array) =>
+  a.filter( b =>
+    !(b === null || b === undefined || (b.length !== undefined && b.length === 0))
+  )
