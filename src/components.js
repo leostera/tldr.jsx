@@ -9,9 +9,13 @@ import marked from 'marked'
 const Debug = (props) =>
   <pre> {JSON.stringify(props, null, "  ")} </pre>
 
-const Nav = ({name, platform}: Command) => (
+const Nav = ({history, command: {name}}) => (
   <nav>
-    {name}
+    <input
+      type="text"
+      onChange={ ({target: {value}}) => { history.push({pathname: `/${value}`}) } }
+      defaultValue={name}
+    />
   </nav>
 )
 
@@ -25,7 +29,7 @@ const NotFound = (props) => (
 
 const TldrApp = (props) => (
   <section>
-    <Nav {...props.state.command} />
+    <Nav {...props.state} />
     { props.found && <TldrPage {...props.page} /> }
     { !props.found && <NotFound {...props} /> }
     <Debug {...props} />
