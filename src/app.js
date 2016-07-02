@@ -28,7 +28,7 @@ const done  = console.log.bind(console,"DONE")
 
 let State = Observable
   .from(history)
-  .debounceTime(50)
+  .debounceTime(300)
   .distinctUntilChanged()
   .map( (location) => ({
     history: __history,
