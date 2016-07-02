@@ -33,7 +33,8 @@ let State = Observable
   .map( (location) => ({
     history: __history,
     index: Location.toIndex(location),
-    command: Location.toCommand(location)
+    command: Location.toCommand(location),
+    debug: Location.isDebugging(location)
   }))
   .mergeMap( state => Index(state.index).search(state.command)
           , (state, found) => ({state, found}))

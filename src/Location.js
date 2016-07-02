@@ -38,7 +38,13 @@ let toIndex = (location: Location): Options => {
     }, parse(location.search))
 }
 
+let isDebugging = (location: Location): boolean => {
+  let { debug } = parse(location.search)
+  return !!debug
+}
+
 export default {
-  toCommand: toCommand,
-  toIndex:   toIndex
+  toCommand,
+  toIndex,
+  isDebugging
 }
