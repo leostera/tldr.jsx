@@ -48,7 +48,6 @@ export default (opts: Options): IndexModule => {
     return getIndex()
       .filter( byName(name) )
       .filter( byPlatform(platform) )
-      .do(console.log.bind(console, "Search"))
       .defaultIfEmpty(false)
   }
 
