@@ -1,6 +1,3 @@
-import type { Page } from './Page'
-import type { Command } from './Command'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -22,14 +19,18 @@ const Oops = (error) => (
 
 export default (props) => {
   let {found, page, state: {debug, command, history}} = props
-  ReactDOM.render((
-    <section>
-      <Nav navigate={navigate(history)} />
-      { !command.name && <Welcome /> }
-      { command.name && !found && <NotFound /> }
-      { found && page && !page.error && <TldrPage {...page} /> }
-      { found && page &&  page.error && <Oops /> }
-      { debug && <Debug {...props} /> }
-    </section>
-  ), document.getElementById('tldr'))
+  try {
+    ReactDOM.render((
+      <section>
+        <Nav navigate={navigate(history)} />
+        { !command.name && <Welcome /> }
+        { command.name && !found && <NotFound /> }
+        { found && page && !page.error && <TldrPage {...page} /> }
+        { found && page &&  page.error && <Oops /> }
+        { debug && <Debug {...props} /> }
+      </section>
+    ), document.getElementById('tldr'))
+  } catch (e) {
+    console.log(e)
+  }
 }
