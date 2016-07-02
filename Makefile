@@ -1,4 +1,4 @@
-.PHONY: all check test build package styles flow-stop
+.PHONY: all check test build package styles flow-stop assets
 
 BUILD_DIR=./build
 BIN_DIR=./node_modules/.bin
@@ -14,10 +14,13 @@ check:
 test:
 	$(BIN_DIR)/jest
 
+assets:
+	cp -r ./assets $(BUILD_DIR)
+
 styles:
 	sass --update ./styles:$(BUILD_DIR)
 
-build: styles
+build: assets styles
 	browserify . -d -t [envify --NODE_ENV local] -o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
