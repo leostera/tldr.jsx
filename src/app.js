@@ -1,5 +1,6 @@
 //@flow
 
+
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
 import 'rxjs/add/operator/do'
@@ -10,37 +11,17 @@ import 'rxjs/add/operator/distinctUntilChanged'
 import ObservableHistory from './observable.history'
 import createHistory from 'history/lib/createBrowserHistory'
 
-import Command from './Command'
 import Index from './Index'
 import Location from './Location'
 import Page from './Page'
 
+import render from './components'
+
 const history = ObservableHistory(createHistory())
 
-const log = console.log.bind(console)
-const next = log.bind("NEXT")
-const error = log.bind("ERROR")
-const done = log.bind("DONE")
-
-import { decode } from 'base-64'
-import 'rxjs/add/observable/dom/ajax'
-
-//Observable
-//  .ajax({
-//    method: 'GET',
-//    withCredentials: false,
-//    url: `https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets/index.json?ref=master`
-//  })
-//  .timeout(5000, new Error("Timeout :("))
-//  .filter( res => res.status === 200 )
-//  .pluck('response')
-//  .pluck('content')
-//  .map(decode)
-//  .map(JSON.parse)
-//  .mergeMap( index => index.commands )
-//  .filter( cmd => cmd.name === "vim" )
-//  .defaultIfEmpty(false)
-//  .subscribe(next, error, done)
+const next  = console.log.bind(console,"NEXT")
+const error = console.log.bind(console,"ERROR")
+const done  = console.log.bind(console,"DONE")
 
 let State = Observable
   .from(history)
@@ -61,10 +42,11 @@ Observable.from(State)
       repository: 'tldr-pages/tldr',
       timeout: 5000
     }).get(state.command)
- )
-  .subscribe(next, error, done)
+  , ({state, found}, page) => ({state, found, page})
+  )
+  .subscribe(render, error, done)
 
 // Subscribe to commands not being found
 Observable.from(State)
   .filter( ({state, found}) => !found )
-  .subscribe(next, error, done)
+  .subscribe(render, error, done)
