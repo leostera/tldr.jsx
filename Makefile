@@ -3,7 +3,9 @@
 BUILD_DIR=./build
 BIN_DIR=./node_modules/.bin
 
-all: check test build package
+all: check lint test build package
+
+ci: check lint test
 
 flow-stop:
 	$(BIN_DIR)/flow stop
@@ -13,6 +15,9 @@ check:
 
 test:
 	$(BIN_DIR)/jest
+
+lint:
+	$(BIN_DIR)/eslint ./src
 
 assets:
 	cp -r ./assets $(BUILD_DIR)
