@@ -18,7 +18,7 @@ import Index from './Index'
 import Location from './Location'
 import Page from './Page'
 
-import render from './components'
+import render from './render'
 
 const __history = createHistory()
 const history = ObservableHistory(__history)
