@@ -1,6 +1,11 @@
 language: node_js
+
 node_js:
   - "5.3"
+  - "5.4"
+  - "5.5"
+  - "tip"
+
 git:
   depth: 1
 

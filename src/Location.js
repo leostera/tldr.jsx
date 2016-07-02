@@ -20,11 +20,11 @@ let toCommand = (location: Location): Command => {
   let res: Command
   switch(parts.length) {
     case 2:
-      res = { name: parts[1], platform: parts[0] };
+      res = { name: parts[1], platform: parts[0] }
     break
     case 1:
     default:
-      res = { name: parts[0], platform: "common" };
+      res = { name: parts[0], platform: "common" }
     break
   }
   return res
