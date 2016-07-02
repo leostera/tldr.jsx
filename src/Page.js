@@ -28,7 +28,7 @@ export type Page = {
 }
 
 export type PageModule = {
-  get(cmd: Command): Page;
+  get(cmd: Command): Observable;
 }
 
 /*******************************************************************************
@@ -42,7 +42,7 @@ export default (opts: Options): PageModule => {
     repository: repository
   })
 
-  let get = ({name, platform}: Command): Page => {
+  let get = ({name, platform}: Command): Observable => {
     let page =  Repo.get({
         path: `pages/${platform}/${name}.md`,
         branch: branch

@@ -24,7 +24,7 @@ import type { Command } from './Command'
 export type Index = Array<Command>
 
 export type IndexModule = {
-  search(cmd: Command): Observable | false;
+  search(cmd: Command): Observable;
 }
 
 /*******************************************************************************

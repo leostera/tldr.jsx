@@ -4,11 +4,12 @@
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/operator/debounceTime'
+import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/distinctUntilChanged'
-import 'rxjs/add/operator/debounceTime'
+import 'rxjs/add/operator/takeUntil'
 
 import ObservableHistory from './observable.history'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -36,7 +37,8 @@ let State = Observable
     command: Location.toCommand(location),
     debug: Location.isDebugging(location)
   }))
-  .mergeMap( state => Index(state.index).search(state.command)
+  .mergeMap( state => Index(state.index)
+                        .search(state.command)
           , (state, found) => ({state, found}))
   .distinctUntilChanged()
 
