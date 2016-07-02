@@ -27,9 +27,10 @@ let State = Observable
     {index: Location.toIndex(location)},
     {command: Location.toCommand(location)}
   ))
-  .mergeMap( spec =>
+  .mergeMap( spec => Index(spec.index).search(spec.command.name)
+          , (spec, found) => ({spec, found}))
+  .filter( ({spec, found}) => found )
+  .mergeMap( ({spec, found}) =>
     Page({ branch: spec.index.branch, repository: 'tldr-pages/tldr' })
       .get(spec.command)
-  )
   .subscribe(log)
-
