@@ -1,7 +1,21 @@
+@import "utils"
 @import "colors"
 
-#suggestion
-  margin: 1em 0.5em
+.debug
+  font-family: Source Code Pro, Courier New, Courier, monospace
+  background-color: $debug_background
+  color: $debug_text
+  position: absolute
+  bottom: 0
+  left: 0
+  margin: 0
+  width: 100%
+  padding: 2em
+
+.content
+  +reset
+  margin-top:  60px
+  margin-left: 60px
 
 #page-container
   font-size: 1.25em
@@ -19,8 +33,6 @@
 
   code
     font-family: 'Source Code Pro', courier new, courier
-    background-color: $page_code_background
-    color: $page_code_text
     display: block
     padding: 0.55em 1.25em
     margin: 0

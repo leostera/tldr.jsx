@@ -1,0 +1,37 @@
+@import "utils"
+@import "colors"
+
+=image($path, $width, $heigth)
+  background: url($path)
+  background-size: $width $heigth
+  width: $width
+  height: $heigth
+
+.brand
+  +image("assets/tldr.svg", 105px, 30px)
+
+nav
+  +reset
+  height: 64px
+  border-bottom: 1px solid $outline
+
+  a.brand
+    display: inline-block
+    margin-left: 60px
+    margin-top: 16px
+
+  input
+    display: inline-block
+    position: absolute
+    margin-top: 12px
+    margin-left: 30px
+
+    height: 38px
+
+    border: 1px solid $outline
+
+    font-size: 16pt
+    padding: 0px 12px
+
+    &:focus
+      outline-color: $outline
