@@ -1,22 +1,37 @@
 @import "utils"
 @import "colors"
 
-.debug
+h1, h2, h3
+  +reset
+
+h1
+  font-size: 2em
+  margin-bottom: 1.1em
+
+h2
+  font-size: 1.4em
+  margin-bottom: 0.8em
+
+code
   +monospaced
-  background-color: $debug_background
-  color: $debug_text
-  position: absolute
-  bottom: 0
-  left: 0
-  margin: 0
-  width: 100%
-  padding: 2em
+
+p
+  +reset
+  padding: 0.5em 0
+
+a
+  font-variant: small-caps
+  font-size: 1.2em
+  text-decoration: none
+  color: $link_text
 
 .content
   +reset
   margin-top:  60px
   margin-left: 60px
+  width: 80%
 
+.command
   blockquote, ul, li, code, p
     +reset
 

@@ -4,11 +4,17 @@
 =image($path, $width, $heigth)
   background: url($path)
   background-size: $width $heigth
+  display: inline-block
   width: $width
   height: $heigth
 
 .brand
   +image("assets/tldr.svg", 105px, 30px)
+
+.brand.small
+  +image("assets/tldr.svg", 52px, 15px)
+  position: relative
+  top: 3px
 
 nav
   +reset
@@ -16,7 +22,6 @@ nav
   border-bottom: 1px solid $outline
 
   a.brand
-    display: inline-block
     margin-left: 60px
     margin-top: 16px
 
