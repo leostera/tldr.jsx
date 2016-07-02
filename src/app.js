@@ -17,7 +17,8 @@ import Page from './Page'
 
 import render from './components'
 
-const history = ObservableHistory(createHistory())
+const __history = createHistory()
+const history = ObservableHistory(__history)
 
 const next  = console.log.bind(console,"NEXT")
 const error = console.log.bind(console,"ERROR")
@@ -27,6 +28,7 @@ let State = Observable
   .from(history)
   .distinctUntilChanged()
   .map( (location) => ({
+    history: __history,
     index: Location.toIndex(location),
     command: Location.toCommand(location)
   }))
