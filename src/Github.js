@@ -18,9 +18,12 @@ type Repository = string
 
 type Branch = 'master' | string
 
+type Timeout = number
+
 export type Options = {
   repository: Repository;
-  branch?: string;
+  branch?: Branch;
+  timeout?: Timeout
 }
 
 export type Github = {
@@ -37,7 +40,7 @@ export type Get = {
  *******************************************************************************/
 
 export default (opts: Options): Github => {
-  let { repository } = opts
+  let { repository, timeout } = opts
 
   const buildUrl = ({path, branch}: Get): string => (
     `https://api.github.com/repos/${repository}/contents/${path}?ref=${branch}`
@@ -46,7 +49,7 @@ export default (opts: Options): Github => {
   let get = (opts: Get): AjaxObservable => {
     return Observable
       .ajax({ url: buildUrl(opts) })
-      .timeout(1000, new Error('Timeout :(') )
+      .timeout(timeout, new Error("Timeout :("))
   }
 
   return { get: get }
