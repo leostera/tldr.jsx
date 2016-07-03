@@ -34,7 +34,7 @@ const Welcome = () => (
 {Cr}
     ### Do you have any unwanted pieces of trivia for me?
 {Cr}
-Well, this small app was built with ES6, type-checked using FlowType, the amazing reactivity is provided by RxJS, and all the rendering is done with React. It's got a nice 12-LOC long Markdown component that works _great_ with nested React components. See those links? <Link href="" text="Check the source" />
+Well, this small app was built with ES6, type-checked using FlowType, the amazing reactivity is provided by RxJS, and all the rendering is done with React. It's got a nice 12-LOC long Markdown component that works _great_ with nested React components. See those links? <Link href="https://github.com/ostera/tldr.jsx/blob/master/src/components/Welcome.js" text="Check the source" />
 {Cr}
     Have a <Link href="https://github.com/ostera/tldr.jsx" text="look inside" /> and feel free to <Link href="https://github.com/ostera/tldr.jsx/fork" text="fork" />
   </Markdown>
