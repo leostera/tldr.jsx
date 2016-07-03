@@ -23,9 +23,11 @@ import render from './render'
 const __history = createHistory()
 const history = ObservableHistory(__history)
 
-const next  = console.log.bind(console,"NEXT")
-const error = console.log.bind(console,"ERROR")
-const done  = console.log.bind(console,"DONE")
+const log  = (...args) => {
+  console.log((new Date()).toTimeString().split(' ')[0], ...args)
+}
+const error = log.bind("ERROR")
+const done  = log.bind("DONE")
 
 let ga = window.ga
 const track = (location) => {
@@ -41,18 +43,26 @@ let State = Observable
   .distinctUntilChanged()
   .do(track)
   .map( (location) => ({
-    history: __history,
-    index: Location.toIndex(location),
-    command: Location.toCommand(location),
-    debug: Location.isDebugging(location)
+    state: {
+      history: __history,
+      index: Location.toIndex(location),
+      command: Location.toCommand(location),
+      debug: Location.isDebugging(location)
+    }
   }))
-  .mergeMap( state => Index(state.index)
-                        .search(state.command)
-          , (state, found) => ({state, found}))
+  .do(render)
+
+let StateFromIndex = Observable
+  .from(State)
+  .mergeMap( ({state}) => Index(state.index)
+                           .search(state.command)
+          , ({state}, found) => ({state, found}))
+  .do(log)
   .distinctUntilChanged()
 
 // Subscribe to commands found and fetch them
-Observable.from(State)
+Observable
+  .from(StateFromIndex)
   .filter( ({state, found}) => found )
   .mergeMap( ({state, found}) =>
     Page({
@@ -62,9 +72,12 @@ Observable.from(State)
     }).get(state.command)
   , ({state, found}, page) => ({state, found, page})
   )
-  .subscribe(render, error, done)
+  .do(render)
+  .subscribe(log, error, done)
 
 // Subscribe to commands not being found
-Observable.from(State)
+Observable
+  .from(StateFromIndex)
   .filter( ({state, found}) => !found )
-  .subscribe(render, error, done)
+  .do(render)
+  .subscribe(log, error, done)
