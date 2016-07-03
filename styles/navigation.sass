@@ -1,0 +1,44 @@
+@import "utils"
+@import "colors"
+
+=image($path, $width, $heigth)
+  background: url($path)
+  background-size: $width $heigth
+  display: inline-block
+  width: $width
+  height: $heigth
+
+.brand
+  +image("assets/tldr.svg", 105px, 30px)
+
+.brand.small
+  +image("assets/tldr.svg", 52px, 15px)
+  position: relative
+  top: 3px
+
+nav
+  +reset
+  height: 64px
+  border-bottom: 1px solid $outline
+
+  a.brand
+    margin-top: 16px
+    +adaptive("margin-left", 10px, 60px, 60px)
+
+  input
+    display: inline-block
+    position: absolute
+    margin-top: 12px
+    +adaptive("margin-left", 5px, 30px, 30px)
+
+    height: 38px
+    +adaptive("width", 165px, 220px, 220px)
+    +adaptive("max-width", 165px, 60%, 60%)
+
+    border: 1px solid $outline
+
+    font-size: 16pt
+    +adaptive("padding", 0px 6px, 0px 12px, 0px 12px)
+
+    &:focus
+      outline-color: $outline

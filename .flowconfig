@@ -1,9 +1,9 @@
 [include]
-./src/*
+.*/src/.*
 
 [libs]
-./node_modules/**/*
+.*/node_modules/.*
 
 [ignore]
-./node_modules/**/*
-./build/**/*
+.*/node_modules/fbjs
+.*/build/.*

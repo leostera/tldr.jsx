@@ -1,59 +1,20 @@
+@import "utils"
 @import "colors"
 
-#suggestion
-  margin: 1em 0.5em
-
-#page-container
-  font-size: 1.25em
-  margin-top: 4em
-
-  p
-    margin: 0
-
-  h1
-    font-size: 2em
-    margin: 0 0.23em
+.page
+  blockquote, ul, li, code, p
+    +reset
 
   blockquote
-    margin: 0 0.55em
+    font-size: 1.2em
+    margin-bottom: 30px
+
+  li
+    list-style: none
 
   code
-    font-family: 'Source Code Pro', courier new, courier
-    background-color: $page_code_background
-    color: $page_code_text
-    display: block
-    padding: 0.55em 1.25em
-    margin: 0
-
-  ul
-    list-style: none
-    padding: 0 !important
-    margin: 1em 0 0 0
-
-    li
-      padding: 0.5em 0.55em
-      line-height: 1.1
-
-      code
-        padding: 0.3rem
-        display: inline-block
-
-  // Landscape stlyes
-  @media only screen and (orientation: landscape)
-    margin-top: 5em
-
-  // Desktop Styles!
-  @media only screen and (min-device-width: 1024px)
+    +monospaced
+    display: inline-block
     font-size: 1em
-    margin-top: 3em
-
-    code
-      padding-left: 3em
-
-    ul
-      margin-top: 1em
-
-      li
-        &:before
-          content: "*"
-          padding: 0 12px
+    margin-top: 15px
+    margin-bottom: 35px

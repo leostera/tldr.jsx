@@ -1,17 +1,48 @@
+@import "utils"
 @import "colors"
+@import "fonts"
 
-* 
-  font-family: Helvetica Neue, Helvetica 
+*
+  font-family: Avenir Next
   font-size: 1em
 
 body
-  margin: 0
-  background: $body_background
-  color: $body_text
+  +reset
+  background: $background
+  color: $text
 
-@import "octocat"
+h1, h2, h3
+  +reset
 
-#tldr 
-  @import "search-bar"
+h1
+  font-size: 2em
+  margin-bottom: 0.5em
+
+h3
+  margin-top: 1em
+  margin-bottom: 0.3em
+
+code
+  +monospaced
+
+p
+  +reset
+  padding: 0.5em 0
+
+a
+  font-variant: small-caps
+  font-size: 1.2em
+  text-decoration: none
+  color: $link_text
+
+.content
+  +reset
+  +adaptive("margin-top", 20px, 20px, 60px)
+  +adaptive("margin-left", 20px, 60px, 60px)
+  +adaptive("max-width", 300px, 720px, 720px)
+  width: 80%
+
+#tldr
+  @import "debug"
+  @import "navigation"
   @import "page"
-
