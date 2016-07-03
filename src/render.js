@@ -9,7 +9,7 @@ import Welcome from './components/Welcome'
 
 let navigate = (history: History) => (path: string) =>
   history.push({...history.getCurrentLocation(),
-               pathname: `/${path.toLowerCase().replace(' ','-')}`})
+               pathname: `/${path.toLowerCase().trim().replace(' ','-')}`})
 
 const Oops = (error) => (
   <section className="content">
