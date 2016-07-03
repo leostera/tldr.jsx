@@ -8,7 +8,7 @@ import TldrPage from './components/TldrPage'
 import Welcome from './components/Welcome'
 
 let navigate = (history: History) => (path: string) =>
-  history.push(`/${path}`)
+  history.push({...history.getCurrentLocation(), pathname: `/${path}`})
 
 const Oops = (error) => (
   <section className="content">
