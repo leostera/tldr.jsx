@@ -3,11 +3,12 @@ import marked from 'marked'
 
 import type { Page } from '../Page'
 
+import { Markdown } from './Markdown'
 import Link from './Link'
 
 export default ({body, path}: Page) => (
   <section className="content" >
-    <section className="page" dangerouslySetInnerHTML={{__html: marked(body)}}></section>
+    <Markdown className="page" body={body} />
     <Link href={path} text="Edit this page on Github" />
   </section>
 )
