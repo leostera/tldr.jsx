@@ -1,14 +1,14 @@
 {
   "name": "tldr.jsx",
-  "description": "A tldr-pages client built with React",
+  "description": "A reactive web client for tldr-pages",
   "author": "Leandro Ostera <leandro@ostera.io>",
   "repository": "https://github.com/ostera/tldr.jsx",
   "bugs": {
     "url": "https://github.com/ostera/tldr.jsx/issues"
   },
-  "homepage": "http://ostera.io/tldr.jsx",
+  "homepage": "http://tldr.ostera.io",
   "license": "MIT",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "src/app.js",
   "dependencies": {
     "babel-runtime": "^6.9.2",
