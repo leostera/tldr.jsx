@@ -1,5 +1,6 @@
 .PHONY: all check test build package styles flow-stop assets
 
+DIST_DIR=./dist
 BUILD_DIR=./build
 BIN_DIR=./node_modules/.bin
 
@@ -29,5 +30,7 @@ build: assets styles
 	browserify . -d -t [envify --NODE_ENV local] -o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
-package: styles
+package: assets styles
 	browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > $(BUILD_DIR)/bundle.js
+	mkdir -p $(DIST_DIR)
+	cp -r index.html opensearch.xml $(BUILD_DIR) ./$(DIST_DIR)
