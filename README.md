@@ -1,11 +1,10 @@
 # tldr.jsx
-A React-based web client for [tldr](https://github.com/tldr-pages/tldr). Try it [here](http://www.ostera.io/tldr.jsx).
+A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](http://tldr.ostera.io).
 
-![tldr.jsx](https://s3.amazonaws.com/ostera.io/tldr.jsx_screenshot.jpg)
+![tldr.ostera.io on desktop and mobile views](https://s3.amazonaws.com/tldr.ostera.io/screenshot.jpg)
 
 ## Featuring
 
-* `Local cache`, allowing immediate access to a number of commands even when offline!
 * `Unique URIs`, to easily share any `tldr-page`!
 * `Mobile-first-ish`, to take with you anywhere!
 * `Fully Reactive`, embracing `ES6`, `RxJS`, and `React` for great win!
@@ -19,11 +18,16 @@ As [tldr-pages](https://github.com/tldr-pages/tldr) advances, new features can b
 
 ## Collaboration Setup
 
-It requires a working `node` environment with `npm`, and you can run any of these to get a build:
+It requires a working `node` environment with `npm`, and `make`.
 
-* `npm run-script build` for a release build, 
-* `npm start`, for watching and rebuilding as you go
+* `make build`, for a development build
+* `make test`, to run the test suite
+* `make lint`, to lint the source
+* `make check`, to type-check everything
+* `make package`, to create a distributable package
 
-Serve locally as you wish, I preffer `python -m SimpleHTTPServer`.
+Serve locally as you wish, I prefer [static-server](https://www.npmjs.com/package/static-server).
 
-It's clearly a work in progress, so there's many flaws, but Issues and PR's are more than welcomed! 
+### But what about Y or X and File Watchers!
+
+File Watchers never really manage to work the way you want them to, so I ended up using [ostera/watch](https://github.com/ostera/watch) for auto-building, auto-testing, auto-anything.
