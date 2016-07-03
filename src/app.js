@@ -30,8 +30,8 @@ const done  = console.log.bind(console,"DONE")
 let ga = window.ga
 const track = (location) => {
   if ( ga && typeof ga === 'function' ) {
-    ga('set', 'page', location.pathname);
-    ga('send', 'pageview');
+    ga('set', 'page', location.pathname)
+    ga('send', 'pageview')
   }
 }
 
