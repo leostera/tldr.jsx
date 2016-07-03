@@ -21,9 +21,13 @@ nav
   height: 64px
   border-bottom: 1px solid $outline
 
+  .content
+    +reset
+    margin: 0 auto
+    +adaptive("max-width", 300px, 720px, 720px)
+
   a.brand
     margin-top: 16px
-    +adaptive("margin-left", 10px, 60px, 60px)
 
   input
     display: inline-block
