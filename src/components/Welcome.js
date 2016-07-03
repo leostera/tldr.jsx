@@ -8,9 +8,11 @@ import hello from '../lib/hello'
 
 let random = (list) => list[Math.floor(Math.random()*list.length)]
 
+let salutation = random(hello)
+
 const Welcome = () => (
   <Markdown className="content">
-    # {random(hello)}!
+    # {salutation}!
 {Cr}
     We tried to learn other languages, but since we didn't find a <Tldr size="small" /> for them it might not say "Welcome". We extend our deepest apologies.
 {Cr}
