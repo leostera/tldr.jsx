@@ -1,5 +1,5 @@
 # tldr.jsx
-A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](http://tldr.ostera.io).
+> 📚 A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](http://tldr.ostera.io).
 
 ![tldr.ostera.io on desktop and mobile views](https://s3.amazonaws.com/tldr.ostera.io/screenshot.jpg)
 
@@ -28,6 +28,6 @@ It requires a working `node` environment with `npm`, and `make`.
 
 Serve locally as you wish, I prefer [static-server](https://www.npmjs.com/package/static-server).
 
-### But what about Y or X and File Watchers!
+#### But what about Y or X and File Watchers!
 
 File Watchers never really manage to work the way you want them to, so I ended up using [ostera/watch](https://github.com/ostera/watch) for auto-building, auto-testing, auto-anything.
