@@ -1,3 +1,5 @@
+//@flow
+
 import React from 'react'
 
 import { parse, stringify } from 'query-string'

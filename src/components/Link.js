@@ -1,3 +1,5 @@
+//@flow
+
 import React from 'React'
 
 export default ({href, text}) =>
