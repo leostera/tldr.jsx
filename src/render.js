@@ -17,6 +17,10 @@ const Oops = (error) => (
   </section>
 )
 
+const Loading = () => (
+  <section className="content loading"> Loading... </section>
+)
+
 export default (props) => {
   let {found, page, state: {debug, command, history}} = props
   try {
@@ -24,7 +28,8 @@ export default (props) => {
       <section>
         <Nav navigate={navigate(history)} />
         { !command.name && <Welcome /> }
-        { command.name && !found && <NotFound /> }
+        { command.name && found === undefined && <Loading /> }
+        { command.name && found === false     && <NotFound /> }
         { found && page && !page.error && <TldrPage {...page} /> }
         { found && page &&  page.error && <Oops /> }
         { debug && <Debug {...props} /> }
