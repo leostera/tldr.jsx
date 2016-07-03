@@ -57,7 +57,6 @@ let StateFromIndex = Observable
   .mergeMap( ({state}) => Index(state.index)
                            .search(state.command)
           , ({state}, found) => ({state, found}))
-  .do(log)
   .distinctUntilChanged()
 
 // Subscribe to commands found and fetch them
