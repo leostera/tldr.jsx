@@ -2,12 +2,26 @@
 @import "colors"
 
 .debug
-  +monospaced
-  background-color: $debug_background
-  color: $debug_text
+  +reset
+
+  padding: 2em
+  +adaptive("height", 100px, 70%, 70%)
+  +adaptive("width", 100%, 350px, 350px)
+
   position: absolute
   bottom: 0
-  left: 0
-  margin: 0
-  width: 100%
-  padding: 2em
+  right: 0
+
+  background-color: $debug_background
+  color: $debug_text
+
+  +monospaced
+  font-size: 0.7em
+  white-space: pre-wrap
+
+  span
+    cursor: pointer
+    float: right
+
+  h2
+    margin-bottom: 1em
