@@ -36,7 +36,7 @@ build: assets styles
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
 package: assets styles
-	NODE_ENV=production browserify . | uglifyjs -cm > $(BUILD_DIR)/bundle.js
+	NODE_ENV=production browserify . -d -t babelify -t [ envify --VERSION $(VERSION) --REVISION $(REVISION) ] | uglifyjs -cm > $(BUILD_DIR)/bundle.js
 	mkdir -p $(DIST_DIR)
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
 

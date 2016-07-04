@@ -37,7 +37,7 @@ let __history: History = createHistory()
 let history: Observable = ObservableHistory(__history)
 
 let log  = (...args: any[]): void => {
-  console.log((new Date()).toTimeString().split(' ')[0], ...args)
+  (process.env.NODE_ENV !== "production") && console.log((new Date()).toTimeString().split(' ')[0], ...args)
 }
 let error: Function = log.bind("ERROR")
 let done:  Function = log.bind("DONE")
