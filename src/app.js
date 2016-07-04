@@ -33,17 +33,17 @@ import render from './render'
  * Private
  *******************************************************************************/
 
-const __history = createHistory()
-const history = ObservableHistory(__history)
+const __history: History = createHistory()
+const history: Observable = ObservableHistory(__history)
 
-const log  = (...args) => {
+const log  = (...args: any[]): void => {
   console.log((new Date()).toTimeString().split(' ')[0], ...args)
 }
-const error = log.bind("ERROR")
-const done  = log.bind("DONE")
+const error: Function = log.bind("ERROR")
+const done:  Function = log.bind("DONE")
 
-let ga = window.ga
-const track = (location) => {
+let ga: Function = window.ga
+const track = (location: HistoryLocation): void => {
   if ( ga && typeof ga === 'function' ) {
     ga('set', 'page', location.pathname)
     ga('send', 'pageview')
@@ -52,10 +52,10 @@ const track = (location) => {
 
 // Extend state
 const addFound = (state: StateType, found: boolean): StateType => ({...state, found})
-const addPage = (state: StateType, page: PageType): StateType => ({...state, page})
+const addPage  = (state: StateType, page: PageType): StateType => ({...state, page})
 
 // Filters
-const byFound = ({params, found}: StateType): boolean => !found
+const byFound    = ({params, found}: StateType): boolean => !found
 const byNotFound = ({params, found}: StateType): boolean => !!!found
 
 // Merge Mappers
@@ -84,7 +84,7 @@ const buildInitialState = (location: HistoryLocation): StateType => ({
  * Public API
  *******************************************************************************/
 
-let StateObservable = Observable
+let StateObservable: Observable = Observable
   .from(history)
   .debounceTime(300)
   .distinctUntilChanged()
@@ -92,7 +92,7 @@ let StateObservable = Observable
   .map(buildInitialState)
   .do(render)
 
-let StateFromIndex = Observable
+let StateFromIndex: Observable = Observable
   .from(StateObservable)
   .mergeMap(findInIndex, addFound)
   .distinctUntilChanged()
