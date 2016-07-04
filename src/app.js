@@ -25,7 +25,7 @@ import Location from './Location'
 import Page from './Page'
 
 import type { State as StateType } from './Tldr'
-import type { Page as PageType } from './Page'
+import type { Page as PageType, Options as PageOptions } from './Page'
 
 import render from './render'
 
@@ -51,8 +51,8 @@ const track = (location: HistoryLocation): void => {
 }
 
 // Extend state
-const addFound = (state: StateType, found: boolean): StateType => ({...state, found})
-const addPage  = (state: StateType, page: PageType): StateType => ({...state, page})
+const addFound = (state: StateType, found: boolean): StateType => ({...state, found}: StateType)
+const addPage  = (state: StateType, page: PageType): StateType => ({...state, page}: StateType)
 
 // Filters
 const byFound    = ({params, found}: StateType): boolean => !found
@@ -62,13 +62,14 @@ const byNotFound = ({params, found}: StateType): boolean => !!!found
 const findInIndex = ({params}: StateType): Observable =>
   Index(params.index).search(params.command)
 
-const buildState = ({params, found}: StateType): Observable => (
-  Page({
+const buildState = ({params, found}: StateType): Observable => {
+  let options: PageOptions = {
     branch: params.index.branch,
     repository: 'tldr-pages/tldr',
     timeout: 5000
-  }).get(params.command)
-)
+  }
+  return Page(options).get(params.command)
+}
 
 const buildInitialState = (location: HistoryLocation): StateType => ({
   params: {
@@ -77,7 +78,7 @@ const buildInitialState = (location: HistoryLocation): StateType => ({
     command: Location.toCommand(location),
     debug: Location.isDebugging(location)
   }
-})
+}: StateType)
 
 
 /*******************************************************************************
@@ -98,7 +99,7 @@ let StateFromIndex: Observable = Observable
   .distinctUntilChanged()
 
 // Subscribe to commands found and fetch them
-Observable
+let CommandFound: Observable = Observable
   .from(StateFromIndex)
   .filter(byFound)
   .mergeMap(buildState, addPage)
@@ -106,7 +107,7 @@ Observable
   .subscribe(log, error, done)
 
 // Subscribe to commands not being found
-Observable
+let CommandNotFound: Observable = Observable
   .from(StateFromIndex)
   .filter(byNotFound)
   .do(render)

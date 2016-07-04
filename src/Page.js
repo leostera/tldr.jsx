@@ -10,8 +10,14 @@ import { concat } from 'rxjs/operator/concat'
 
 import { decode } from 'base-64'
 
-import Github from './Github'
-import type { Options } from './Github'
+import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
+
+import GithubAPI from './Github'
+import type {
+              Github,
+              Get as GithubGetOptions
+              Options as GithubOptions
+            } from './Github'
 
 import type { Command } from './Command'
 
@@ -19,15 +25,31 @@ import type { Command } from './Command'
  * Type Definitions
  *******************************************************************************/
 
+export type Options = GithubOptions
+
+type DataError = {
+  message: string;
+  status:  number;
+}
+
+type Error = {
+  error: DataError;
+}
+
+type Data = {
+  html_url: string;
+  content:  string;
+}
+
 export type Path = string
 
 export type Page = {
-  cmd:  Command;
-  path: Path;
-  body: string;
+  cmd?:  Command;
+  path:  Path;
+  body:  string;
 }
 
-export type PageModule = {
+type Module = {
   get(cmd: Command): Observable;
 }
 
@@ -35,43 +57,45 @@ export type PageModule = {
  * Public API
  *******************************************************************************/
 
-export default (opts: Options): PageModule => {
-  let { repository, branch } = opts
+export default (opts: Options): Module => {
+  let { repository, branch }: Options = opts
 
-  let Repo = Github({
+  let Repo: Github = GithubAPI({
     repository: repository
   })
 
-  let get = ({name, platform}: Command): Observable => {
-    let page =  Repo.get({
-        path: `pages/${platform}/${name}.md`,
-        branch: branch
-      })
+  let options = ({name, platform}: Command): GithubGetOptions => ({
+    path: `pages/${platform}/${name}.md`,
+    branch
+  })
 
-    let found = from(page)
+  let get = (cmd: Command): Observable => {
+    let page: Observable =  Repo.get(options(cmd))
+
+    let found: Observable = from(page)
       .filter(byStatus(200))
       .pluck('response')
       .map(toPage)
 
-    let error = from(page)
+    let error: Observable = from(page)
       .filter(not(byStatus(200)))
       .map(toError)
 
     return concat.apply(found, [error])
   }
 
-  let not = (f: Function): Function => res => ! f(res)
-  let byStatus = (...statuses): Function =>
-    res => statuses.indexOf(res.status) !== -1
+  let not = (f: Function): Function =>
+    (res: AjaxResponse): boolean => ! f(res)
 
-  let toError = (data) => ({
-    error: {
-      message: data.message,
-      status:  data.status
-    }
+  let byStatus = (...statuses: number[]): Function =>
+    (res: AjaxResponse): boolean =>
+      statuses.indexOf(res.status) !== -1
+
+  let toError = (data: DataError): Error => ({
+    error: data
   })
 
-  let toPage = (data) => ({
+  let toPage = (data: Data): Page => ({
     path: data.html_url,
     body: decode(data.content)
   })
