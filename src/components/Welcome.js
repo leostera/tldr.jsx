@@ -1,5 +1,9 @@
 //@flow
 
+/*******************************************************************************
+ * Imports
+ *******************************************************************************/
+
 import React from 'react'
 
 import Tldr from './Tldr'
@@ -8,11 +12,19 @@ import { Markdown, Cr } from './Markdown'
 
 import hello from '../lib/hello'
 
+/*******************************************************************************
+ * Private 
+ *******************************************************************************/
+
 let random = (list) => list[Math.floor(Math.random()*list.length)]
 
 let salutation = random(hello)
 
-const Welcome = () => (
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
+export default () => (
   <Markdown className="content">
     # {salutation}!
 {Cr}
@@ -43,4 +55,3 @@ Well, this small app was built with ES6, type-checked using FlowType, the amazin
     Have a <Link href="https://github.com/ostera/tldr.jsx" text="look inside" /> and feel free to <Link href="https://github.com/ostera/tldr.jsx/fork" text="fork" />
   </Markdown>
 )
-export default Welcome

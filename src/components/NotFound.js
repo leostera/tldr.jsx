@@ -1,12 +1,20 @@
 //@flow
 
+/*******************************************************************************
+ * Imports
+ *******************************************************************************/
+
 import React from 'react'
 
 import { Markdown, Cr } from './Markdown'
 import Link from './Link'
 import Tldr from './Tldr'
 
-export default props => (
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
+export default () => (
   <Markdown className="content">
     # Oops! Command not found!
 {Cr}

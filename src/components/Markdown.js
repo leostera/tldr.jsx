@@ -1,17 +1,29 @@
 //@flow
 
+/*******************************************************************************
+ * Imports
+ *******************************************************************************/
+
 import React from 'react'
 import DOM from 'react-dom/server'
 
 import marked from 'marked'
 
-export const Cr = "\n\n"
+/*******************************************************************************
+ * Type Definitions
+ *******************************************************************************/
 
 type MarkdownProps = {
   className?: string;
   body?: string;
   children?: Object | [];
 }
+
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
+export const Cr = "\n\n"
 
 export const Markdown = (props: MarkdownProps) => {
   let { className, body, children } = props
