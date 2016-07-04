@@ -10,7 +10,7 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/takeUntil'
 
-import ObservableHistory from './observable.history'
+import ObservableHistory from './lib/observable.history'
 import createHistory from 'history/lib/createBrowserHistory'
 
 import Index from './Index'

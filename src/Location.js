@@ -6,7 +6,7 @@
 
 import { parse } from 'query-string'
 
-import compact from './array.compact'
+import compact from './lib/array.compact'
 
 import type { Command } from './Command'
 import type { Options } from './Github'
