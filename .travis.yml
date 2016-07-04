@@ -12,4 +12,3 @@ script:
   - make check
   - make lint
   - make test
-  - make check-coverage

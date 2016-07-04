@@ -15,7 +15,7 @@ import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
 import GithubAPI from './Github'
 import type {
               Github,
-              Get as GithubGetOptions
+              Get as GithubGetOptions,
               Options as GithubOptions
             } from './Github'
 
