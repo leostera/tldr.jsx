@@ -6,32 +6,17 @@
 
 import React from 'react'
 
-import Tldr from './Tldr'
-import Version from './Version'
-
 /*******************************************************************************
- * Type Definitions
+ * Private
  *******************************************************************************/
 
-type NavigateProps = {
-  navigate(to: string): any;
-}
+const Version  = process.env.VERSION
+const Revision = process.env.REVISION
+const Origin   = `https://github.com/ostera/tldr.jsx/tree/${Revision}`
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default ({navigate}: NavigateProps) => (
-  <nav>
-    <section className="content">
-      <Tldr />
-      <input
-        type="text"
-        onChange={ ({target: {value}}) => navigate(value) }
-        placeholder="Command name"
-      />
-      <Version />
-    </section>
-  </nav>
-)
-
+export default () =>
+  <a className="version" href={Origin}>{Version}</a>

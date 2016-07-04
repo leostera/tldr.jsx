@@ -44,9 +44,9 @@
   "scripts": {},
   "browserify": {
     "transform": [
+      "envify",
       "babelify",
-      "reactify",
-      "envify"
+      "reactify"
     ]
   },
   "jest": {

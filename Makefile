@@ -5,6 +5,9 @@ BUILD_DIR=./build
 BIN_DIR=./node_modules/.bin
 SCRIPT_DIR=./scripts
 
+VERSION="$(shell git describe --tags HEAD)"
+REVISION="$(shell git rev-parse HEAD)"
+
 all: check lint test build package
 
 flow-stop:
@@ -29,11 +32,11 @@ styles:
 	sass --update ./styles:$(BUILD_DIR)
 
 build: assets styles
-	browserify . -d -t [envify --NODE_ENV local] -o $(BUILD_DIR)/_bundle.js
+	browserify . -d -t babelify -t [ envify --VERSION $(VERSION) --REVISION $(REVISION) ] -o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
 package: assets styles
-	browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > $(BUILD_DIR)/bundle.js
+	NODE_ENV=production browserify . | uglifyjs -cm > $(BUILD_DIR)/bundle.js
 	mkdir -p $(DIST_DIR)
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
 
