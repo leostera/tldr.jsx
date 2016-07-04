@@ -4,10 +4,9 @@
  * Type Definitions
  *******************************************************************************/
 
-export type Platform = 'common' | 'linux' | 'osx' | 'sunos'
+export type Platform = string
 
 export type Command = {
-  name:     string;
-  platform: Platform;
+  name?:     string;
+  platform:  Platform;
 }
-
