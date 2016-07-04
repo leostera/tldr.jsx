@@ -1,5 +1,9 @@
 //@flow
 
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
 export default [
   "Akkadian",
   "Bainvegni",
@@ -9,7 +13,7 @@ export default [
   "Benvnuwe",
   "Bi xêr bî",
   "Bienbenidu",
-  "Bienllegau, -á",
+  "Bienllegau",
   "Bienvenida",
   "Bienvenius",
   "Boolkhent",
