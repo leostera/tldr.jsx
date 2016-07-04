@@ -1,5 +1,9 @@
 //@flow
 
+/*******************************************************************************
+ * Imports
+ *******************************************************************************/
+
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
 import 'rxjs/add/operator/catch'
@@ -10,6 +14,9 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/takeUntil'
 
+import type { History, Location as HistoryLocation } from 'history'
+import type { State } from './Tldr'
+
 import ObservableHistory from './lib/observable.history'
 import createHistory from 'history/lib/createBrowserHistory'
 
@@ -17,7 +24,14 @@ import Index from './Index'
 import Location from './Location'
 import Page from './Page'
 
+import type { State as StateType } from './Tldr'
+import type { Page as PageType } from './Page'
+
 import render from './render'
+
+/*******************************************************************************
+ * Private
+ *******************************************************************************/
 
 const __history = createHistory()
 const history = ObservableHistory(__history)
@@ -36,46 +50,64 @@ const track = (location) => {
   }
 }
 
-let State = Observable
+// Extend state
+const addFound = (state: StateType, found: boolean): StateType => ({...state, found})
+const addPage = (state: StateType, page: PageType): StateType => ({...state, page})
+
+// Filters
+const byFound = ({params, found}: StateType): boolean => !found
+const byNotFound = ({params, found}: StateType): boolean => !!!found
+
+// Merge Mappers
+const findInIndex = ({params}: StateType): Observable =>
+  Index(params.index).search(params.command)
+
+const buildState = ({params, found}: StateType): Observable => (
+  Page({
+    branch: params.index.branch,
+    repository: 'tldr-pages/tldr',
+    timeout: 5000
+  }).get(params.command)
+)
+
+const buildInitialState = (location: HistoryLocation): StateType => ({
+  params: {
+    history: __history,
+    index: Location.toIndex(location),
+    command: Location.toCommand(location),
+    debug: Location.isDebugging(location)
+  }
+})
+
+
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
+let StateObservable = Observable
   .from(history)
   .debounceTime(300)
   .distinctUntilChanged()
   .do(track)
-  .map( (location) => ({
-    state: {
-      history: __history,
-      index: Location.toIndex(location),
-      command: Location.toCommand(location),
-      debug: Location.isDebugging(location)
-    }
-  }))
+  .map(buildInitialState)
   .do(render)
 
 let StateFromIndex = Observable
-  .from(State)
-  .mergeMap( ({state}) => Index(state.index)
-                           .search(state.command)
-          , ({state}, found) => ({state, found}))
+  .from(StateObservable)
+  .mergeMap(findInIndex, addFound)
   .distinctUntilChanged()
 
 // Subscribe to commands found and fetch them
 Observable
   .from(StateFromIndex)
-  .filter( ({state, found}) => found )
-  .mergeMap( ({state, found}) =>
-    Page({
-      branch: state.index.branch,
-      repository: 'tldr-pages/tldr',
-      timeout: 5000
-    }).get(state.command)
-  , ({state, found}, page) => ({state, found, page})
-  )
+  .filter(byFound)
+  .mergeMap(buildState, addPage)
   .do(render)
   .subscribe(log, error, done)
 
 // Subscribe to commands not being found
 Observable
   .from(StateFromIndex)
-  .filter( ({state, found}) => !found )
+  .filter(byNotFound)
   .do(render)
   .subscribe(log, error, done)
