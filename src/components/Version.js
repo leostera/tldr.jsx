@@ -19,4 +19,4 @@ const Origin   = `https://github.com/ostera/tldr.jsx/tree/${Revision}`
  *******************************************************************************/
 
 export default () =>
-  <a className="version" href={Origin}>{Version}</a>
+  <a className="version" href={Origin}>v{Version}</a>
