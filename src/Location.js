@@ -11,6 +11,8 @@ import compact from './lib/array.compact'
 import type { Command } from './Command'
 import type { Options } from './Github'
 
+import type { Location } from 'history'
+
 /*******************************************************************************
  * Public API
  *******************************************************************************/
