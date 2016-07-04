@@ -1,5 +1,5 @@
 # tldr.jsx [![Travis-CI](https://api.travis-ci.org/ostera/tldr.jsx.svg)](https://travis-ci.org/ostera/tldr.jsx)
-> 📚 A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](http://tldr.ostera.io).
+> 📚 A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](https://tldr.ostera.io).
 
 ![tldr.ostera.io on desktop and mobile views](https://s3.amazonaws.com/tldr.ostera.io/screenshot.jpg)
 
