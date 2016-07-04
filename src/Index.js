@@ -14,6 +14,7 @@ import { decode } from 'base-64'
 
 import Github from './Github'
 
+import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
 import type { Options as GithubOptions } from './Github'
 import type { Command } from './Command'
 
@@ -73,9 +74,14 @@ export default (opts: Options): Module => {
     }
   }
 
-  let byPlatform = (os: string): Function => cmd => cmd.platform.indexOf(os) !== -1
-  let byName = (name: string): Function => cmd => cmd.name === name
-  let byStatus = (status: number): Function => res => res.status === status
+  let byPlatform = (os: string): Function =>
+    (cmd: Command): boolean => cmd.platform.indexOf(os) !== -1
+
+  let byName = (name?: string): Function =>
+    (cmd: Command): boolean => cmd.name === name
+
+  let byStatus = (status: number): Function =>
+    (res: AjaxResponse): boolean => res.status === status
 
   return { search }
 }
