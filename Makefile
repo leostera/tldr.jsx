@@ -1,4 +1,4 @@
-.PHONY: all check test build package styles flow-stop assets
+.PHONY: all flow-stop check check-coverage test lint assets styles build package server
 
 DIST_DIR=./dist
 BUILD_DIR=./build
@@ -36,3 +36,6 @@ package: assets styles
 	browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > $(BUILD_DIR)/bundle.js
 	mkdir -p $(DIST_DIR)
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
+
+server:
+	$(BIN_DIR)/static-server -n index.html -f .

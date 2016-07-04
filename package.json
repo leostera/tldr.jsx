@@ -38,6 +38,7 @@
     "jest-cli": "^13.0.0",
     "react-dom": "^15.1.0",
     "reactify": "^1.1.1",
+    "static-server": "^2.0.2",
     "uglify-js": "^2.6.4"
   },
   "scripts": {},
