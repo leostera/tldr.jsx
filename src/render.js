@@ -9,11 +9,14 @@ import NotFound from './components/NotFound'
 import TldrPage from './components/TldrPage'
 import Welcome from './components/Welcome'
 
+import type { History } from 'history'
+import type { State } from './Tldr'
+
 let navigate = (history: History) => (path: string) =>
   history.push({...history.getCurrentLocation(),
                pathname: `/${path.toLowerCase().trim().replace(' ','-')}`})
 
-const Oops = (error) => (
+const Oops = () => (
   <section className="content">
     <h1> Holy! Page not found! </h1>
     <p> Something has gone terribly wrong. </p>
@@ -24,8 +27,8 @@ const Loading = () => (
   <section className="content loading"> Loading... </section>
 )
 
-export default (props) => {
-  let {found, page, state: {debug, command, history}} = props
+export default (props: State) => {
+  let {found, page, params: {debug, command, history}} = props
   try {
     ReactDOM.render((
       <section>
