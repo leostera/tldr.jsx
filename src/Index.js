@@ -14,16 +14,18 @@ import { decode } from 'base-64'
 
 import Github from './Github'
 
-import type { Options } from './Github'
+import type { Options as GithubOptions } from './Github'
 import type { Command } from './Command'
 
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
+export type Options = GithubOptions
+
 export type Index = Array<Command>
 
-export type IndexModule = {
+type Module = {
   search(cmd: Command): Observable;
 }
 
@@ -37,7 +39,7 @@ let _cache: Index = []
  * Public API
  *******************************************************************************/
 
-export default (opts: Options): IndexModule => {
+export default (opts: Options): Module => {
   let { repository, branch } = opts
 
   let Repo = Github({
