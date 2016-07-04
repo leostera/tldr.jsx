@@ -1,6 +1,19 @@
 //@flow
 
-export default (a: Array) =>
-  a.filter( b =>
-    !(b === null || b === undefined || (b.length !== undefined && b.length === 0))
-  )
+/*******************************************************************************
+ * Private API
+ *******************************************************************************/
+
+function nil<T> (b?: T): boolean {
+  return !(b === null || b === undefined || (b.length !== undefined && b.length === 0))
+}
+
+/*******************************************************************************
+ * Public API
+ *******************************************************************************/
+
+function compact<T> (a: T[]): T[] {
+  return a.filter(nil)
+}
+
+export default compact
