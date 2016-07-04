@@ -2,5 +2,10 @@
 
 import React from 'React'
 
-export default ({href, text}) =>
+type LinkProps = {
+  href: String,
+  text: String
+}
+
+export default ({href, text}: LinkProps) =>
   <a href={href}>{text.toLowerCase()}</a>
