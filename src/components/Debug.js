@@ -2,10 +2,12 @@
 
 import React from 'react'
 
+import type { State } from '../Tldr'
+
 import { parse, stringify } from 'query-string'
 
-export default (props) => {
-  let { state: { history } } = props
+export default (props: State) => {
+  let { params: { history } } = props
 
   let close = (e) => {
     let location = history.getCurrentLocation()
