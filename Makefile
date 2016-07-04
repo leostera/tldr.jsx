@@ -3,6 +3,7 @@
 DIST_DIR=./dist
 BUILD_DIR=./build
 BIN_DIR=./node_modules/.bin
+SCRIPT_DIR=./scripts
 
 all: check lint test build package
 
@@ -13,6 +14,9 @@ flow-stop:
 
 check:
 	$(BIN_DIR)/flow
+
+check-coverage:
+	$(SCRIPT_DIR)/check-coverage.sh
 
 test:
 	$(BIN_DIR)/jest
