@@ -33,17 +33,17 @@ import render from './render'
  * Private
  *******************************************************************************/
 
-const __history: History = createHistory()
-const history: Observable = ObservableHistory(__history)
+let __history: History = createHistory()
+let history: Observable = ObservableHistory(__history)
 
-const log  = (...args: any[]): void => {
+let log  = (...args: any[]): void => {
   console.log((new Date()).toTimeString().split(' ')[0], ...args)
 }
-const error: Function = log.bind("ERROR")
-const done:  Function = log.bind("DONE")
+let error: Function = log.bind("ERROR")
+let done:  Function = log.bind("DONE")
 
 let ga: Function = window.ga
-const track = (location: HistoryLocation): void => {
+let track = (location: HistoryLocation): void => {
   if ( ga && typeof ga === 'function' ) {
     ga('set', 'page', location.pathname)
     ga('send', 'pageview')
@@ -51,18 +51,21 @@ const track = (location: HistoryLocation): void => {
 }
 
 // Extend state
-const addFound = (state: StateType, found: boolean): StateType => ({...state, found}: StateType)
-const addPage  = (state: StateType, page: PageType): StateType => ({...state, page}: StateType)
+let addFound = (state: StateType, found: boolean): StateType => ({...state, found}: StateType)
+let addPage  = (state: StateType, page: PageType): StateType => {
+  log(state, page)
+  return {...state, page}
+}
 
 // Filters
-const byFound    = ({params, found}: StateType): boolean => !found
-const byNotFound = ({params, found}: StateType): boolean => !!!found
+let byFound    = ({params, found}: StateType): mixed   => found
+let byNotFound = ({params, found}: StateType): boolean => !found
 
 // Merge Mappers
-const findInIndex = ({params}: StateType): Observable =>
+let findInIndex = ({params}: StateType): Observable =>
   Index(params.index).search(params.command)
 
-const buildState = ({params, found}: StateType): Observable => {
+let buildState = ({params, found}: StateType): Observable => {
   let options: PageOptions = {
     branch: params.index.branch,
     repository: 'tldr-pages/tldr',
@@ -71,7 +74,7 @@ const buildState = ({params, found}: StateType): Observable => {
   return Page(options).get(params.command)
 }
 
-const buildInitialState = (location: HistoryLocation): StateType => ({
+let buildInitialState = (location: HistoryLocation): StateType => ({
   params: {
     history: __history,
     index: Location.toIndex(location),
@@ -101,8 +104,11 @@ let StateFromIndex: Observable = Observable
 // Subscribe to commands found and fetch them
 let CommandFound: Observable = Observable
   .from(StateFromIndex)
+  .do(log)
   .filter(byFound)
+  .do(log)
   .mergeMap(buildState, addPage)
+  .do(log)
   .do(render)
   .subscribe(log, error, done)
 
