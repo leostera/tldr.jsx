@@ -7,8 +7,6 @@ SCRIPT_DIR=./scripts
 
 all: check lint test build package
 
-ci: check lint test
-
 flow-stop:
 	$(BIN_DIR)/flow stop
 

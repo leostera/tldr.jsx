@@ -9,4 +9,7 @@ git:
   depth: 1
 
 script:
-  - make ci
+  - make check
+  - make lint
+  - make test
+  - make check-coverage
