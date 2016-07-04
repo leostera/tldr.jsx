@@ -52,10 +52,7 @@ let track = (location: HistoryLocation): void => {
 
 // Extend state
 let addFound = (state: StateType, found: boolean): StateType => ({...state, found}: StateType)
-let addPage  = (state: StateType, page: PageType): StateType => {
-  log(state, page)
-  return {...state, page}
-}
+let addPage  = (state: StateType, page: PageType): StateType => ({...state, page}: StateType)
 
 // Filters
 let byFound    = ({params, found}: StateType): mixed   => found
@@ -104,11 +101,8 @@ let StateFromIndex: Observable = Observable
 // Subscribe to commands found and fetch them
 let CommandFound: Observable = Observable
   .from(StateFromIndex)
-  .do(log)
   .filter(byFound)
-  .do(log)
   .mergeMap(buildState, addPage)
-  .do(log)
   .do(render)
   .subscribe(log, error, done)
 
