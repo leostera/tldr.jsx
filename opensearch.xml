@@ -6,5 +6,5 @@
   <Contact>leandro@ostera.io</Contact>
   <Url type="text/html"
        method="get"
-       template="http://tldr.ostera.io/{searchTerms}"/>
+       template="https://tldr.ostera.io/{searchTerms}"/>
 </OpenSearchDescription>
