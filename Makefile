@@ -50,7 +50,8 @@ source:
 			--STAMP    "$(STAMP)" \
 			--NODE_ENV "$(NODE_ENV)" \
 		] \
-		-o $(BUILD_DIR)/bundle.js
+		-o $(BUILD_DIR)/_bundle.js
+	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
 package: clean build
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
