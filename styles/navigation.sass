@@ -33,10 +33,11 @@ nav
     float: left
 
   .search
-    min-width: 400px
+    +adaptive("min-width", 100px, 200px, 400px)
 
   .github-stars
     margin: 16px
+    +adaptive("display", none, inherit, inherit)
 
   a.brand
     margin-top: 16px
