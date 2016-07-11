@@ -16,6 +16,9 @@
   position: relative
   top: 3px
 
+.github-iframe
+  border: 0
+
 nav
   +reset
   height: 64px
@@ -26,6 +29,15 @@ nav
     margin: 0 auto
     +adaptive("max-width", 300px, 720px, 720px)
 
+  .brand-and-version, .search, .github-stars
+    float: left
+
+  .search
+    min-width: 400px
+
+  .github-stars
+    margin: 16px
+
   a.brand
     margin-top: 16px
 
@@ -35,11 +47,9 @@ nav
     position: relative
     left: 30px
     bottom: 3px
-    display: inherit
+    display: block
 
   input
-    display: inline-block
-    position: absolute
     margin-top: 12px
     +adaptive("margin-left", 5px, 30px, 30px)
 
