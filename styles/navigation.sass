@@ -26,17 +26,17 @@ nav
 
   .content
     +reset
-    margin: 0 auto
+    +adaptive("margin", 0 20px, 0 auto, 0 auto)
     +adaptive("max-width", 300px, 720px, 720px)
 
   .brand-and-version, .search, .github-stars
     float: left
 
   .search
-    +adaptive("min-width", 100px, 200px, 400px)
+    +adaptive("max-width", 100px, 200px, 400px)
 
   .github-stars
-    margin: 16px
+    margin: 16px 0px
     +adaptive("display", none, inherit, inherit)
 
   a.brand
