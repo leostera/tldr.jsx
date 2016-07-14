@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import Mixpanel from 'mixpanel-browser/mixpanel.cjs.js'
+import Mixpanel from 'mixpanel-browser/build/mixpanel.cjs.js'
 
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
@@ -52,7 +52,12 @@ let trackVisits = (location: HistoryLocation): void => {
   }
 }
 
-mixpanel.init(process.env.MIXPANEL_API_KEY)
+let initMixpanel = ({params: {debug}}: StateType): void => {
+  Mixpanel.init(process.env.MIXPANEL_API_KEY, {
+    debug
+  })
+}
+
 let track = (state: StateType): void => {
 }
 
@@ -97,6 +102,7 @@ let StateObservable: Observable = Observable
   .distinctUntilChanged()
   .do(trackVisits)
   .map(buildInitialState)
+  .do(initMixpanel)
   .do(render)
 
 let StateFromIndex: Observable = Observable
