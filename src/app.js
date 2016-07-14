@@ -45,7 +45,7 @@ let error: Function = log.bind("ERROR")
 let done:  Function = log.bind("DONE")
 
 let ga: Function = window.ga
-let trackVisits = (location: HistoryLocation): void => {
+let trackVisits = ({params: {location}}: StateType): void => {
   if ( ga && typeof ga === 'function' ) {
     ga('set', 'page', location.pathname)
     ga('send', 'pageview')
@@ -84,6 +84,7 @@ let buildState = ({params, found}: StateType): Observable => {
 
 let buildInitialState = (location: HistoryLocation): StateType => ({
   params: {
+    location: location,
     history: __history,
     index: Location.toIndex(location),
     command: Location.toCommand(location),
