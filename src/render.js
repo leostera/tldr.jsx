@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 
 import Debug from './components/Debug'
 import Nav from './components/Nav'
+import Footer from './components/Footer'
 import NotFound from './components/NotFound'
 import TldrPage from './components/TldrPage'
 import Welcome from './components/Welcome'
@@ -39,6 +40,7 @@ export default (props: State) => {
         { found && page && !page.error && <TldrPage {...page} /> }
         { found && page &&  page.error && <Oops /> }
         { debug && <Debug {...props} /> }
+        <Footer />
       </section>
     ), document.getElementById('tldr'))
   } catch (e) {
