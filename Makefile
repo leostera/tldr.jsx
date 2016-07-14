@@ -57,6 +57,7 @@ source:
 			--REVISION "$(REVISION)" \
 			--STAMP    "$(STAMP)" \
 			--NODE_ENV "$(NODE_ENV)" \
+			--MIXPANEL_API_KEY "$(MIXPANEL_API_KEY)" \
 		] \
 		-o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js

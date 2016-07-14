@@ -52,8 +52,8 @@ let trackVisits = (location: HistoryLocation): void => {
   }
 }
 
+mixpanel.init(process.env.MIXPANEL_API_KEY)
 let track = (state: StateType): void => {
-
 }
 
 // Extend state
