@@ -4,6 +4,8 @@
  * Imports
  *******************************************************************************/
 
+import Mixpanel from 'mixpanel-browser'
+
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
 import 'rxjs/add/operator/catch'
@@ -43,11 +45,15 @@ let error: Function = log.bind("ERROR")
 let done:  Function = log.bind("DONE")
 
 let ga: Function = window.ga
-let track = (location: HistoryLocation): void => {
+let trackVisits = (location: HistoryLocation): void => {
   if ( ga && typeof ga === 'function' ) {
     ga('set', 'page', location.pathname)
     ga('send', 'pageview')
   }
+}
+
+let track = (state: StateType): void => {
+
 }
 
 // Extend state
@@ -89,13 +95,14 @@ let StateObservable: Observable = Observable
   .from(history)
   .debounceTime(300)
   .distinctUntilChanged()
-  .do(track)
+  .do(trackVisits)
   .map(buildInitialState)
   .do(render)
 
 let StateFromIndex: Observable = Observable
   .from(StateObservable)
   .mergeMap(findInIndex, addFound)
+  .do(track)
   .distinctUntilChanged()
 
 // Subscribe to commands found and fetch them
