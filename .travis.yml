@@ -12,7 +12,7 @@ script:
   - make check
   - make lint
   - make test
-  - make dist
+  - NODE_ENV=production make package
 
 deploy:
   skip_cleanup: true
