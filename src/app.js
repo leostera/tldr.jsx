@@ -61,8 +61,9 @@ let initMixpanel = ({params: {debug}}: StateType): void => {
 let track = ({params: {command: {platform, name}}, found}: StateType): void => {
   if(name) {
     Mixpanel.track("Search", {
-      "Query": `${platform}/${name}`,
-      "Found": !!found,
+      "Query":    `${platform}/${name}`,
+      "Found":    !!found,
+      "Command":  name,
       "Platform": platform
     })
   }
