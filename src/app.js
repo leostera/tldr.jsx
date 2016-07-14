@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import Mixpanel from 'mixpanel-browser/src/loader-module'
+import Mixpanel from 'mixpanel-browser/mixpanel.cjs.js'
 
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
