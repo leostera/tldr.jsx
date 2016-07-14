@@ -45,7 +45,7 @@ let error: Function = log.bind("ERROR")
 let done:  Function = log.bind("DONE")
 
 let ga: Function = window.ga
-let trackVisits = ({params: {location}}: StateType): void => {
+let trackGoogleAnalyticsVisits = ({params: {location}}: StateType): void => {
   if ( ga && typeof ga === 'function' ) {
     ga('set', 'page', location.pathname)
     ga('send', 'pageview')
@@ -58,7 +58,10 @@ let initMixpanel = ({params: {debug}}: StateType): void => {
   })
 }
 
-let track = (state: StateType): void => {
+let track = ({params: {command: {name, platform}}, found}: StateType): void => {
+  if(name) {
+    Mixpanel.track("Search", { "Query": `${platform}/${name}`, "Found": !!found })
+  }
 }
 
 // Extend state
@@ -101,16 +104,20 @@ let StateObservable: Observable = Observable
   .from(history)
   .debounceTime(300)
   .distinctUntilChanged()
-  .do(trackVisits)
   .map(buildInitialState)
+  .do(trackGoogleAnalyticsVisits)
   .do(initMixpanel)
   .do(render)
 
 let StateFromIndex: Observable = Observable
   .from(StateObservable)
   .mergeMap(findInIndex, addFound)
-  .do(track)
   .distinctUntilChanged()
+
+let Tracker: Observable = Observable
+  .from(StateFromIndex)
+  .do(track)
+  .subscribe(log, error, done)
 
 // Subscribe to commands found and fetch them
 let CommandFound: Observable = Observable
