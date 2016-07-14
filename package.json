@@ -36,6 +36,7 @@
     "eslint-plugin-react": "^5.2.2",
     "flow-bin": "^0.25.0",
     "jest-cli": "^13.0.0",
+    "node-sass": "^3.8.0",
     "react-dom": "^15.1.0",
     "reactify": "^1.1.1",
     "static-server": "^2.0.2",

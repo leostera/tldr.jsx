@@ -37,12 +37,14 @@ assets:
 	cp -r ./assets $(BUILD_DIR)
 
 styles:
-	sass --sourcemap=inline \
-		--update \
-		./styles:$(BUILD_DIR)
+	$(BIN_DIR)/node-sass \
+		--source-map true \
+		--source-map-contents \
+		--output-style compressed \
+		./styles/index.sass > $(BUILD_DIR)/index.css
 
 source:
-	browserify . -d \
+	$(BIN_DIR)/browserify . -d \
 		-t babelify \
 		-t [ envify \
 			--VERSION  "$(VERSION)" \
