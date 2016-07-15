@@ -4,3 +4,4 @@ dist
 TODO
 
 *.sw*
+.build.sh
