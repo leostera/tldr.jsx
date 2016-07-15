@@ -60,7 +60,7 @@ package: clean build
 	sed -i 's build/bundle build/$(STAMP) g' $(DIST_DIR)/index.html
 	sed -i 's build/index build/$(STAMP) g'  $(DIST_DIR)/index.html
 	mv $(DIST_DIR)/$(BUILD_DIR)/index.css $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css
-	uglifyjs $(DIST_DIR)/$(BUILD_DIR)/bundle.js -o $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js
+	$(BIN_DIR)/uglifyjs $(DIST_DIR)/$(BUILD_DIR)/bundle.js > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
