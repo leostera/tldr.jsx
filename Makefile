@@ -3,16 +3,17 @@
 .PHONY: assets styles source build package
 .PHONY: server clean
 
-DIST_DIR=./dist
-BUILD_DIR=./build
-BIN_DIR=./node_modules/.bin
+DIST_DIR  =./dist
+BUILD_DIR =./build
+BIN_DIR   =./node_modules/.bin
 SCRIPT_DIR=./scripts
 
 DIR=.
 
-VERSION=$(shell git describe --tags HEAD)
+BRANCH  ?=$(shell git rev-parse --abbrev-ref HEAD)
+VERSION =$(shell git describe --tags HEAD)
 REVISION=$(shell git rev-parse HEAD)
-STAMP=$(REVISION).$(shell date +%s)
+STAMP   =$(REVISION).$(shell date +%s)
 
 all: check lint test package
 
@@ -64,11 +65,13 @@ package: clean build
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
-ci-build: $(BUILD_DIR)/ci.sh
-	try $(SCRIPT_DIR)/ci-build.sh
+ci-build: ci-script
+	$(SCRIPT_DIR)/ci-build.sh
 
-$(BUILD_DIR)/ci.sh:
-	travis compile ${shell travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//'} > $(BUILD_DIR)/ci.sh
+ci-script:
+	travis compile ${shell travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//'}  \
+		| sed '/branch/s \\'\''\\'\'' \\'\''$(BRANCH)\\'\'' ' \
+		> $(BUILD_DIR)/ci.sh
 	chmod +x $(BUILD_DIR)/ci.sh
 
 release:
