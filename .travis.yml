@@ -12,6 +12,10 @@ cache:
   directories:
     -  node_modules
 
+before_install:
+  - env
+  - git fetch $(git remote get-url origin) 'refs/tags/*:refs/tags/*'
+
 script:
   - make check
   - make lint
