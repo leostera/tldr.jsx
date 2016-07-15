@@ -56,7 +56,10 @@ source:
 		-o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
-package: clean build
+rxjs:
+	npm install rxjs@5.0.0-beta.10
+
+package: rxjs clean build
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
 	sed -i 's build/bundle build/$(STAMP) g' $(DIST_DIR)/index.html
 	sed -i 's build/index build/$(STAMP) g'  $(DIST_DIR)/index.html
