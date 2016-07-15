@@ -65,18 +65,6 @@ package: clean build
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
-ci-build: ci-script
-	$(SCRIPT_DIR)/ci-build.sh
-
-ci-script:
-	travis compile ${shell travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//'}  \
-		| sed '/branch/s \\'\''\\'\'' \\'\''$(BRANCH)\\'\'' ' \
-		> $(BUILD_DIR)/ci.sh
-	chmod +x $(BUILD_DIR)/ci.sh
-
-release:
-	$(SCRIPT_DIR)/release.sh
-
 server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
