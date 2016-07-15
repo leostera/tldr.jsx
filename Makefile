@@ -73,3 +73,6 @@ server:
 clean:
 	rm -rf $(BUILD_DIR) $(DIST_DIR)
 	mkdir -p $(BUILD_DIR) $(DIST_DIR)
+
+cleanall: clean
+	rm -rf node_modules
