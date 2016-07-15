@@ -1,9 +1,18 @@
-#!/bin/bash -e
+#!/bin/bash -xe
+
+readonly LAST_BUILD_JOB=$(travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//')
+
+travis compile ${LAST_BUILD_JOB} > ${BUILD_SCRIPT}
 
 readonly IMAGE=quay.io/travisci/travis-node-js
-readonly LAST_BUILD_JOB=$(travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//')
 readonly BUILD_SCRIPT=$(pwd)/.build.sh
+#!/bin/bash -xe
 
-try docker pull ${IMAGE}
-travis compile ${LAST_BUILD_JOB} > ${BUILD_SCRIPT}
-docker run -ti --rm --entrypoint=/opt/build.sh -v ${BUILD_SCRIPT}:/opt/build.sh ${IMAGE}
+readonly IMAGE=quay.io/travisci/travis-node-js
+docker run \
+  -ti \
+  --entrypoint=/opt/build.sh \
+  -v $(pwd)/.travis_build:/root/build \
+  -v ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
+  -v $(pwd)/.build.sh:/opt/build.sh \
+  ${IMAGE}
