@@ -64,8 +64,11 @@ package: clean build
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
-ci-build:
-	$(SCRIPT_DIR)/ci-build.sh
+ci-build: $(BUILD_DIR)/ci.sh
+	try $(SCRIPT_DIR)/ci-build.sh
+
+$(BUILD_DIR)/ci.sh:
+	travis compile ${shell travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//'} > $(BUILD_DIR)/ci.sh
 
 release:
 	$(SCRIPT_DIR)/release.sh
