@@ -64,6 +64,9 @@ package: clean build
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
+ci-build:
+	$(SCRIPT_DIR)/ci-build.sh
+
 release:
 	$(SCRIPT_DIR)/release.sh
 
