@@ -18,7 +18,7 @@ script:
   - make check
   - make lint
   - make test
-  - NODE_ENV=production make package
+  - make package
 
 deploy:
   on:
