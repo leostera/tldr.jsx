@@ -13,7 +13,7 @@ cache:
     -  node_modules
 
 before_install:
-  - env
+  - env | sort
 
 script:
   - make check
