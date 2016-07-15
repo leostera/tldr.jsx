@@ -56,9 +56,6 @@ source:
 		-o $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
-deps:
-	npm install
-
 package: clean build
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
 	sed -i 's build/bundle build/$(STAMP) g' $(DIST_DIR)/index.html

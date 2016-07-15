@@ -5,6 +5,9 @@ node_js:
   - '5.4'
   - '5.5'
 
+env:
+  NODE_ENV: ci
+
 git:
   depth: 100
 
@@ -15,9 +18,11 @@ script:
   - make check
   - make lint
   - make test
-  - NODE_ENV=production make deps package
+  - "make deps; NODE_ENV=production make package"
 
 deploy:
+  on:
+    node: '5.5'
   skip_cleanup: true
   local_dir: dist
   provider: s3
