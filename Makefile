@@ -69,6 +69,7 @@ ci-build: $(BUILD_DIR)/ci.sh
 
 $(BUILD_DIR)/ci.sh:
 	travis compile ${shell travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//'} > $(BUILD_DIR)/ci.sh
+	chmod +x $(BUILD_DIR)/ci.sh
 
 release:
 	$(SCRIPT_DIR)/release.sh
