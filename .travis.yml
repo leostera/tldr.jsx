@@ -18,7 +18,7 @@ script:
   - make check
   - make lint
   - make test
-  - "make deps; NODE_ENV=production make package"
+  - "npm i; NODE_ENV=production make package"
 
 deploy:
   on:
