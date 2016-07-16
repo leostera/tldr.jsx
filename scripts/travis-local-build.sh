@@ -8,6 +8,8 @@ readonly REF=$(git rev-parse HEAD)
 readonly TIME=$(date +%s)
 readonly STAMP=${BRANCH}@${REF}.${TIME}
 
+mkdir -p ${BUILD_DIR}
+
 travis compile $(travis show | tail -n 1 | awk '{ print $1 }' | sed 's/#//') > ${BUILD_DIR}/ci.sh
 sed -i "/branch/s#\\\'\\\'#\\\'${BRANCH}\\\'#" ${BUILD_DIR}/ci.sh
 chmod +x ${BUILD_DIR}/ci.sh
