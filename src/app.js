@@ -53,7 +53,7 @@ let trackGoogleAnalyticsVisits = ({params: {location}}: StateType): void => {
 }
 
 let initMixpanel = ({params: {debug}}: StateType): void => {
-  Mixpanel.init(process.env.MIXPANEL_API_KEY, {
+  Mixpanel.init(process.env.MIXPANEL_TOKEN, {
     debug
   })
 }
