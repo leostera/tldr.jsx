@@ -8,7 +8,7 @@
   },
   "homepage": "https://tldr.ostera.io",
   "license": "MIT",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "main": "src/app.js",
   "dependencies": {
     "babel-runtime": "^6.9.2",
