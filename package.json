@@ -25,7 +25,7 @@
     "base-64": "^0.1.0",
     "browserify": "^13.0.1",
     "envify": "^3.4.1",
-    "eslint": "^3.0.0",
+    "eslint": "^3.1.0",
     "eslint-plugin-react": "^5.2.2",
     "flow-bin": "^0.25.0",
     "history": "^3.0.0",
