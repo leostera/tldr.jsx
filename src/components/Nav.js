@@ -32,7 +32,7 @@ export default ({navigate}: NavigateProps) => (
       </section>
       <section className="search">
         <input
-          tabindex="100"
+          tabIndex="100"
           type="text"
           onChange={ ({target: {value}}) => navigate(value) }
           placeholder="Command name"
