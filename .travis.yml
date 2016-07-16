@@ -4,7 +4,8 @@ node_js:
   - '5'
 
 env:
-  NODE_ENV: CI
+  global:
+    - NODE_ENV=CI
 
 cache:
   directories:
@@ -23,6 +24,7 @@ script:
   - NODE_ENV=production make package
 
 before_deploy: "echo 'Here we go!'"
+
 deploy:
   on:
     node: '5.5'
@@ -36,5 +38,6 @@ deploy:
     secure: Calj/FBM93CcZmiygFRXly77IfqLSHUo4lricvZQ7NP+qGOoORBrpCObhh76vXE0WkWWOhE9nBChaQp8H/X51/kWgd5tbZ7vsg7V1G8DAwxT4dkUYPSpzl2usxnAN5nNUvZx88wU9NRN51+62E65xl1hRTGYYGIgvTdOnDFpqx9IdrK83CLqQHshmS0QyJKezrpiw/ue6IipAKti+3NmBbllDBtVIRxihZgbs0ZsUNoMrLWDzCDDyG9ghISac2WGJKfZRuKnZQUE2Wogah6v5iXWPXTy2FYLL3tNAxMhga5Y41Pnwqd04UviqpuhGIdZMvkJW5QkacJ80nTrv2na2Qm2qqvtAblmrcPfQrLmJWd05PFiy0GQEZo4eEfaEHyYjpIh8H38IFbn82DWr/IxiWvC5isuclWBRjr5McKB4pdsiQsBwNnTbGqLsmWdbZGhLA9MZAIR6LIbyy2fe0Idp8XBl2YdaguGxvggjdzSWEVE2Elef8h/0M9Aa/4cLrqCaC7sUjzSryuOYdjzKUL5nNU/d/6yC/rsZ56DW4V9K2Aq2YPq7AVC9kaAeIIFAr6J7vSHZH4d1srd6iS8hrw5ApPx5ZactJiMY4zOvpHy0Q+BeCaUEglPq5ggw1Q7/Da96mQ2oEIqzDKomsukMjTFqfx3Ylk+nBa+A91S5W417gI=
   access_key_id:
     secure: LaxsgIOvBx10Ybt8gWe+E5AII52o01abApentuv9dZo1uOnW3x9hGOrvRgeL8Otie7eDycUg6Em/hXclzX2WYLgKeG0RBK0tqLyQBq60eZ36VfWolCr2nr6YH0IWD+aWNbOXxu9pvEEs0P/k/YPDWXeAJrN12ZtA6yi6oYkE5ZIMrknbFqlai01+U+6LRNPIeFqT9puj37qrdwFZAtZosGSmXQClKH/rBE+/3LE9fsxIxOLBUkGwa2IEsadBX4emNDNP796rRDg3guiQ/+Ay75EzFVPYAz3dW1a2LTK+dtBSfa+t8MJdb8q/hSl2L1HnFcQDTvaJcBT4sdJ0ScVzihi6Z5fIXrBr9uY3vMtoBPugNKy1BHv88zQbsjvszZPd56j3jOdiH4PhrJ8nN0MvaWgiDzLSj3picz8ZQx5mk+6hIYsr4YQ0AVwsB2b2ckBKBDCmiIkEPDg9RTXfzajmCVTnMTOkQ7K//5nPqcXzF4lXO2FQSlb5RMiJOanZ8qIql0unE1zew93RoPjweHPH5Dqz/p1hSWmQXG0li1Vf19TQVnNm2VI6oJZ2zwbSYy9rV+tmHnC5VeGff1HiLR5faSlsfpDMR/exVzPg4HB8oUfg8rta5nR9eabYVuqS/HofT7RXA6VBURIA7x6qCdM7GtuHBR8FJNlw8Kz8+O6jn0A=
+
 after_deploy:
   - ./scripts/invalidate-cdn-cache.sh
