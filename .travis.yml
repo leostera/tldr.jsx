@@ -22,7 +22,7 @@ script:
   - make check
   - make lint
   - make test
-  - make dirs source
+  - NODE_ENV=production make package
 
 deploy:
   on:
