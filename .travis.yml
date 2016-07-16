@@ -27,6 +27,7 @@ script:
 deploy:
   on:
     node: '5.5'
+    branch: ci-release
   skip_cleanup: true
   local_dir: dist
   provider: s3
