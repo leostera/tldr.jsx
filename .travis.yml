@@ -8,6 +8,10 @@ node_js:
 env:
   NODE_ENV: CI
 
+cache:
+  directories:
+    - node_modules
+
 git:
   depth: 100
 
