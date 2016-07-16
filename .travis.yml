@@ -18,7 +18,8 @@ script:
   - make check
   - make lint
   - make test
-  - make source
+  - make dirs source
+  - make dirs styles
 
 deploy:
   on:

@@ -32,7 +32,10 @@ test:
 lint:
 	$(BIN_DIR)/eslint ./src
 
-build: assets styles source
+build: dirs assets styles source
+
+dirs:
+	mkdir -p $(BUILD_DIR) $(DIST_DIR)
 
 assets:
 	cp -r ./assets $(BUILD_DIR)
@@ -70,7 +73,6 @@ server:
 
 clean:
 	rm -rf $(BUILD_DIR) $(DIST_DIR)
-	mkdir -p $(BUILD_DIR) $(DIST_DIR)
 
 cleanall: clean
 	rm -rf node_modules
