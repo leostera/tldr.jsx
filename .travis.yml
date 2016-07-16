@@ -26,13 +26,14 @@ script:
 before_deploy: "echo 'Here we go!'"
 
 deploy:
+  provider: s3
+  bucket: s3://tldr.ostera.io
   on:
-    node: '5.5'
+    node: '5'
+    repo: ostera/tldr.jsx
     branch: ci-release
   skip_cleanup: true
-  local_dir: dist
-  provider: s3
-  bucket: "tldr.ostera.io"
+  local-dir: dist
   acl: public_read
   secret_access_key:
     secure: Calj/FBM93CcZmiygFRXly77IfqLSHUo4lricvZQ7NP+qGOoORBrpCObhh76vXE0WkWWOhE9nBChaQp8H/X51/kWgd5tbZ7vsg7V1G8DAwxT4dkUYPSpzl2usxnAN5nNUvZx88wU9NRN51+62E65xl1hRTGYYGIgvTdOnDFpqx9IdrK83CLqQHshmS0QyJKezrpiw/ue6IipAKti+3NmBbllDBtVIRxihZgbs0ZsUNoMrLWDzCDDyG9ghISac2WGJKfZRuKnZQUE2Wogah6v5iXWPXTy2FYLL3tNAxMhga5Y41Pnwqd04UviqpuhGIdZMvkJW5QkacJ80nTrv2na2Qm2qqvtAblmrcPfQrLmJWd05PFiy0GQEZo4eEfaEHyYjpIh8H38IFbn82DWr/IxiWvC5isuclWBRjr5McKB4pdsiQsBwNnTbGqLsmWdbZGhLA9MZAIR6LIbyy2fe0Idp8XBl2YdaguGxvggjdzSWEVE2Elef8h/0M9Aa/4cLrqCaC7sUjzSryuOYdjzKUL5nNU/d/6yC/rsZ56DW4V9K2Aq2YPq7AVC9kaAeIIFAr6J7vSHZH4d1srd6iS8hrw5ApPx5ZactJiMY4zOvpHy0Q+BeCaUEglPq5ggw1Q7/Da96mQ2oEIqzDKomsukMjTFqfx3Ylk+nBa+A91S5W417gI=
