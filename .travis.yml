@@ -6,7 +6,7 @@ node_js:
   - '5.5'
 
 env:
-  NODE_ENV: ci
+  NODE_ENV: CI
 
 git:
   depth: 100
