@@ -48,7 +48,11 @@ styles:
 		./styles/index.sass > $(BUILD_DIR)/index.css
 
 source:
-	$(BIN_DIR)/browserify . -d \
+	rm -rf ./node_modules/rxjs
+	npm i rxjs
+	$(BIN_DIR)/browserify \
+		. \
+		-d \
 		-t babelify \
 		-t [ envify \
 			--VERSION  "$(VERSION)" \

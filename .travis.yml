@@ -19,7 +19,6 @@ script:
   - make lint
   - make test
   - make dirs source
-  - make dirs styles
 
 deploy:
   on:
