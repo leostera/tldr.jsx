@@ -18,7 +18,7 @@ script:
   - make check
   - make lint
   - make test
-  - make package
+  - make source
 
 deploy:
   on:
