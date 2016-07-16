@@ -3,7 +3,6 @@ language: node_js
 node_js:
   - '5'
   - '4'
-  - 'iojs'
 
 env:
   global:
@@ -37,7 +36,6 @@ deploy:
   on:
     node: '5'
     repo: ostera/tldr.jsx
-    branch: ci-release
   skip_cleanup: true
   local-dir: dist
   acl: public_read
