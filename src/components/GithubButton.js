@@ -29,7 +29,7 @@ export default ({user, repository, size, type, count}: ButtonProps) =>
   <iframe
     className="github-iframe"
     src={`https://ghbtns.com/github-btn.html?user=${user}&repo=${repository}&type=${type}&count=${count}&size=${size}`}
-    frameborder="0"
+    frameBorder="0"
     scrolling="0"
     width="160px"
     height="30px">
