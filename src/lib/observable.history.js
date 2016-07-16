@@ -7,7 +7,7 @@
 import { fromEventPattern } from 'rxjs/observable/fromEventPattern'
 import 'rxjs/add/operator/startWith'
 
-import type { Observable } from 'rxjs/observable'
+import type { Observable } from 'rxjs/Observable'
 import type { History, Location } from 'history'
 
 /*******************************************************************************

@@ -4,3 +4,5 @@ dist
 TODO
 
 *.sw*
+.build.sh
+.travis_build
