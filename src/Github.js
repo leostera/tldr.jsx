@@ -6,7 +6,7 @@
 
 import { encode } from 'base-64'
 
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 
 import type { AjaxObservable, AjaxRequest } from 'rxjs/observable/dom/ajax'
 

@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 import { from } from 'rxjs/observable/from'
 import 'rxjs/add/operator/defaultIfEmpty'
 import 'rxjs/add/operator/mergeMap'
