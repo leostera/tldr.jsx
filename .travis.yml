@@ -27,7 +27,7 @@ before_deploy: "echo 'Here we go!'"
 
 deploy:
   provider: s3
-  bucket: s3://tldr.ostera.io
+  bucket: tldr.ostera.io
   on:
     node: '5'
     repo: ostera/tldr.jsx
