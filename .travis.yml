@@ -23,6 +23,7 @@ before_install:
   - ./scripts/install-awscli.sh
 
 script:
+  - make setup
   - make check
   - make lint
   - make test
