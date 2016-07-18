@@ -18,9 +18,8 @@ STAMP   =$(REVISION).$(shell date +%s)
 all: setup check lint test package
 
 setup:
-	mkdir -p node_modules
-	cd node_modules
-	ln -sf ../src tldr
+	mkdir -p ./node_modules
+	ln -sf ./src ./node_modules/tldr
 
 flow-stop:
 	$(BIN_DIR)/flow stop
