@@ -6,7 +6,7 @@
 
 import React from 'react'
 
-import type { State } from '../Tldr'
+import type { State } from 'tldr/Tldr'
 
 import { parse, stringify } from 'query-string'
 

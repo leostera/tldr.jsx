@@ -12,14 +12,14 @@ import { decode } from 'base-64'
 
 import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
 
-import GithubAPI from './Github'
+import GithubAPI from 'tldr/Github'
 import type {
               Github,
               Get as GithubGetOptions,
               Options as GithubOptions
-            } from './Github'
+            } from 'tldr/Github'
 
-import type { Command } from './Command'
+import type { Command } from 'tldr/Command'
 
 /*******************************************************************************
  * Type Definitions

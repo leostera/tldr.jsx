@@ -12,11 +12,11 @@ import 'rxjs/add/operator/pluck'
 
 import { decode } from 'base-64'
 
-import Github from './Github'
+import Github from 'tldr/Github'
 
 import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
-import type { Options as GithubOptions } from './Github'
-import type { Command } from './Command'
+import type { Options as GithubOptions } from 'tldr/Github'
+import type { Command } from 'tldr/Command'
 
 /*******************************************************************************
  * Type Definitions

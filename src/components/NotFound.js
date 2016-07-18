@@ -6,9 +6,9 @@
 
 import React from 'react'
 
-import { Markdown, Cr } from './Markdown'
-import Link from './Link'
-import Tldr from './Tldr'
+import { Markdown, Cr } from 'tldr/components/Markdown'
+import Link from 'tldr/components/Link'
+import Tldr from 'tldr/components/Tldr'
 
 /*******************************************************************************
  * Public API
