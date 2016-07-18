@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
 pushd node_modules
-  rm ./tldr
+  rm -f ./tldr
   ln -s ../src ./tldr
 popd
