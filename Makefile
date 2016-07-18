@@ -15,7 +15,12 @@ VERSION =$(shell git describe --tags HEAD)
 REVISION=$(shell git rev-parse HEAD)
 STAMP   =$(REVISION).$(shell date +%s)
 
-all: check lint test package
+all: setup check lint test package
+
+setup:
+	mkdir -p node_modules
+	cd node_modules
+	ln -sf ../src tldr
 
 flow-stop:
 	$(BIN_DIR)/flow stop
