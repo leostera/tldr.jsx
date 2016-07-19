@@ -13,3 +13,8 @@
 
   @media only screen and (min-device-width: 1024px) and (min-device-height: 728px)
     #{$selector}: $big
+
+$grid_unit: 6.8966vw
+=grid($columns, $rows)
+  height: $columns*$grid_unit
+  width:  $rows*$grid_unit
