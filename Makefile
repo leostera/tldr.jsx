@@ -46,6 +46,7 @@ assets:
 styles:
 	$(BIN_DIR)/node-sass \
 		--source-map true \
+		--source-map-embed \
 		--source-map-contents \
 		--output-style compressed \
 		./styles/index.sass > $(BUILD_DIR)/index.css
@@ -62,7 +63,8 @@ source:
 			--NODE_ENV "$(NODE_ENV)" \
 			--MIXPANEL_TOKEN "$(MIXPANEL_TOKEN)" \
 		] \
-		-o $(BUILD_DIR)/_bundle.js
+		| $(BIN_DIR)/exorcist $(BUILD_DIR)/bundle.js.map \
+		> $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
 package: clean build
@@ -71,6 +73,7 @@ package: clean build
 	sed -i 's build/index build/$(STAMP) g'  $(DIST_DIR)/index.html
 	mv $(DIST_DIR)/$(BUILD_DIR)/index.css $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css
 	$(BIN_DIR)/uglifyjs $(DIST_DIR)/$(BUILD_DIR)/bundle.js > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js
+	rm $(DIST_DIR)/$(BUILD_DIR)/bundle.js
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
