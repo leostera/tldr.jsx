@@ -46,6 +46,7 @@ assets:
 styles:
 	$(BIN_DIR)/node-sass \
 		--source-map true \
+		--source-map-embed \
 		--source-map-contents \
 		--output-style compressed \
 		./styles/index.sass > $(BUILD_DIR)/index.css
