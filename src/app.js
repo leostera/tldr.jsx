@@ -3,8 +3,6 @@
 const Version  = process.env.VERSION
 const Revision = process.env.REVISION
 
-export { Version, Revision }
-
 /*******************************************************************************
  * Imports
  *******************************************************************************/
@@ -97,6 +95,7 @@ let buildState = ({params, found}: StateType): Observable => {
 
 let buildInitialState = (location: HistoryLocation): StateType => ({
   params: {
+    _: { Version, Revision },
     location: location,
     history: __history,
     index: Location.toIndex(location),

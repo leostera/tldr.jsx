@@ -10,24 +10,27 @@ import GithubButton from 'tldr/components/GithubButton'
 import Tldr         from 'tldr/components/Tldr'
 import Version      from 'tldr/components/Version'
 
+import type { Package } from 'tldr/Tldr'
+
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
 type NavigateProps = {
   navigate(to: string): any;
+  version: Package;
 }
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default ({navigate}: NavigateProps) => (
+export default ({navigate, version}: NavigateProps) => (
   <nav>
     <section className="content">
       <section className="brand-and-version">
         <Tldr />
-        <Version />
+        <Version {...version} />
       </section>
       <section className="search">
         <input
@@ -49,4 +52,3 @@ export default ({navigate}: NavigateProps) => (
     </section>
   </nav>
 )
-

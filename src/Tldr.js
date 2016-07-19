@@ -16,7 +16,13 @@ import type { Page }    from 'tldr/Page'
 
 type Debug = boolean
 
+export type Package = {
+  Version:  ?string;
+  Revision: ?string;
+}
+
 export type Parameters = {
+  _:        Package;
   command:  Command;
   debug?:   Debug;
   history:  History;

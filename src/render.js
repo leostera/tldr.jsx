@@ -29,11 +29,11 @@ const Loading = () => (
 )
 
 export default (props: State) => {
-  let {found, page, params: {debug, command, history}} = props
+  let {found, page, params: {_, debug, command, history}} = props
   try {
     ReactDOM.render((
       <section>
-        <Nav navigate={navigate(history)} />
+        <Nav navigate={navigate(history)} version={_}/>
         { !command.name && <Welcome /> }
         { command.name && found === undefined && <Loading /> }
         { command.name && found === false     && <NotFound /> }
