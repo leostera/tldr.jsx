@@ -1,5 +1,10 @@
 //@flow
 
+const Version  = process.env.VERSION
+const Revision = process.env.REVISION
+
+export { Version, Revision }
+
 /*******************************************************************************
  * Imports
  *******************************************************************************/

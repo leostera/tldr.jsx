@@ -6,12 +6,12 @@
 
 import React from 'react'
 
+import { Version, Revision } from 'tldr/app'
+
 /*******************************************************************************
  * Private
  *******************************************************************************/
 
-const Version  = process.env.VERSION
-const Revision = process.env.REVISION
 const Origin   = `https://github.com/ostera/tldr.jsx/tree/${Revision}`
 
 /*******************************************************************************
