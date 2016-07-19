@@ -8,7 +8,7 @@
   },
   "homepage": "https://tldr.ostera.io",
   "license": "MIT",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "main": "src/app.js",
   "dependencies": {
     "babel-eslint": "^6.1.0",
