@@ -5,7 +5,7 @@
  *******************************************************************************/
 
 import React from 'react'
-import DOM from 'react-dom/server'
+import DOM   from 'react-dom/server'
 
 import marked from 'marked'
 

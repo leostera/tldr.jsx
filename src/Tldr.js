@@ -6,9 +6,9 @@
 
 import type { History, Location } from 'history'
 
-import type { Options as IndexOptions } from './Index'
-import type { Command } from './Command'
-import type { Page } from './Page'
+import type { Options as IndexOptions } from 'tldr/Index'
+import type { Command } from 'tldr/Command'
+import type { Page }    from 'tldr/Page'
 
 /*******************************************************************************
  * Type Definitions

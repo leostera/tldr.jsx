@@ -6,10 +6,9 @@
 
 import React from 'react'
 
-import Tldr from './Tldr'
-import Version from './Version'
-
-import GithubButton from './GithubButton'
+import GithubButton from 'tldr/components/GithubButton'
+import Tldr         from 'tldr/components/Tldr'
+import Version      from 'tldr/components/Version'
 
 /*******************************************************************************
  * Type Definitions

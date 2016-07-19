@@ -15,7 +15,10 @@ VERSION =$(shell git describe --tags HEAD)
 REVISION=$(shell git rev-parse HEAD)
 STAMP   =$(REVISION).$(shell date +%s)
 
-all: check lint test package
+all: setup check lint test package
+
+setup:
+	$(SCRIPT_DIR)/symlink.sh
 
 flow-stop:
 	$(BIN_DIR)/flow stop

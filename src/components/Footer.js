@@ -6,7 +6,7 @@
 
 import React from 'react'
 
-import MixpanelBadge from './MixpanelBadge'
+import MixpanelBadge from 'tldr/components/MixpanelBadge'
 
 /*******************************************************************************
  * Type Definitions

@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import Mixpanel from './Analytics'
+import Mixpanel from 'tldr/Analytics'
 
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/from'
@@ -17,19 +17,19 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/takeUntil'
 
 import type { History, Location as HistoryLocation } from 'history'
-import type { State } from './Tldr'
+import type { State } from 'tldr/Tldr'
 
-import ObservableHistory from './lib/observable.history'
+import ObservableHistory from 'tldr/lib/observable.history'
 import createHistory from 'history/lib/createBrowserHistory'
 
-import Index from './Index'
-import Location from './Location'
-import Page from './Page'
+import Index from 'tldr/Index'
+import Location from 'tldr/Location'
+import Page from 'tldr/Page'
 
-import type { State as StateType } from './Tldr'
-import type { Page as PageType, Options as PageOptions } from './Page'
+import type { State as StateType } from 'tldr/Tldr'
+import type { Page as PageType, Options as PageOptions } from 'tldr/Page'
 
-import render from './render'
+import render from 'tldr/render'
 
 /*******************************************************************************
  * Private

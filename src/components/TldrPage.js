@@ -7,10 +7,10 @@
 import React from 'react'
 import marked from 'marked'
 
-import type { Page } from '../Page'
+import type { Page } from 'tldr/Page'
 
-import { Markdown } from './Markdown'
-import Link from './Link'
+import { Markdown } from 'tldr/components/Markdown'
+import Link from 'tldr/components/Link'
 
 /*******************************************************************************
  * Public API
