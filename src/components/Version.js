@@ -6,17 +6,18 @@
 
 import React from 'react'
 
-import { Version, Revision } from 'tldr/app'
+import type { Package } from 'tldr/Tldr'
 
 /*******************************************************************************
- * Private
+ * Type Definitions
  *******************************************************************************/
 
-const Origin   = `https://github.com/ostera/tldr.jsx/tree/${Revision}`
-
+type VersionProps = Package;
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default () =>
-  <a className="version" href={Origin}>v{Version}</a>
+export default ({Version, Revision}: VersionProps) => {
+  const Origin = `https://github.com/ostera/tldr.jsx/tree/${Revision}`
+  return (<a className="version" href={Origin}>v{Version}</a>)
+}
