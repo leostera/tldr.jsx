@@ -5,12 +5,17 @@
 =monospaced()
   font-family: 'Source Code Pro', Courier New, Courier, monospace
 
-=adaptive($selector, $small, $landscape, $big)
+=adaptive($selector, $small, $medium, $big)
   #{$selector}: $small
 
-  @media only screen and (orientation: landscape)
-    #{$selector}: $landscape
+  // portraits for tablet and bigger
+  @media only screen and (min-device-width: 768px)
+    #{$selector}: $medium
 
+  @media only screen and (min-device-width: 728px)
+    #{$selector}: $medium
+
+  // landscapes for tablet and bigger
   @media only screen and (min-device-width: 1024px) and (min-device-height: 728px)
     #{$selector}: $big
 
