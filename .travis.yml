@@ -19,7 +19,6 @@ git:
   depth: 100
 
 before_install:
-  - env | sort
   - ./scripts/install-awscli.sh
 
 script:
