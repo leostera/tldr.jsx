@@ -18,9 +18,6 @@ cache:
 git:
   depth: 100
 
-before_install:
-  - ./scripts/install-awscli.sh
-
 script:
   - make setup
   - make check
@@ -28,7 +25,8 @@ script:
   - make test
   - NODE_ENV=production make package
 
-before_deploy: "echo 'Here we go!'"
+before_deploy:
+  - ./scripts/install-awscli.sh
 
 deploy:
   provider: s3
