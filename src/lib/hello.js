@@ -60,6 +60,7 @@ export default [
   "Talitali fiefia",
   "Tere tulõmast",
   "Tikilluaritsi",
+  "tonk'peh",
   "Vælkomin",
   "Walcome",
   "Walloon",
