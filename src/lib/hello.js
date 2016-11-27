@@ -48,6 +48,7 @@ export default [
   "N bèlantre",
   "Naragsak nga Idadanon",
   "Nau mai",
+  "nuqneH",
   "Qaimarutin",
   "Romani",
   "Räxim itegez",
