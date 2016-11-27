@@ -68,6 +68,7 @@ export default [
   "Weltasualuleg",
   "Wilkomme",
   "Wilkóm",
+  "Willkommen",
   "Witajće k nam",
   "Witakśo k nam",
   "Wolkom",
