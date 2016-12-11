@@ -17,18 +17,6 @@ import type { Location } from 'history'
  * Public API
  *******************************************************************************/
 
-const agent = window.navigator.userAgent
-const match = (agent, string) => agent.match(string).length > 0
-
-const getDefaultPlatform = () => {
-  if( match(agent, 'OS X') )  return 'osx'
-  if( match(agent, 'Linux') ) return 'linux'
-  if( match(agent, 'Sun') )   return 'sunos'
-  return 'common'
-}
-
-const defaultPlatform = getDefaultPlatform()
-
 let toCommand = (location: Location): Command => {
   let parts = compact(location.pathname.split('/'))
   let res: Command
@@ -38,7 +26,7 @@ let toCommand = (location: Location): Command => {
     break
     case 1:
     default:
-      res = { name: parts[0], platform: defaultPlatform }
+      res = { name: parts[0], platform: "common" }
     break
   }
   return res
