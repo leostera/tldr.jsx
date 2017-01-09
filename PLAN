@@ -49,4 +49,11 @@ type State = {
 
 3. The actions to be triggered are:
 
-* : initialize 
+* bootstrap: initialize
+* search: trigger a search
+
+Auxiliary events include:
+* `search:begin`
+* `search:end`
+* `search:failure`
+* `search:success`
