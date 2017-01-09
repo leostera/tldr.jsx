@@ -12,7 +12,7 @@ type State = {
     BuildTime: Timestamp,
   },
 
-  // Mutable application parameters
+  // Application parameters
   params: Parameters {
     Tokens: [Token],
     Location: Location,
@@ -21,24 +21,23 @@ type State = {
     Features: [Feature],
   },
 
-  // The currently executed action
+  // Currently Executed Action
   currentAction: Action,
 
-  // The current application state resulting from the current action
-  // and current parameters
+  // Current Application State
+  // (resulting from the current action and current parameters)
   state: {
     Index: PageIndex,
     CurrentCommand: Command,
   },
 
-  // The list of combinators to produce the state
+  // List of Combinators to produce the state
   combinators: [
     Index,
     Page,
   ],
 
-
-  // The list of effects that will consume the state
+  // List of Effects that will consume the state
   effects: [
     analytics,
     localStorage,
@@ -51,9 +50,3 @@ type State = {
 
 * bootstrap: initialize
 * search: trigger a search
-
-Auxiliary events include:
-* `search:begin`
-* `search:end`
-* `search:failure`
-* `search:success`
