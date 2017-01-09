@@ -1,0 +1,52 @@
+It should:
+
+1. Be a single immediately executed function continuation
+2. The state should look like:
+
+type State = {
+
+  // Constant, immutable data describing the application
+  metadata: Metadata {
+    Version: AppVersion,
+    Revision: GitCommit,
+    BuildTime: Timestamp,
+  },
+
+  // Mutable application parameters
+  params: Parameters {
+    Tokens: [Token],
+    Location: Location,
+    History: History,
+    Environment: EnvName,
+    Features: [Feature],
+  },
+
+  // The currently executed action
+  currentAction: Action,
+
+  // The current application state resulting from the current action
+  // and current parameters
+  state: {
+    Index: PageIndex,
+    CurrentCommand: Command,
+  },
+
+  // The list of combinators to produce the state
+  combinators: [
+    Index,
+    Page,
+  ],
+
+
+  // The list of effects that will consume the state
+  effects: [
+    analytics,
+    localStorage,
+    render,
+  ]
+
+}
+
+3. The actions to be triggered are:
+
+* : initialize 
