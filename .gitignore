@@ -1,9 +1,17 @@
+.cache
+coverage
 node_modules
-build
+lib
 dist
-TODO
 
-*.sw*
 .build.sh
 .travis_build
 .bin
+
+*.sw*
+tags*
+.ctagsignore
+.npmignore
+.nyc*
+
+*.log
