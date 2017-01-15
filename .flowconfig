@@ -1,9 +1,14 @@
+[options]
+all=true
+
 [include]
+.*/node_modules/tldr/.*
 .*/src/.*
 
-[libs]
-.*/node_modules/.*
-
 [ignore]
-.*/node_modules/fbjs
-.*/build/.*
+.*/old/.*
+.*/koans/.*
+.*/coverage/.*
+.*/__tests__/.*
+.*/node_modules/.*
+.*/lib/.*

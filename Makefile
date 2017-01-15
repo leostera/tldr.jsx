@@ -3,42 +3,65 @@
 .PHONY: assets styles source build package
 .PHONY: server clean
 
-DIST_DIR  =./dist
-BUILD_DIR =./build
-BIN_DIR   =./node_modules/.bin
-SCRIPT_DIR=./scripts
+LIB_NAME   = tldr.js
 
-DIR=.
+BIN_DIR      = ./node_modules/.bin
+BUILD_DIR    = lib
+CACHE_DIR    = .cache
+COVERAGE_DIR = coverage
+DIST_DIR     = dist
+PERF_DIR     = src/__tests__/perf
+SCRIPT_DIR   = scripts
+SRC_DIR      = src
+TEST_DIR     = tests
 
-BRANCH  ?=$(shell git rev-parse --abbrev-ref HEAD)
-VERSION =$(shell git describe --tags HEAD)
-REVISION=$(shell git rev-parse HEAD)
-STAMP   =$(REVISION).$(shell date +%s)
+PERF_TESTS = $(shell find $(PERF_DIR) -name "*.perf.js")
 
-all: setup check lint test package
+DIR = .
 
-setup:
+BRANCH   ?= $(shell git rev-parse --abbrev-ref HEAD)
+VERSION   = $(shell git describe --tags HEAD)
+REVISION  = $(shell git rev-parse HEAD)
+STAMP     = $(REVISION).$(shell date +%s)
+
+all: setup build lint check test bench
+
+setup: dirs
 	$(SCRIPT_DIR)/symlink.sh
+
+.npmignore: .gitignore FORCE
+	cat .gitignore | grep -v lib > $@
 
 flow-stop:
 	$(BIN_DIR)/flow stop
 
 check:
 	$(BIN_DIR)/flow
-
-check-coverage:
 	$(SCRIPT_DIR)/check-coverage.sh
 
+./tests:
+	ln -sf $(SRC_DIR)/__tests__ $(TEST_DIR)
+
+bench: ./tests $(PERF_TESTS) FORCE
+$(PERF_DIR)/%.perf.js:
+	$(NODE) $@
+
 test:
-	$(BIN_DIR)/jest
+	NODE_ENV=test $(BIN_DIR)/jest -c .jestrc
 
 lint:
-	$(BIN_DIR)/eslint ./src
+	$(BIN_DIR)/eslint $(SRC_DIR)
 
 build: dirs assets styles source
 
 dirs:
-	mkdir -p $(BUILD_DIR) $(DIST_DIR)
+	mkdir -p \
+		$(BIN_DIR) \
+		$(BUILD_DIR) \
+		$(CACHE_DIR) \
+		$(COVERAGE_DIR) \
+		$(DIST_DIR) \
+		$(SRC_DIR)
 
 assets:
 	cp -r ./assets $(BUILD_DIR)
@@ -52,20 +75,19 @@ styles:
 		./styles/index.sass > $(BUILD_DIR)/index.css
 
 source:
-	$(BIN_DIR)/browserify \
-		src/app.js \
+	touch $(CACHE_DIR)/browserify-cache.json
+	$(BIN_DIR)/babel $(SRC_DIR) -d lib
+	gsed -i '/require/s/zazen/./' lib/**.js
+	mv $(CACHE_DIR)/browserify-cache.json browserify-cache.json
+	$(BIN_DIR)/browserifyinc \
+		lib/index.js \
 		--debug \
+		--standalone $(LIB_NAME) \
 		-t babelify \
-		-t [ envify \
-			--VERSION  "$(VERSION)" \
-			--REVISION "$(REVISION)" \
-			--STAMP    "$(STAMP)" \
-			--NODE_ENV "$(NODE_ENV)" \
-			--MIXPANEL_TOKEN "$(MIXPANEL_TOKEN)" \
-		] \
-		| $(BIN_DIR)/exorcist $(BUILD_DIR)/bundle.js.map \
-		> $(BUILD_DIR)/_bundle.js
-	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
+		-t reactify \
+		| $(BIN_DIR)/exorcist $(BUILD_DIR)/$(LIB_NAME).map \
+		> $(BUILD_DIR)/$(LIB_NAME)
+	mv browserify-cache.json $(CACHE_DIR)/browserify-cache.json
 
 package: clean build
 	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
@@ -80,8 +102,17 @@ package: clean build
 server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
+tags: .ctagsignore
+	rm -f tags
+	ctags $(SRC_DIR)
+
+.ctagsignore: node_modules
+	ls -fd1 node_modules/* > $@
+
 clean:
-	rm -rf $(BUILD_DIR) $(DIST_DIR)
+	rm -rf $(BUILD_DIR) $(DIST_DIR) $(CACHE_DIR) tags
 
 cleanall: clean
-	rm -rf node_modules
+	rm -rf node_modules $(COVERAGE_DIR)
+
+FORCE:

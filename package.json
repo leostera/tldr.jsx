@@ -1,6 +1,6 @@
 {
   "name": "tldr.jsx",
-  "description": "A reactive web client for tldr-pages",
+  "description": "A functionally-pure web client for tldr-pages",
   "author": "Leandro Ostera <leandro@ostera.io>",
   "repository": "https://github.com/ostera/tldr.jsx",
   "bugs": {
@@ -8,9 +8,10 @@
   },
   "homepage": "https://tldr.ostera.io",
   "license": "MIT",
-  "version": "3.5.2",
+  "version": "4.0.0",
   "main": "src/app.js",
   "dependencies": {
+    "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-plugin-transform-function-bind": "^6.8.0",
@@ -24,6 +25,7 @@
     "babelify": "^7.3.0",
     "base-64": "^0.1.0",
     "browserify": "^13.0.1",
+    "browserify-incremental": "^3.1.1",
     "envify": "^3.4.1",
     "eslint": "^3.1.0",
     "eslint-plugin-react": "^6.7.1",
@@ -33,24 +35,14 @@
     "jest-cli": "^17.0.2",
     "marked": "^0.3.5",
     "mixpanel-browser": "^2.8.1",
-    "node-sass": "^3.8.0",
+    "node-sass": "^4.3.0",
     "query-string": "^4.2.2",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "reactify": "^1.1.1",
-    "rxjs": "^5.0.0-beta.10",
     "static-server": "^2.0.2",
-    "uglify-js": "^2.6.4"
+    "uglify-js": "^2.6.4",
+    "zazen": "https://github.com/ostera/zazen#632fff6ca54186c1d55f28705d91660fa49deb47"
   },
-  "scripts": {},
-  "browserify": {
-    "transform": [
-      "envify",
-      "babelify",
-      "reactify"
-    ]
-  },
-  "jest": {
-    "rootDir": "./src"
-  }
+  "scripts": {}
 }
