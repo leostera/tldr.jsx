@@ -39,7 +39,7 @@
     "react-dom": "^15.1.0",
     "reactify": "^1.1.1",
     "rxjs": "^5.0.0-beta.10",
-    "static-server": "^2.0.2",
+    "static-server": "^2.0.4",
     "uglify-js": "^2.6.4"
   },
   "scripts": {},
