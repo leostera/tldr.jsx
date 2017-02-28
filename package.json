@@ -8,13 +8,12 @@
   },
   "homepage": "https://tldr.ostera.io",
   "license": "MIT",
-  "version": "4.0.0",
-  "main": "src/app.js",
+  "version": "5.0.0",
+  "main": "src/index.js",
   "dependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
-    "babel-plugin-transform-function-bind": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
@@ -23,7 +22,7 @@
     "babel-preset-stage-3": "^6.5.0",
     "babel-runtime": "^6.9.2",
     "babelify": "^7.3.0",
-    "base-64": "^0.1.0",
+    "blast64": "^0.2.2",
     "browserify": "^13.0.1",
     "browserify-incremental": "^3.1.1",
     "envify": "^3.4.1",
@@ -36,13 +35,11 @@
     "marked": "^0.3.5",
     "mixpanel-browser": "^2.8.1",
     "node-sass": "^4.3.0",
+    "partial.lenses": "^9.4.1",
     "query-string": "^4.2.2",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "reactify": "^1.1.1",
     "static-server": "^2.0.2",
     "uglify-js": "^2.6.4",
-    "zazen": "https://github.com/ostera/zazen#632fff6ca54186c1d55f28705d91660fa49deb47"
-  },
-  "scripts": {}
+    "whatwg-fetch": "^2.0.1",
+    "zazen": "^0.8.2"
+  }
 }

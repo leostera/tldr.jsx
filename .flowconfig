@@ -1,14 +1,12 @@
 [options]
 all=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
 
 [include]
-.*/node_modules/tldr/.*
 .*/src/.*
 
 [ignore]
-.*/old/.*
-.*/koans/.*
+.*/.cache/.*
 .*/coverage/.*
-.*/__tests__/.*
 .*/node_modules/.*
 .*/lib/.*

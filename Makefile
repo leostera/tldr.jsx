@@ -3,7 +3,7 @@
 .PHONY: assets styles source build package
 .PHONY: server clean
 
-LIB_NAME   = tldr.js
+LIB_NAME     = tldr
 
 BIN_DIR      = ./node_modules/.bin
 BUILD_DIR    = lib
@@ -72,7 +72,7 @@ styles:
 		--source-map-embed \
 		--source-map-contents \
 		--output-style compressed \
-		./styles/index.sass > $(BUILD_DIR)/index.css
+		./styles/index.sass > $(BUILD_DIR)/$(LIB_NAME).css
 
 source:
 	touch $(CACHE_DIR)/browserify-cache.json
@@ -82,11 +82,11 @@ source:
 	$(BIN_DIR)/browserifyinc \
 		lib/index.js \
 		--debug \
-		--standalone $(LIB_NAME) \
+		--standalone $(LIB_NAME).js \
 		-t babelify \
 		-t reactify \
-		| $(BIN_DIR)/exorcist $(BUILD_DIR)/$(LIB_NAME).map \
-		> $(BUILD_DIR)/$(LIB_NAME)
+		| $(BIN_DIR)/exorcist $(BUILD_DIR)/$(LIB_NAME).map.js \
+		> $(BUILD_DIR)/$(LIB_NAME).js
 	mv browserify-cache.json $(CACHE_DIR)/browserify-cache.json
 
 package: clean build

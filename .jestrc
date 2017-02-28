@@ -1,0 +1,20 @@
+{
+  "rootDir": ".",
+  "cache": true,
+  "cacheDirectory": "<rootDir>/.cache",
+  "bail": false,
+  "coverageDirectory": "<rootDir>/coverage",
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**"
+  ],
+  "coverageDirectory": "coverage/",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/perf/",
+    "/lib/"
+  ],
+  "transformIgnorePatterns": [
+    ".*/node_modules/(?!(zazen)/).*/"
+  ]
+}
