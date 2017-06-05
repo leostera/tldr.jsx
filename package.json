@@ -30,7 +30,7 @@
     "exorcist": "^0.4.0",
     "flow-bin": "^0.43.0",
     "history": "^4.4.0",
-    "jest-cli": "^18.1.0",
+    "jest-cli": "^19.0.1",
     "marked": "^0.3.5",
     "mixpanel-browser": "^2.8.1",
     "node-sass": "^4.0.0",
