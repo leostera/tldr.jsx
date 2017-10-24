@@ -21,7 +21,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
     "babel-runtime": "^6.9.2",
-    "babelify": "^7.3.0",
+    "babelify": "^8.0.0",
     "base-64": "^0.1.0",
     "browserify": "^13.0.1",
     "envify": "^4.0.0",
