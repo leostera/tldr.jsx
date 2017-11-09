@@ -36,7 +36,7 @@
     "node-sass": "^4.0.0",
     "query-string": "^4.2.2",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react-dom": "^16.1.0",
     "reactify": "^1.1.1",
     "rxjs": "^5.0.0-beta.10",
     "static-server": "^2.0.2",
