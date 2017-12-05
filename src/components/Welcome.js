@@ -36,7 +36,7 @@ export default () => (
 {Cr}
     Try <code>osx/say</code>, <code>linux/du</code>, or simply <code>man</code>.
 {Cr}
-    Some commands are widely available with the same interface, some other have variants per operating system. Currently the <code>tldr-pages</code> project splits comman into 4 categories: common, linux, osx, and sunos.
+    Some commands are widely available with the same interface, some other have variants per operating system. Currently the <code>tldr-pages</code> project splits commands into 4 categories: common, linux, osx, and sunos.
 {Cr}
     <code>du</code>, for example, is available under both <code>linux</code> and <code>osx</code>.
 {Cr}
