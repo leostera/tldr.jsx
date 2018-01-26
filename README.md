@@ -16,7 +16,7 @@ As [tldr-pages](https://github.com/tldr-pages/tldr) advances, new features can b
 * `Autocompletion`, freeing you from remembering all those command names
 * `Search`, letting you search through all the pages and commands content to find what you want
 
-See the [issues page](https://github.com/ostera/pry/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement) for a list of planned enhancements and features.
+See the [issues page](https://github.com/ostera/tldr.jsx/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement) for a list of planned enhancements and features.
 
 ## Collaboration Setup
 
