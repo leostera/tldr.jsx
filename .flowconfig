@@ -1,9 +1,0 @@
-[include]
-.*/src/.*
-
-[libs]
-.*/node_modules/.*
-
-[ignore]
-.*/node_modules/fbjs
-.*/build/.*
