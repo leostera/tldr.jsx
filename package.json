@@ -1,56 +1,24 @@
 {
-  "name": "tldr.jsx",
-  "description": "A reactive web client for tldr-pages",
-  "author": "Leandro Ostera <leandro@ostera.io>",
-  "repository": "https://github.com/ostera/tldr.jsx",
-  "bugs": {
-    "url": "https://github.com/ostera/tldr.jsx/issues"
+  "name": "reapp",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "clean": "bsb -clean-world",
+    "cleanall": "rm -rf node_modules",
+    "start": "bsb -make-world -w",
+    "server": "static ."
   },
-  "homepage": "https://tldr.ostera.io",
   "license": "MIT",
-  "version": "3.5.2",
-  "main": "src/app.js",
+  "devDependencies": {
+    "bs-platform": "3.0.0",
+    "bs-react-native": "^0.7.0",
+    "node-static": "^0.7.10",
+    "ocaml-language-server": "^1.0.34",
+    "reason-cli": "^3.1.0-darwin"
+  },
   "dependencies": {
-    "babel-eslint": "^7.1.1",
-    "babel-plugin-transform-flow-strip-types": "^6.8.0",
-    "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0",
-    "babel-preset-stage-2": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
-    "babel-runtime": "^6.9.2",
-    "babelify": "^7.3.0",
-    "base-64": "^0.1.0",
-    "browserify": "^13.0.1",
-    "envify": "^4.0.0",
-    "eslint": "^3.1.0",
-    "eslint-plugin-react": "^6.7.1",
-    "exorcist": "^0.4.0",
-    "flow-bin": "^0.43.0",
-    "history": "^4.4.0",
-    "jest-cli": "^18.1.0",
-    "marked": "^0.3.5",
-    "mixpanel-browser": "^2.8.1",
-    "node-sass": "^4.0.0",
-    "query-string": "^4.2.2",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "reactify": "^1.1.1",
-    "rxjs": "^5.0.0-beta.10",
-    "static-server": "^2.0.2",
-    "uglify-js": "^2.6.4"
-  },
-  "scripts": {},
-  "browserify": {
-    "transform": [
-      "envify",
-      "babelify",
-      "reactify"
-    ]
-  },
-  "jest": {
-    "rootDir": "./src"
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "reason-react": "^0.4.1"
   }
 }

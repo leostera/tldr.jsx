@@ -1,0 +1,27 @@
+{
+  "name": "reapp",
+  "version": "0.1.0",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+	"reason": {
+		"react-jsx": 2
+	},
+  "package-specs": {
+    "module": "es6-global"
+  },
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "generate-merlin": true,
+  "refmt": 3,
+  "suffix": ".bs.js",
+  "bs-dependencies": [
+    "bs-react-native",
+    "reason-react"
+  ],
+  "namespace": true
+}

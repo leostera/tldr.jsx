@@ -1,0 +1,14 @@
+####{BSB GENERATED: NO EDIT
+B lib/bs
+FLG -open Reapp
+FLG -ppx '/Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-platform/lib/reactjs_jsx_ppx_2.exe'
+FLG -ppx /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-platform/lib/bsppx.exe
+S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-platform/lib/ocaml
+B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-platform/lib/ocaml
+FLG -nostdlib -no-alias-deps -color always
+FLG -w -30-40+6+7+27+32..39+44+45+101
+S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-react-native/lib/ocaml
+B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-react-native/lib/ocaml
+S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/reason-react/lib/ocaml
+B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/reason-react/lib/ocaml
+####BSB GENERATED: NO EDIT}
