@@ -1,5 +1,5 @@
 {
-  "name": "reapp",
+  "name": "tldr",
   "version": "0.1.0",
   "sources": [
     {
@@ -7,9 +7,9 @@
       "subdirs": true
     }
   ],
-	"reason": {
-		"react-jsx": 2
-	},
+  "reason": {
+    "react-jsx": 2
+  },
   "package-specs": {
     "module": "es6-global"
   },

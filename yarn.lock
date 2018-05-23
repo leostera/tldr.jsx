@@ -23,13 +23,13 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
-bs-platform@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-3.0.0.tgz#38f200730db52fdea37819376b6ac3dfb20244c0"
+bs-platform@3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-3.1.3.tgz#95c70584735e2b50922f5347159d6d89180231f6"
 
-bs-react-native@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/bs-react-native/-/bs-react-native-0.7.0.tgz#1105177816273e575f5b84c00827b772fd86b056"
+bs-react-native@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/bs-react-native/-/bs-react-native-0.8.0.tgz#1e68b75ed78aad858548456fd985632b8642acfe"
 
 colors@>=0.6.0:
   version "1.3.0"
@@ -151,7 +151,7 @@ node-fetch@^1.0.1:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
-node-static@^0.7.10:
+node-static@0.7.10:
   version "0.7.10"
   resolved "https://registry.yarnpkg.com/node-static/-/node-static-0.7.10.tgz#a1ddb72027c7f67179fb33487807b57e8bc7d2e7"
   dependencies:
@@ -163,7 +163,7 @@ object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-ocaml-language-server@^1.0.34:
+ocaml-language-server@1.0.34:
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.34.tgz#8512b26c30a0c8684e1613ed0a4ae063418b382a"
   dependencies:
@@ -214,7 +214,7 @@ prop-types@^15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-"react-dom@>=15.0.0 || >=16.0.0", react-dom@^16.3.2:
+react-dom@16.3.2, "react-dom@>=15.0.0 || >=16.0.0":
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
@@ -223,7 +223,7 @@ prop-types@^15.6.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-"react@>=15.0.0 || >=16.0.0", react@^16.3.2:
+react@16.3.2, "react@>=15.0.0 || >=16.0.0":
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
@@ -232,11 +232,11 @@ prop-types@^15.6.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-reason-cli@^3.1.0-darwin:
+reason-cli@3.1.0-darwin:
   version "3.1.0-darwin"
   resolved "https://registry.yarnpkg.com/reason-cli/-/reason-cli-3.1.0-darwin.tgz#88c32e6599f40a9fa94db29f9f182a37bff657d4"
 
-reason-react@^0.4.1:
+reason-react@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/reason-react/-/reason-react-0.4.1.tgz#f1c8bf0d116be6bf43109912ee4d95e58dd7c64f"
   dependencies:
