@@ -22,7 +22,6 @@
   "bs-dependencies": [
     "bs-react-native",
     "bs-fetch",
-    "bs-json",
     "reason-react"
   ],
   "namespace": true

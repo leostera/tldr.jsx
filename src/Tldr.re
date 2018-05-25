@@ -1,38 +1,47 @@
-open Option_monad;
-
-type package = {
-  revision: string,
-  version: string,
+module Tldr = {
+  type package = {
+    revision: string,
+    version: string,
+  };
+  type command = {
+    name: string,
+    platform: string,
+  };
+  type page = {
+    body: string,
+    cmd: command,
+    path: string,
+  };
+  type app_params = {debug: bool};
+  type state = {
+    index: option(list(command)),
+    meta: package,
+    page: option(page),
+    params: app_params,
+  };
+  type action =
+    | Bootstrap;
 };
 
-type command = {
-  name: string,
-  platform: string,
+let initialState: Tldr.state = {
+  index: None,
+  page: None,
+  meta: {
+    revision: "asd123c",
+    version: "1",
+  },
+  params: {
+    debug: true,
+  },
 };
 
-type page = {
-  body: string,
-  cmd: command,
-  path: string,
+let reducer = (~state, ~action) => state;
+
+let app: App.t(Tldr.state, Tldr.action) = {
+  initialAction: Bootstrap(initialState),
+  effects: [],
+  reducer,
+  initialState,
 };
 
-type app_params = {debug: bool};
-
-type state = {
-  index: list(command),
-  meta: package,
-  page: option(page),
-  params: app_params,
-};
-
-let a = {name: "some_command", platform: "some_platform"};
-
-Js.Json.stringifyAny([a, a, a]) >>| LocalStorage.set("hello");
-
-Js.Json.stringifyAny([a, a, a]) >>| LocalStorage.set("hello_2");
-
-LocalStorage.get("hello") >>| Js.Json.parseExn >>| Js.log;
-
-open Result_monad;
-
-LocalStorage.remove("hello") >>| Js.log;
+App.run(app);
