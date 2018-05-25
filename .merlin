@@ -9,10 +9,16 @@ FLG -nostdlib -no-alias-deps -color always
 FLG -w -30-40+6+7+27+32..39+44+45+101
 S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-react-native/lib/ocaml
 B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-react-native/lib/ocaml
+S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-fetch/lib/ocaml
+B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-fetch/lib/ocaml
+S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-json/lib/ocaml
+B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/bs-json/lib/ocaml
 S /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/reason-react/lib/ocaml
 B /Users/ostera/repos/github.com/ostera/tldr.jsx/node_modules/reason-react/lib/ocaml
 S src
 B lib/bs/src
+S src/Control
+B lib/bs/src/Control
 S src/IO
 B lib/bs/src/IO
 ####BSB GENERATED: NO EDIT}

@@ -2,21 +2,23 @@
   "name": "tldr.jsx",
   "version": "0.1.0",
   "scripts": {
-    "build": "bsb -make-world",
-    "clean": "bsb -clean-world",
+    "build": "bsb -version; bsb -make-world",
+    "clean": "bsb -version; bsb -clean-world",
     "cleanall": "rm -rf node_modules",
-    "start": "bsb -make-world -w",
+    "start": "bsb -version; bsb -make-world -w",
     "server": "static ."
   },
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "3.1.3",
+    "bs-platform": "3.1.4",
     "bs-react-native": "0.8.0",
     "node-static": "0.7.10",
     "ocaml-language-server": "1.0.34",
     "reason-cli": "3.1.0-darwin"
   },
   "dependencies": {
+    "bs-fetch": "^0.3.0",
+    "bs-json": "^1.0.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "reason-react": "0.4.1"

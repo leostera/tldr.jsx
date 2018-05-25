@@ -1,0 +1,5 @@
+--recurse
+--sort=yes
+--exclude=lib
+--exclude=node_modules/**/*.js
+-h [".mli", ".rei"]
