@@ -1,7 +1,8 @@
 module type Key_value = {
-  type t;
-  let set: (string, t) => unit;
-  let get: string => option(t);
-  let remove:
-    string => Belt.Result.t(unit, [< | `Could_not_remove]);
+  type k;
+  type v;
+
+  let set: (k, v) => unit;
+  let get: k => option(v);
+  let remove: k => Belt.Result.t(unit, [< | `Could_not_remove]);
 };
