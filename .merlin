@@ -19,4 +19,6 @@ S src/Control
 B lib/bs/src/Control
 S src/IO
 B lib/bs/src/IO
+S src/Effect
+B lib/bs/src/Effect
 ####BSB GENERATED: NO EDIT}

@@ -1,29 +1,6 @@
-module Tldr = {
-  type package = {
-    revision: string,
-    version: string,
-  };
-  type command = {
-    name: string,
-    platform: string,
-  };
-  type page = {
-    body: string,
-    cmd: command,
-    path: string,
-  };
-  type app_params = {debug: bool};
-  type state = {
-    index: option(list(command)),
-    meta: package,
-    page: option(page),
-    params: app_params,
-  };
-  type action =
-    | Bootstrap;
-};
+open Model;
 
-let initialState: Tldr.state = {
+let initialState: state = {
   index: None,
   page: None,
   meta: {
@@ -35,11 +12,17 @@ let initialState: Tldr.state = {
   },
 };
 
-let reducer = (~state, ~action) => state;
+let reducer = (state, action) =>
+  switch (action) {
+  | Unchanged => state
+  | Bootstrap(initialState) => initialState
+  };
 
-let app: App.t(Tldr.state, Tldr.action) = {
+let effects = [Log.make()];
+
+let app: App.t(state, action) = {
   initialAction: Bootstrap(initialState),
-  effects: [],
+  effects,
   reducer,
   initialState,
 };

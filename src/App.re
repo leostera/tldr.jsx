@@ -1,6 +1,8 @@
-type effect('a, 'b) = 'a => Js.Promise.t('b);
+open Option_monad;
 
-type reducer('state, 'action) = (~state: 'state, ~action: 'action) => 'state;
+type effect('a, 'b) = 'a => option(Js.Promise.t('b));
+
+type reducer('state, 'action) = ('state, 'action) => 'state;
 
 type t('state, 'action) = {
   effects: list(effect('state, 'action)),
@@ -9,23 +11,24 @@ type t('state, 'action) = {
   reducer: reducer('state, 'action),
 };
 
-let run = (app: t('state, 'action)) => {
+let run = app => {
   let state = ref(app.initialState);
   let rec step = action => {
     /* compute new state, save it in the reference */
-    state := app.reducer(~state=state^, ~action);
-    /* iterate and execute side-effects */
+    state := app.reducer(state^, action);
+    /* auxiliary function to run an effect with the current state and step */
     let runEffect = e =>
-      Js.Promise.(
-        e(state^),
-        value => {
-          step(value);
-          ();
-        },
-      );
-    /* app.effects |> List.iter(runEffect); */
-    /* return this step's end state */
-    state^;
+      e(state^)
+      >>| Js.Promise.then_(action' => {
+            step(action');
+            Js.Promise.resolve();
+          })
+      >>| Js.Promise.catch(err => {
+            Js.log2("Error: ", err);
+            Js.Promise.resolve();
+          });
+    /* iterate and execute side-effects */
+    app.effects |> List.map(runEffect);
   };
   step(app.initialAction);
 };
