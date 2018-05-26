@@ -22,6 +22,7 @@
   "bs-dependencies": [
     "bs-react-native",
     "bs-fetch",
+    "reason-future",
     "reason-react"
   ],
   "namespace": true

@@ -244,6 +244,10 @@ reason-cli@3.1.0-darwin:
   version "3.1.0-darwin"
   resolved "https://registry.yarnpkg.com/reason-cli/-/reason-cli-3.1.0-darwin.tgz#88c32e6599f40a9fa94db29f9f182a37bff657d4"
 
+reason-future@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/reason-future/-/reason-future-2.2.1.tgz#35bb1f3e49f3bce14024b9c79a9ea6bc9fa1cd19"
+
 reason-react@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/reason-react/-/reason-react-0.4.1.tgz#f1c8bf0d116be6bf43109912ee4d95e58dd7c64f"

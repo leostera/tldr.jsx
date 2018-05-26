@@ -21,6 +21,7 @@
     "bs-json": "^1.0.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
+    "reason-future": "^2.2.1",
     "reason-react": "0.4.1"
   }
 }
