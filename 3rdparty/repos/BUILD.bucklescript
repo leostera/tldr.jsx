@@ -1,65 +1,19 @@
 filegroup(
-    name = "srcs",
-    srcs = glob([ "**/*" ]),
+    visibility = ["//visibility:public"],
+    name = "bs_srcs",
+    srcs = glob([
+        "*",
+        "scripts/**/*",
+        "lib/**/*",
+        "jscomp/**/*",
+        ]),
     )
 
-genrule(
-    name = "make_world",
-    cmd = """\
-    #!/bin/bash
-
-    pushd external/bs;
-			# Make all NATIVEs overrideable
-			sed -i "/NATIVE=ocaml/s@=@ ?= @g" $$(find . -name "Makefile" | xargs);
-
-			# TODO(@ostera): use location helper to find ocaml
-			# Re export ocamlopt.opt to point to the nix managed version
-			export NATIVE=$$(pwd)/../ocaml/afk2i512jswjcab2ijvc2bj4i98cz1k8-ocaml-4.02.3/bin/ocamlopt.opt;
-
-			# build the world!
-			make world;
-
-			# pack binaries
-			pushd lib;
-				tar c *.exe > bins.tar;
-			popd;
-		popd;
-
-		# Save all binaries
-		mv external/bs/lib/bins.tar $(location :bins.tar);
-  """,
-		srcs = [ ":srcs" ],
-		tools = [ "@ocaml//:bin" ],
-		outs = [ "bins.tar" ],
-  )
-
-genrule(
-	name = "unpack_binaries",
-	cmd = """\
-	#!/bin/bash
-
-	# get the full path to the binaries archive
-	bins_tar=$$(pwd)/$(location :bins.tar)
-
-	# go to the output folder
-	pushd $$(dirname $(location :bsb.exe));
-
-		# extract binaries
-		tar xvf $$bins_tar  \
-				bsb.exe \
-				bsb_helper.exe \
-				bsc.exe \
-				bsppx.exe \
-				refmt.exe;
-
-	popd;
-	""",
-	srcs = [ ":bins.tar" ],
-	outs = [
-			"bsb.exe",
-			"bsb_helper.exe",
-			"bsc.exe",
-			"bsppx.exe",
-			"refmt.exe",
-			]
-	)
+filegroup(
+    visibility = ["//visibility:public"],
+    name = "ocaml_srcs",
+    srcs = glob([
+        "vendor/ocaml/**/*",
+        "vendor/ocaml/**/.*",
+        ]),
+    )

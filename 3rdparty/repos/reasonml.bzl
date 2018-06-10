@@ -14,19 +14,51 @@ filegroup(
 )
 """
 
+REASON_BUILD_FILE="""
+filegroup(
+    name = "bin",
+    srcs = glob([ "**/bin/*" ]),
+    )
+
+genrule(
+  visibility = ["//visibility:public"],
+  name = "unpack_binaries",
+  cmd = \"\"\"\
+  #!/bin/bash
+
+  # Copy binaries to the output location
+  cp external/reason/bin/* $$(dirname $(location :refmt));
+
+  \"\"\",
+  srcs = [ ":bin" ],
+  outs = [
+        "menhir_error_processor",
+        "reactjs_jsx_ppx_v2",
+        "refmt",
+        "rtop_init.ml",
+        "ocamlmerlin-reason",
+        "reactjs_jsx_ppx_v3",
+        "refmttype",
+        "testOprint",
+        "ppx_react",
+        "rebuild",
+        "rtop",
+      ]
+  )
+"""
+
 def reasonml_repositories():
   nixpkgs_package(
       name = "ocaml",
       attribute_path = "ocaml_4_02",
-			# TODO(@ostera): use a build_file that exports individual binaries
+      # TODO(@ostera): use a build_file that exports individual binaries
       build_file_content = BUILD_FILE
       )
 
   nixpkgs_package(
       name = "reason",
       attribute_path = "ocamlPackages.reason",
-			# TODO(@ostera): use a build_file that exports individual binaries
-      build_file_content = BUILD_FILE
+      build_file_content = REASON_BUILD_FILE
       )
 
   new_download(
@@ -37,4 +69,4 @@ def reasonml_repositories():
     version = "2ae5ef1ebb94466f7e0e52d21efa337af4b1dba4",
     ext = "zip",
     build_file = "3rdparty/repos/BUILD.bucklescript",
-  )
+    )

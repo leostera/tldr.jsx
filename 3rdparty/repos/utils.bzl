@@ -27,3 +27,23 @@ def new_download(pkg, org, repo, version, sha256, ext, build_file):
       url = github_archive(org=org, repo=repo, version=version, ext=ext),
       build_file = build_file,
       )
+
+def unpack_filegroup(name, tar, files, **kwargs):
+  native.genrule(
+      name = "unpack_"+name,
+      cmd = """\
+          #!/bin/bash
+
+          tar xf $$(pwd)/$(location {tar});
+
+          """.format(tar=tar, first_file=files[0]),
+      srcs = [ tar ],
+      outs = files,
+      **kwargs
+      )
+
+  native.filegroup(
+      name = name,
+      srcs = [ ":{name}".format(name=f) for f in files ],
+      **kwargs
+      )
