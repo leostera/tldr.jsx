@@ -2,7 +2,7 @@ include (
   Monad.Make(
     {
       type t('a) = option('a);
-      let return = x => x |. Some;
+      let return = x => Some(x);
       let bind = (o, f) =>
         switch (o) {
         | None => None

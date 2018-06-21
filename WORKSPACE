@@ -1,33 +1,34 @@
 workspace(name = "tldr")
 
 ###
-### Setup Bazel BuildTools repositories
+### Reason Rules!
 ###
-load("//3rdparty/repos:bazel.bzl", "bazel_repositories")
-bazel_repositories(
-    skylib_version = "4eb28c458c610ceb5eace809a7049799808726dc",
-    skylib_sha256 = "5e03a12820d8050817cdbfd4e19b28d86cbfdc4da27435ce1c5386709b3dd7c2",
-    rules_go_version = "6627c61f391ec5e104b2f74a70fdab9fb6849821",
-    rules_go_sha256 = "b4a926fdbcd26bf9c2ccde133678462a5b558c4c041ddf1632173e7a0b008e24",
-    buildtools_version = "4fe6acf537e980ff6878a51e5894605be221224c",
-    buildtools_sha256 = "43c2df6ce1bd01b4d8173efe0795b05b19240f24ea33fde3694096f7b6043f8a",
+
+rules_reason_version = "b9d89f9dd93865406a911dc123d3e47e60fe47ac"
+
+http_archive(
+  name = "com_github_ostera_rules_reason",
+  sha256 ="0aada93b7807269dc7060c1663f287b24f3606632444a55ffed16710552ded97",
+  strip_prefix = "rules_reason-%s" % (rules_reason_version,),
+  urls = ["https://github.com/ostera/rules_reason/archive/%s.zip" % (rules_reason_version,)],
 )
 
-load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
-go_rules_dependencies()
-go_register_toolchains()
+load(
+    "@com_github_ostera_rules_reason//reason/repositories:nix.bzl",
+    "nix_repositories",
+    )
 
-###
-### Nix Packages for local toolchains!
-###
-load("//3rdparty/repos:nix.bzl", "nix_repositories")
 nix_repositories(
   nix_version = "cd2ed701127ebf7f8f21d37feb1d678e4fdf85e5",
   nix_sha256 = "084d0560c96bbfe5c210bd83b8df967ab0b1fcb330f2e2f30da75a9c46da0554",
 )
 
 ###
-### Setup ReasonML toolchain
+### Register Reason Toolchain
 ###
-load("//3rdparty/repos:reasonml.bzl", "reasonml_repositories")
-reasonml_repositories()
+load("@com_github_ostera_rules_reason//reason:def.bzl", "reason_register_toolchains")
+reason_register_toolchains(
+    bs_sha256 = "3072a709d831285ab5e16eb906aaa4e56821321adc4c7f7c0eb7aa1df7bad7a6",
+    bs_version = "493c4c45b5c248a39962af60cba913f425d57420",
+    nixpkgs_revision = "d91a8a6ece07f5a6df82aa5dc02030d9c6724c27",
+    )

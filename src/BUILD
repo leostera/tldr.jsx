@@ -1,20 +1,11 @@
-load("//tools/build_rules:reasonml.bzl", "reason_module", "bs_module")
-
 reason_module(
-  name = "model",
-  srcs = ["Model.re"],
-  deps = [":app"]
-)
-
-reason_module(
-  name = "app",
-  srcs = ["App.re"],
-  deps = []
-)
+    name = "tldr",
+    srcs = glob(["*.re"]),
+    )
 
 bs_module(
-   name = "src",
-   config = "//:bs_config",
-   srcs = [ ":model" ],
-   deps = []
-   )
+    name = "src",
+    config = "//:bs_config",
+    srcs = [ ":tldr" ],
+    deps = [ "//src/Effect", "//src/Coax", "//src/Model" ],
+    )

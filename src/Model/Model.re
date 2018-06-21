@@ -31,3 +31,5 @@ type state = {
 type action =
   | Unchanged
   | Bootstrap(state);
+
+print_string("Hello world");

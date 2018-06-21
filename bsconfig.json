@@ -1,12 +1,7 @@
 {
   "name": "tldr",
   "version": "0.1.0",
-  "sources": [
-    {
-      "dir": "src",
-      "subdirs": true
-    }
-  ],
+  "sources": [],
   "reason": {
     "react-jsx": 2
   },
@@ -20,10 +15,6 @@
   "refmt": 3,
   "suffix": ".bs.js",
   "bs-dependencies": [
-    "bs-react-native",
-    "bs-fetch",
-    "reason-future",
-    "reason-react"
   ],
   "namespace": true
 }
