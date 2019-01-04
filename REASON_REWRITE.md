@@ -12,7 +12,7 @@ foreseeable future.
 This document will serve as a log of sorts for the rewrite, but I'd like to
 also have a small spec come out of the process.
 
-1. [What's Tldr.jsx doing anyway?](#what-s-tldr.jsx-doing-anyway)
+1. [What's Tldr.jsx doing anyway?](#whats-tldrjsx-doing-anyway)
    1. [Populating the Index](#populating-the-index)
    1. [Recording Analytics](#recording-analytics)
    1. [Random Welcome Messages](#random-welcome-messages)
@@ -115,7 +115,7 @@ If the population was successful, the index is written to cache.
 > subpar and should be changed to use a persistent cache such as LocalStorage.
 
 
-#### Registering Analytics
+#### Recording Analytics
 
 Don't worry, this isn't doing anything evil. Check the source if you want, you
 can checksum it against what's on the website and it'll be the same.
