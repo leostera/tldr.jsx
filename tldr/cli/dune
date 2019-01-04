@@ -1,0 +1,7 @@
+(executable
+  (name Main)
+  (public_name tldr)
+  (libraries
+    model
+    lwt lwt.unix
+  ))
