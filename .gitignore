@@ -7,3 +7,7 @@ TODO
 .build.sh
 .travis_build
 .bin
+
+_build
+.merlin
+*.install
