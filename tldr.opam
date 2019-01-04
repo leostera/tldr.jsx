@@ -1,0 +1,21 @@
+opam-version: "2.0"
+name: "tldr"
+version: "0.6"
+synopsis: "TLDR Pages"
+maintainer: "Leandro Ostera <leandro@ostera.io>"
+authors: "Leandro Ostera <leandro@ostera.io>"
+license: "MIT"
+homepage: "https//github.com/ostera/tldr"
+bug-reports: "https//github.com/ostera/tldr/issues"
+depends: [
+  "fmt"
+  "httpkit"
+  "logs"
+  "lwt"
+  "uri"
+
+  "dune" {build}
+  "reason" {build}
+]
+build: [make "build"]
+install: [make "install"]
