@@ -9,12 +9,16 @@ Instead, I'm choosing to rewrite a program that I know how it works with a tool
 that I'm heavily invested in, to ensure that I can maintain Tldr.jsx in the
 foreseeable future.
 
-1. [Informal Spec](#informal-spec)
+This document will serve as a log of sorts for the rewrite, but I'd like to
+also have a small spec come out of the process.
+
+1. [What's Tldr.jsx doing anyway?](#what-s-tldr.jsx-doing-anyway)
    1. [Populating the Index](#populating-the-index)
    1. [Recording Analytics](#recording-analytics)
    1. [Random Welcome Messages](#random-welcome-messages)
+2. [SPEC](#SPEC)
 
-## Informal Spec
+## What's Tldr.jsx doing anyway?
 
 Tldr.jsx in essence is a glorified lookup table that renders markdown text in
 the browser at runtime.
@@ -85,7 +89,7 @@ GET https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets
   "download_url": "https://raw.githubusercontent.com/tldr-pages/tldr-pages.github.io/master/assets/index.json",
   "type": "file",
   "content": "huge base64 encoded string here with the file contents",
-	"encoding": "base64",
+  "encoding": "base64",
   "_links": {
     "self": "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/contents/assets/index.json?ref=master",
     "git": "https://api.github.com/repos/tldr-pages/tldr-pages.github.io/git/blobs/2d052d79a1a553b6116ec0348f1311e85fe641f9",
@@ -139,3 +143,26 @@ repo](https://github.com/tldr-pages/tldr/issues/new).
 The Random welcome message is just a small gimmick. It's just an array of
 strings with the text "Welcome" in several languages (which I haven't fully
 verified) that will be randomly accessed to display one.
+
+## SPEC
+
+```reason
+type page = {
+  contents: string
+};
+
+type command = {
+  name: string,
+  platform: string,
+};
+
+type index;
+
+type io('a);
+
+let make_index : () => io(index);
+
+let lookup_by_name : index => string => option(command);
+
+let page_for_command : command => io(page);
+```
