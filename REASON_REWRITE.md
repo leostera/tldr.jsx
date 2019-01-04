@@ -17,6 +17,7 @@ also have a small spec come out of the process.
    1. [Recording Analytics](#recording-analytics)
    1. [Random Welcome Messages](#random-welcome-messages)
 2. [SPEC](#SPEC)
+3. [Architecture](#architecture)
 
 ## What's Tldr.jsx doing anyway?
 
@@ -166,3 +167,19 @@ let lookup_by_name : index => string => option(command);
 
 let page_for_command : command => io(page);
 ```
+
+## Architecture
+
+The rewritten project will have the following multipackage structure:
+
+```
+tldr
+├── cli
+├── model
+└── web
+```
+
+* `tldr/model` defines precisely the datatypes needed, as specified in
+the [SPEC](#spec) section.
+* `tldr/cli` is a natively compiled version of the tool
+* `tldr/web` the current web client rewritten to use the model
