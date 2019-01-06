@@ -1,34 +1,29 @@
-open Lwt.Infix;
+open Cmdliner;
 
-/** Setup loggers */
-Fmt_tty.setup_std_outputs();
-Logs.set_level(Some(Logs.Debug));
-Logs.set_reporter(Logs_fmt.reporter());
-
-let find = name => {
-  Native.Index.create()
-  >>= (
-    result => {
-      switch (result) {
-      | Error(err) =>
-        Logs_lwt.err(m => m("%s", Messages.index_create_error(err)))
-      | Ok(index) =>
-        index
-        |> Native.Index.lookup(~name)
-        >>= (
-          cmd => {
-            switch (cmd) {
-            | None =>
-              Logs_lwt.app(m => m("%s", Messages.command_not_found(name)))
-            | Some(cmd) =>
-              Logs_lwt.app(m => m("%s", Messages.command_found(cmd)))
-            };
-          }
-        )
-      };
-    }
-  );
+let setup_verbosity = (level, debug) => {
+  Fmt_tty.setup_std_outputs();
+  if (debug) {
+    Logs.set_level(Some(Logs.Debug));
+  } else {
+    Logs.set_level(level);
+  };
+  Logs.set_reporter(Logs_fmt.reporter());
 };
 
-let cmd = Sys.argv[1];
-find(cmd) |> Lwt_main.run;
+module Args = {
+  let debug = {
+    let doc = "Shortcut for debugging verbosity";
+    Arg.(value & flag & info(["d", "debug"], ~doc));
+  };
+
+  let verbosity = Term.(const(setup_verbosity) $ Logs_cli.level() $ debug);
+
+  let cmd = {
+    let doc = "Command that we're searching for";
+    Arg.(value & pos(0, string, "tldr") & info([], ~docv="CMD", ~doc));
+  };
+};
+
+let cmd = Term.(const(Tldr.search) $ Args.verbosity $ Args.cmd);
+
+Term.eval((cmd, Term.info("tldr"))) |> Term.exit;

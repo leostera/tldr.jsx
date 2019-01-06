@@ -3,5 +3,5 @@
   (public_name tldr)
   (libraries
     model native
-    fmt.tty logs.fmt
+    cmdliner fmt.tty logs.fmt logs.cli
   ))

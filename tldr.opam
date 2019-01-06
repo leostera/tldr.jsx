@@ -8,16 +8,17 @@ license: "MIT"
 homepage: "https//github.com/ostera/tldr"
 bug-reports: "https//github.com/ostera/tldr/issues"
 depends: [
-  "fmt"
   "base64"
+  "cmdliner"
+  "fmt"
+  "fpath"
   "httpkit"
   "httpkit-lwt"
   "logs"
   "lwt"
-  "uri"
   "rresult"
+  "uri"
   "yojson"
-  "fpath"
 
   "dune" {build}
   "reason" {build}
