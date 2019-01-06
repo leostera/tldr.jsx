@@ -175,6 +175,7 @@ The rewritten project will have the following multipackage structure:
 ```
 tldr
 ├── cli
+├── github
 ├── model
 └── web
 ```
@@ -182,4 +183,58 @@ tldr
 * `tldr/model` defines precisely the datatypes needed, as specified in
 the [SPEC](#spec) section.
 * `tldr/cli` is a natively compiled version of the tool
+* `tldr/native` defines common modules for the native versions of the tool
+* `tldr/github` is the Github API
 * `tldr/web` the current web client rewritten to use the model
+
+### `tldr/model`
+
+
+### `tldr/cli`
+
+
+### `tldr/github`
+
+```ocaml
+module Github = {
+  module API = {
+    type t = {base_url: string};
+    let v3 = {base_url: "https://api.github.com/"};
+  };
+
+  module Repo = {
+    type t = {
+      owner: string,
+      name: string,
+    };
+    let make = (~owner, ~name) => {owner, name};
+  };
+
+  module File = {
+    type t = {content: string};
+    let make = (~content) => {content: content};
+  };
+};
+```
+
+Originally I attempted to functorize over the I/O monad and the JSON type to
+support combinations for both Native (Lwt+Yojson) and Web (Repromise+BsJson) but
+the module-level programming seemed to take me down a strange path.
+
+That is, every module would have to be parametrized with the IO/JSON types, but
+also every module would have to redefine how to parse their respective
+datatypes.
+
+After trying out `atdgen`, I realized that the copying and modifying of
+generated files was more trouble than writing the parsers twice. Specially because
+regenerating the parsers would mean redoing the copying/modifications in ways that
+I just don't want to remember and can't automate right now.
+
+I settled for exposing common types for working with the Github API and having
+an implementation that uses them in `tldr/native` and another one that uses them
+in `tldr/web`.
+
+### `tldr/native`
+
+### `tldr/web`
+

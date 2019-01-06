@@ -3,5 +3,5 @@ type platform = string;
 
 type t = {
   name,
-  platform,
+  platforms: list(platform),
 };
