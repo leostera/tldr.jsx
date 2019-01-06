@@ -2,6 +2,6 @@
   (name Main)
   (public_name tldr)
   (libraries
-    model
-    lwt lwt.unix
+    model native
+    fmt.tty logs.fmt
   ))
