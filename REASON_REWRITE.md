@@ -157,6 +157,8 @@ type command = {
   platform: string,
 };
 
+type platform = [ `MacOS | `Linux | `Windows | `SunOS | `Common ];
+
 type index;
 
 type io('a);
@@ -175,11 +177,79 @@ The rewritten project will have the following multipackage structure:
 ```
 tldr
 ├── cli
+├── github-lwt
+├── github
 ├── model
+├── native
 └── web
 ```
 
-* `tldr/model` defines precisely the datatypes needed, as specified in
-the [SPEC](#spec) section.
 * `tldr/cli` is a natively compiled version of the tool
+* `tldr/github-lwt` is the Github API for the Lwt I/O backend
+* `tldr/github` is the Github API datatypes and interfaces
+* `tldr/model` defines precisely the datatypes needed, as specified in the [SPEC](#spec) section.
+* `tldr/native` defines common modules for the native versions of the tool
 * `tldr/web` the current web client rewritten to use the model
+
+### `tldr/model`
+
+### `tldr/cli`
+
+### `tldr/github`
+
+```ocaml
+module Github = {
+  module API = {
+    type t = {base_url: string};
+
+    let v3 = {base_url: "https://api.github.com/"};
+  };
+
+  module Repo = {
+    type t = {
+      owner: string,
+      name: string,
+    };
+
+    let make : (~owner, ~name) => {owner, name};
+
+    let file : (API.t, t, ~path:string) => option(File.t);
+  };
+
+  module File = {
+    type t = {content: string};
+
+    let make : (~content) => {content: content};
+
+    let content : t => string;
+  };
+};
+```
+
+Originally I attempted to functorize over the I/O monad and the JSON type to
+support combinations for both Native (Lwt+Yojson) and Web (Repromise+BsJson) but
+the module-level programming seemed to take me down a strange path.
+
+That is, every module would have to be parametrized with the IO/JSON types, but
+also every module would have to redefine how to parse their respective
+datatypes.
+
+After trying out `atdgen`, I realized that the copying and modifying of
+generated files was more trouble than writing the parsers twice. Specially
+because regenerating the parsers would mean redoing the copying/modifications
+in ways that I just don't want to remember and can't automate right now.
+
+I settled for exposing common types for working with the Github API and having
+an implementation that uses them in `tldr/github-lwt` and another one that uses
+them in `tldr/web`.
+
+### `tldr/native`
+
+The native module includes the common code for building TLDR apps in native
+environments. This code relies uses an OCaml Stdlib Hash Table for looking up
+modules, and relies on `github-lwt` for fetching data.
+
+It is not suitable for use on the web.
+
+### `tldr/web`
+

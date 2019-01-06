@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "tldr"
-version: "0.6"
+version: "0.1"
 synopsis: "TLDR Pages"
 maintainer: "Leandro Ostera <leandro@ostera.io>"
 authors: "Leandro Ostera <leandro@ostera.io>"
@@ -9,10 +9,15 @@ homepage: "https//github.com/ostera/tldr"
 bug-reports: "https//github.com/ostera/tldr/issues"
 depends: [
   "fmt"
+  "base64"
   "httpkit"
+  "httpkit-lwt"
   "logs"
   "lwt"
   "uri"
+  "rresult"
+  "yojson"
+  "fpath"
 
   "dune" {build}
   "reason" {build}
