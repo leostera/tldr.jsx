@@ -35,12 +35,15 @@ let create_error_to_string =
       "We could not parse the index file (%s)",
       Printexc.to_string(exn),
     )
-  | `Decoding_error(str) => Printf.sprintf("We could not decode: %s", str)
+  | `Decoding_error(str) =>
+    Printf.sprintf("We could not decode index: %s", str)
   | `Parse_error(exn) =>
     Printf.sprintf(
       "We could not parse something (%s)",
       Printexc.to_string(exn),
-    );
+    )
+  | `Something_went_wrong_while_parsing => "Unfortunately we could not parse the page."
+  | `Invalid_page(_) => "The page we tried to render is not a valid TLDR page";
 
 let index_create_error = err =>
   Printf.sprintf(

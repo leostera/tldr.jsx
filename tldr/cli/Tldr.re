@@ -16,7 +16,19 @@ let search = (_, name) => {
             | None =>
               Logs_lwt.app(m => m("%s", Messages.command_not_found(name)))
             | Some(cmd) =>
-              Logs_lwt.app(m => m("%s", Messages.command_found(cmd)))
+              Logs.debug(m => m("%s", Messages.command_found(cmd)));
+              Native.Page.for_command(cmd)
+              >>= (
+                result => {
+                  switch (result) {
+                  | Ok(page) => Page.render(page) |> Lwt.return
+                  | Error(err) =>
+                    Logs_lwt.err(m =>
+                      m("%s", Messages.create_error_to_string(err))
+                    )
+                  };
+                }
+              );
             };
           }
         )
