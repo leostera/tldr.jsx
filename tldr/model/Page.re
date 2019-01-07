@@ -30,7 +30,6 @@ module Parser = {
   let of_string = str => {
     let lexbuf = Lexing.from_string(str);
     let rec parse = (acc, token) => {
-      Printf.printf("%s\n%!", token |> to_string);
       switch (token) {
       | `EOF => acc |> List.rev
       | x => parse([x, ...acc], Page_lexer.token(lexbuf))
