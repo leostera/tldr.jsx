@@ -1,2 +1,8 @@
 (library
-  (name model))
+  (name model)
+  (libraries github))
+
+(menhir
+  (modules Page_parser))
+
+(ocamllex Page_lexer)

@@ -19,6 +19,8 @@ depends: [
   "rresult"
   "uri"
   "yojson"
+  "menhir"
+  "ocamllex"
 
   "dune" {build}
   "reason" {build}
