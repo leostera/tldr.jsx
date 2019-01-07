@@ -16,7 +16,20 @@ module Index: {
     );
 
   let lookup: (t, ~name: string) => Lwt.t(option(Model.Command.t));
+};
 
-  let page_for_command:
-    Model.Command.t => Lwt_result.t(Model.Page.t, [> | `Not_found]);
+module Page: {
+  let for_command:
+    Model.Command.t =>
+    Lwt_result.t(
+      Model.Page.t,
+      [>
+        | `Connection_error(Httpaf.Client_connection.error)
+        | `Decoding_error(string)
+        | `Invalid_page(list([> | `Missing_description | `Missing_title]))
+        | `Parse_error(exn)
+        | `Reading_error
+        | `Something_went_wrong_while_parsing
+      ],
+    );
 };
