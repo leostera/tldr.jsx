@@ -1,7 +1,7 @@
 module API = {
   type t = {base_url: string};
 
-  let v1 = {base_url: "https://api.mixpanel.com/track/"};
+  let v1 = {base_url: "https://api.mixpanel.com"};
 };
 
 module Token = {
@@ -21,15 +21,18 @@ module Tracker = {
 
 module Event = {
   type t = {
-    uuid: string,
+    id: string,
     name: string,
     properties: list((string, string)),
     ip: string,
   };
 
-  let event = (~uuid, ~name, ~properties=?, ~ip, ()) => {
+  let name = t => t.name;
+  let properties = t => t.properties;
+
+  let event = (~id, ~name, ~properties=?, ~ip, ()) => {
     {
-      uuid,
+      id,
       name,
       properties:
         switch (properties) {

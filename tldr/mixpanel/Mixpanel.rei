@@ -19,9 +19,12 @@ module Tracker: {
 module Event: {
   type t;
 
+  let name: t => string;
+  let properties: t => list((string, string));
+
   let event:
     (
-      ~uuid: string,
+      ~id: string,
       ~name: string,
       ~properties: list((string, string))=?,
       ~ip: string,
