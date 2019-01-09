@@ -1,0 +1,3 @@
+(library
+  (name mixpanel_lwt)
+  (libraries mixpanel rresult yojson base64 httpkit httpkit-lwt lwt))

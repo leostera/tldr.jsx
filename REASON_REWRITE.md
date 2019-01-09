@@ -179,6 +179,8 @@ tldr
 ├── cli
 ├── github-lwt
 ├── github
+├── mixpanel-lwt
+├── mixpanel
 ├── model
 ├── native
 └── web
@@ -187,6 +189,8 @@ tldr
 * `tldr/cli` is a natively compiled version of the tool
 * `tldr/github-lwt` is the Github API for the Lwt I/O backend
 * `tldr/github` is the Github API datatypes and interfaces
+* `tldr/mixpanel-lwt` is the Mixpanel API for the Lwt I/O backend
+* `tldr/mixpanel` is the Mixpanel API datatypes and interfaces
 * `tldr/model` defines precisely the datatypes needed, as specified in the [SPEC](#spec) section.
 * `tldr/native` defines common modules for the native versions of the tool
 * `tldr/web` the current web client rewritten to use the model
