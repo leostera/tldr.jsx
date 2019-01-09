@@ -1,0 +1,23 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^4.0.17"
+  },
+  "dependencies": {
+    "fastpack": "^0.6.8",
+    "history": "^4.7.2",
+    "marked": "^0.6.0",
+    "mixpanel-browser": "^2.25.0"
+  }
+}
