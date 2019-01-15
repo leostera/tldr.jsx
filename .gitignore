@@ -11,3 +11,12 @@ TODO
 _build
 .merlin
 *.install
+
+.DS_Store
+.merlin
+.bsb.lock
+npm-debug.log
+lib/bs
+
+_esy
+esy.lock

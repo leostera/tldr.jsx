@@ -257,3 +257,13 @@ It is not suitable for use on the web.
 
 ### `tldr/web`
 
+
+## BuckleScript Notes
+
+1. Setting up `menhir` and `ocamllex` is quite inelegant, since the hooks
+   needed depend on my globally installed tools. I can live with it but
+   unfortunately by default it will generate those files in my source folder,
+   which conflicts with the `dune` build.
+
+2. Actually, running `bsb` and `dune` in harmony on the same hybrid seems to be
+   impossible.
