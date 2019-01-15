@@ -1,0 +1,6 @@
+(executable
+  (name Navbar)
+  (public_name tldr-navbar)
+  (libraries
+    model native
+    fmt fmt.tty logs.fmt logs.cli))
