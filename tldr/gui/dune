@@ -1,6 +1,7 @@
 (executable
   (name Gui)
   (public_name TldrApp)
+  (package tldr)
   (libraries
     model native Revery
     fmt fmt.tty logs.fmt logs.cli))

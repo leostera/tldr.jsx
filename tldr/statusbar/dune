@@ -1,6 +1,7 @@
 (executable
   (name Navbar)
-  (public_name tldr-navbar)
+  (public_name tldr-status-bar)
+  (package tldr)
   (libraries
     model native
     fmt fmt.tty logs.fmt logs.cli))
