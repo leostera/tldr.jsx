@@ -1,6 +1,7 @@
 (executable
   (name Main)
   (public_name tldr)
+  (package tldr)
   (libraries
     model native
     cmdliner fmt fmt.tty logs.fmt logs.cli
