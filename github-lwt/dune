@@ -1,3 +1,4 @@
 (library
   (name github_lwt)
+  (public_name github-lwt)
   (libraries github rresult yojson base64 httpkit httpkit-lwt lwt))

@@ -1,3 +1,4 @@
 (library
   (name mixpanel_lwt)
+  (public_name mixpanel-lwt)
   (libraries mixpanel rresult yojson base64 httpkit httpkit-lwt lwt))
