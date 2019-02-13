@@ -36,7 +36,7 @@ This means
 * Search Field — Border
 * Detail Text — Text Style
 * Body Text — Text Style
-* Example — Description — Text Style
+* Example — Title — Text Style
 * Example — Code — Text Style
 * Example — Code — Background
 
@@ -79,3 +79,18 @@ This means
 * Error Border
 * Gray
 * White
+
+
+-------
+
+# Implementation
+
+1. Render the Text atom:
+  1. Set up Bucklescript ✅
+  2. Create a Text component ✅
+2. Render the Search Input molecule
+3. Render the NavBar organism
+
+  
+
+

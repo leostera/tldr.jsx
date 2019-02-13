@@ -1,6 +1,6 @@
 (library
   (name native)
   (libraries
-    model github github_lwt
+    model github github-lwt
     yojson
     lwt))

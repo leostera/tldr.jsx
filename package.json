@@ -14,6 +14,7 @@
   },
   "scripts": { "test": "esy x TldrApp.exe" },
   "dependencies": {
+    "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#f545ba0",
     "@esy-ocaml/reason": "*",
     "@opam/base64": "2.3.0",
     "@opam/cmdliner": "1.0.3",
@@ -29,25 +30,25 @@
     "@opam/rresult": "0.6.0",
     "@opam/uri": "2.1.0",
     "@opam/yojson": "1.5.0",
-    "@reason-native/console": "*",
-    "@reason-native/pastel": "*",
-    "@reason-native/rely": "*",
-    "ocaml": "~4.6.0",
+    "flex": "^1.2.2",
+    "ocaml": "~4.7.0",
     "reason-glfw": "^3.2.1010",
     "refmterr": "*",
-    "revery": "^0.3.1"
+    "revery": "*"
   },
   "resolutions": {
+    "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#d5a5a2b",
+    "revery": "github:revery-ui/revery#6b9c196",
+    "@esy-ocaml/reason": "facebook/reason#ab49908",
     "@opam/cmdliner": "1.0.2",
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#57e9dd2",
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#57e9dd2",
+    "@opam/httpkit": "ostera/httpkit:httpkit.opam#c1c32c1",
+    "@opam/httpkit-lwt": "ostera/httpkit:httpkit-lwt.opam#c1c32c1",
     "@opam/js_of_ocaml":
       "github:ocsigen/js_of_ocaml:js_of_ocaml.opam#db257ce",
     "@opam/js_of_ocaml-compiler":
-      "github:ocsigen/js_of_ocaml:js_of_ocaml-compiler.opam#db257ce",
-    "@esy-ocaml/reason": "facebook/reason#ab49908",
-    "@opam/httpkit": "ostera/httpkit:httpkit.opam#c1c32c1",
-    "@opam/httpkit-lwt": "ostera/httpkit:httpkit-lwt.opam#c1c32c1",
-    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#57e9dd2",
-    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#57e9dd2"
+      "github:ocsigen/js_of_ocaml:js_of_ocaml-compiler.opam#db257ce"
   },
-  "devDependencies": { "@opam/merlin": "*", "ocaml": "~4.6.0" }
+  "devDependencies": { "@opam/merlin": "*", "ocaml": "~4.7.0" }
 }
