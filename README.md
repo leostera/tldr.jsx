@@ -1,5 +1,11 @@
-# tldr.jsx [![Travis-CI](https://api.travis-ci.org/ostera/tldr.jsx.svg)](https://travis-ci.org/ostera/tldr.jsx)
+# tldr.jsx [![Travis-CI](https://api.travis-ci.org/ostera/tldr.jsx.svg)](https://travis-ci.org/ostera/tldr.jsx) 
 📚 A Reactive web client for [tldr-pages](https://github.com/tldr-pages/tldr). Try it [here](https://tldr.ostera.io).
+
+If you've found this project useful, you can now [support me on Patreon](https://patreon.com/abstractmachines)
+
+ <a href="https://www.patreon.com/AbstractMachines" >
+    <img alt="Become a Patron" src="https://c5.patreon.com/external/logo/become_a_patron_button.png"  />
+  </a>
 
 ## Featuring
 
