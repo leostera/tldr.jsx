@@ -85,6 +85,10 @@ package: clean build
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
+release: NODE_ENV=production
+release: package
+	$(SCRIPT_DIR)/release.sh
+
 server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
