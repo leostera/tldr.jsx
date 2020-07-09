@@ -18,7 +18,7 @@ export default (props: State) => {
   let { params: { history } } = props
 
   let close = (e) => {
-    let location = history.getCurrentLocation()
+    let location = history.location
     let search = parse(location.search)
     delete search.debug
     location.search = stringify(search)

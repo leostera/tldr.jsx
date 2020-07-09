@@ -9,12 +9,13 @@ import Footer from './components/Footer'
 import NotFound from './components/NotFound'
 import TldrPage from './components/TldrPage'
 import Welcome from './components/Welcome'
+import PatreonBar from './components/PatreonBar'
 
 import type { History } from 'history'
 import type { State } from './Tldr'
 
 let navigate = (history: History) => (path: string) =>
-  history.push({...history.getCurrentLocation(),
+  history.push({...history.location,
                pathname: `/${path.toLowerCase().trim().replace(' ','-')}`})
 
 const Oops = () => (
@@ -34,6 +35,7 @@ export default (props: State) => {
     ReactDOM.render((
       <section>
         <Nav navigate={navigate(history)} version={_}/>
+        <PatreonBar />
         { !command.name && <Welcome /> }
         { command.name && found === undefined && <Loading /> }
         { command.name && found === false     && <NotFound /> }

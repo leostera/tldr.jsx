@@ -19,7 +19,7 @@ export default (history: History): Observable => {
   let listen = (handler: Function): any =>
     unlisten = history.listen(handler)
 
-  let currentLocation: Location = history.getCurrentLocation()
+  let currentLocation: Location = history.location
 
   return fromEventPattern(listen, unlisten)
     .startWith(currentLocation)

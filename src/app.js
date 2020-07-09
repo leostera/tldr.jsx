@@ -23,7 +23,8 @@ import type { History, Location as HistoryLocation } from 'history'
 import type { State } from 'tldr/Tldr'
 
 import ObservableHistory from 'tldr/lib/observable.history'
-import createHistory from 'history/lib/createBrowserHistory'
+import * as HistoryLib from 'history'
+console.log(HistoryLib)
 
 import Index from 'tldr/Index'
 import Location from 'tldr/Location'
@@ -38,7 +39,7 @@ import render from 'tldr/render'
  * Private
  *******************************************************************************/
 
-let __history: History = createHistory()
+let __history: History = HistoryLib.createBrowserHistory()
 let history: Observable = ObservableHistory(__history)
 
 let log  = (...args: any[]): void => {
