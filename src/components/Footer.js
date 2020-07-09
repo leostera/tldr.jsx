@@ -4,16 +4,15 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
-import MixpanelBadge from 'tldr/components/MixpanelBadge'
+import MixpanelBadge from "tldr/components/MixpanelBadge";
 
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
-type FooterProps = {
-}
+type FooterProps = {};
 
 /*******************************************************************************
  * Public API
@@ -25,5 +24,4 @@ export default ({}: FooterProps) => (
       <MixpanelBadge color="blue" />
     </section>
   </footer>
-)
-
+);

@@ -4,23 +4,21 @@
  * Imports
  *******************************************************************************/
 
-import { fromEventPattern } from 'rxjs/observable/fromEventPattern'
-import 'rxjs/add/operator/startWith'
+import { fromEventPattern } from "rxjs/observable/fromEventPattern";
+import "rxjs/add/operator/startWith";
 
-import type { Observable } from 'rxjs/Observable'
-import type { History, Location } from 'history'
+import type { Observable } from "rxjs/Observable";
+import type { History, Location } from "history";
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
 export default (history: History): Observable => {
-  let unlisten: Function
-  let listen = (handler: Function): any =>
-    unlisten = history.listen(handler)
+  let unlisten: Function;
+  let listen = (handler: Function): any => (unlisten = history.listen(handler));
 
-  let currentLocation: Location = history.location
+  let currentLocation: Location = history.location;
 
-  return fromEventPattern(listen, unlisten)
-    .startWith(currentLocation)
-}
+  return fromEventPattern(listen, unlisten).startWith(currentLocation);
+};

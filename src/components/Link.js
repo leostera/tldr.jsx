@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
 /*******************************************************************************
  * Type Definitions
@@ -12,12 +12,13 @@ import React from 'react'
 
 type LinkProps = {
   href: String,
-  text: String
-}
+  text: String,
+};
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default ({href, text}: LinkProps) =>
+export default ({ href, text }: LinkProps) => (
   <a href={href}>{text.toLowerCase()}</a>
+);

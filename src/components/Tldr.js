@@ -4,23 +4,23 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
 type TldrParams = {
-  size?: string
-}
+  size?: string,
+};
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-const Tldr = ({size}: TldrParams) => {
-  let className=`brand ${size}`
-  return (<a className={className} href="/"/>)
-}
+const Tldr = ({ size }: TldrParams) => {
+  let className = `brand ${size}`;
+  return <a className={className} href="/" />;
+};
 
-export default Tldr
+export default Tldr;

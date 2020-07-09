@@ -4,26 +4,28 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
-import type { State } from 'tldr/Tldr'
+import type { State } from "tldr/Tldr";
 
-import { parse, stringify } from 'query-string'
+import { parse, stringify } from "query-string";
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
 export default (props: State) => {
-  let { params: { history } } = props
+  let {
+    params: { history },
+  } = props;
 
   let close = (e) => {
-    let location = history.location
-    let search = parse(location.search)
-    delete search.debug
-    location.search = stringify(search)
-    history.push(location)
-  }
+    let location = history.location;
+    let search = parse(location.search);
+    delete search.debug;
+    location.search = stringify(search);
+    history.push(location);
+  };
 
   return (
     <pre className="debug">
@@ -31,5 +33,5 @@ export default (props: State) => {
       <h2>Debug:</h2>
       {JSON.stringify(props, null, "  ")}
     </pre>
-  )
-}
+  );
+};

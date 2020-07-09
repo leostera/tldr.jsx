@@ -4,19 +4,25 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
 type BadgeProps = {
-  color: "blue" | "light";
-}
+  color: "blue" | "light",
+};
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default ({color}: BadgeProps) =>
-  <a href="https://mixpanel.com/f/partner" rel="nofollow"><img src={`//cdn.mxpnl.com/site_media/images/partner/badge_${color}.png`} alt="Mobile Analytics" /></a>
+export default ({ color }: BadgeProps) => (
+  <a href="https://mixpanel.com/f/partner" rel="nofollow">
+    <img
+      src={`//cdn.mxpnl.com/site_media/images/partner/badge_${color}.png`}
+      alt="Mobile Analytics"
+    />
+  </a>
+);

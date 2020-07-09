@@ -4,28 +4,28 @@
  * Imports
  *******************************************************************************/
 
-import React from 'react'
+import React from "react";
 
-import GithubButton from 'tldr/components/GithubButton'
-import Tldr         from 'tldr/components/Tldr'
-import Version      from 'tldr/components/Version'
+import GithubButton from "tldr/components/GithubButton";
+import Tldr from "tldr/components/Tldr";
+import Version from "tldr/components/Version";
 
-import type { Package } from 'tldr/Tldr'
+import type { Package } from "tldr/Tldr";
 
 /*******************************************************************************
  * Type Definitions
  *******************************************************************************/
 
 type NavigateProps = {
-  navigate(to: string): any;
-  version: Package;
-}
+  navigate(to: string): any,
+  version: Package,
+};
 
 /*******************************************************************************
  * Public API
  *******************************************************************************/
 
-export default ({navigate, version}: NavigateProps) => (
+export default ({ navigate, version }: NavigateProps) => (
   <nav>
     <section className="content">
       <section className="brand-and-version">
@@ -37,7 +37,7 @@ export default ({navigate, version}: NavigateProps) => (
           autofocus
           tabIndex="100"
           type="text"
-          onChange={ ({target: {value}}) => navigate(value) }
+          onChange={({ target: { value } }) => navigate(value)}
           placeholder="Command name"
         />
       </section>
@@ -52,4 +52,4 @@ export default ({navigate, version}: NavigateProps) => (
       </section>
     </section>
   </nav>
-)
+);

@@ -19,6 +19,9 @@ all: setup check lint test package
 
 setup: deps symlink
 
+fmt:
+	$(BIN_DIR)/prettier --write ./src/**/*.js
+
 symlink:
 	$(SCRIPT_DIR)/symlink.sh
 
