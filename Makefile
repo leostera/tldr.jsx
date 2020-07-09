@@ -17,8 +17,13 @@ STAMP   =$(REVISION).$(shell date +%s)
 
 all: setup check lint test package
 
-setup:
+setup: deps symlink
+
+symlink:
 	$(SCRIPT_DIR)/symlink.sh
+
+deps:
+	npm install
 
 flow-stop:
 	$(BIN_DIR)/flow stop
@@ -35,7 +40,7 @@ test:
 lint:
 	$(BIN_DIR)/eslint ./src
 
-build: dirs assets styles source
+build: symlink dirs assets styles source
 
 dirs:
 	mkdir -p $(BUILD_DIR) $(DIST_DIR)

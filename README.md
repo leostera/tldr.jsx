@@ -28,6 +28,7 @@ See the [issues page](https://github.com/ostera/tldr.jsx/issues?q=is%3Aopen+is%3
 
 It requires a working `node` environment with `npm`, and `make`.
 
+* `make` to prepare the workspace and do the first build from scratch
 * `make build`, for a development build
 * `make test`, to run the test suite
 * `make lint`, to lint the source
