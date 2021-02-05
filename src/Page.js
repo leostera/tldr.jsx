@@ -8,7 +8,8 @@ import { Observable } from 'rxjs/Observable'
 import { from } from 'rxjs/observable/from'
 import { concat } from 'rxjs/operator/concat'
 
-import { decode } from 'base-64'
+import base64 from 'base-64'
+import utf8 from 'utf8'
 
 import type { AjaxResponse } from 'rxjs/observable/dom/ajax'
 
@@ -97,7 +98,7 @@ export default (opts: Options): Module => {
 
   let toPage = (data: Data): Page => ({
     path: data.html_url,
-    body: decode(data.content)
+    body: utf8.decode(base64.decode(data.content))
   })
 
   return { get: get }
