@@ -1,6 +1,6 @@
 {
   "name": "tldr.jsx",
-  "version": "3.6.0",
+  "version": "3.8.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -1294,9 +1294,9 @@
       "integrity": "sha1-GQU+LgdI6ts3nabAnUVc9eEDkzU="
     },
     "base-64": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/base-64/-/base-64-0.1.0.tgz",
-      "integrity": "sha1-eAqZyE59YAJgNhURxId2E78k9rs="
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/base-64/-/base-64-1.0.0.tgz",
+      "integrity": "sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg=="
     },
     "base64-js": {
       "version": "1.1.2",
@@ -6395,6 +6395,11 @@
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/user-home/-/user-home-1.1.1.tgz",
       "integrity": "sha1-K1viOjK2Onyd640PKNSFcko98ZA="
+    },
+    "utf8": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/utf8/-/utf8-3.0.0.tgz",
+      "integrity": "sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ=="
     },
     "util": {
       "version": "0.10.3",

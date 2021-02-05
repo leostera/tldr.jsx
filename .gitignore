@@ -7,3 +7,5 @@ TODO
 .build.sh
 .travis_build
 .bin
+
+.DS_Store
