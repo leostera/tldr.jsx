@@ -34,7 +34,7 @@ export default ({ navigate, version }: NavigateProps) => (
       </section>
       <section className="search">
         <input
-          autofocus
+          autoFocus
           tabIndex="100"
           type="text"
           onChange={({ target: { value } }) => navigate(value)}
